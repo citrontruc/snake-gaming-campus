@@ -5,122 +5,128 @@ using System.Numerics;
 
 public class Grid
 {
+    /// <summary>
+    /// Chck if elements are in the Grid and do operations on coordinates.
+    /// </summary>
 
-    // Cell variables
-    public int CellSize { get; }
-    public int Columns { get; }
-    public int Rows { get; }
-    public bool[,] Cells { get; private set; }
+    /// Information on cell dimensions.
+    public int CellSize { get; private set; }
+    public int Columns { get; private set; }
+    public int Rows { get; private set; }
 
     public Grid(int columns, int rows, int cellSize)
     {
         CellSize = cellSize;
         Columns = columns;
         Rows = rows;
-        Cells = new bool[columns, rows];
     }
 
+    #region Check if elements are in a grid.
+    /// <summary>
+    /// Method to check if a vector position is in the grid (example: mouseposition)
+    /// </summary>
+    /// <param name="vectorPosition"></param>
+    /// <returns></returns>
     public bool CheckIfInGrid(Vector2 vectorPosition)
     {
         if (
-            vectorPosition.X > 0 &&
+            vectorPosition.X >= 0 &&
             vectorPosition.X < Columns * CellSize &&
-            vectorPosition.Y > 0 &&
+            vectorPosition.Y >= 0 &&
             vectorPosition.Y < Rows * CellSize
-         ) {
+         )
+        {
             return true;
         }
         return false;
     }
 
-    private bool CheckColumnRowValidity(int column, int row)
+    /// <summary>
+    /// Check if a column an drow is the grid (to say when elements are out of bound).
+    /// </summary>
+    /// <param name="column"></param>
+    /// <param name="row"></param>
+    /// <returns></returns>
+    public bool CheckIfInGrid(int column, int row)
     {
-        if (column < 0) return false;
-        if (row < 0) return false;
-        if (column >= Columns) return false;
-        if (row >= Rows) return false;
-        return true;
+        if (
+            column >= 0 &&
+            column < Columns &&
+            row >= 0 &&
+            row < Rows
+         )
+        {
+            return true;
+        }
+        return false;
     }
 
-    public bool GetCell(int column, int row)
+    /// <summary>
+    /// Check if coordinates are in a grid (check if coordinates are valid)
+    /// </summary>
+    /// <param name="coordinates"></param>
+    /// <returns></returns>
+    public bool CheckIfInGrid(CellCoordinates coordinates)
     {
-        bool validInput = CheckColumnRowValidity(column, row);
-        if (!validInput)
-        {
-            return false;
-        }
-
-        return Cells[column, row];
+        return CheckIfInGrid(coordinates.X, coordinates.Y);
     }
 
-    public void SetCell(int column, int row, bool value)
-    {
-        if (CheckColumnRowValidity(column, row))
-        {
-            Cells[column, row] = value;
-        }
-        else
-        {
-            throw new IndexOutOfRangeException($@"Tried to update value at column and row {column}, {row} 
-            But grid only has dimensions {Columns}, {Rows}.");
-        }
-    }
+    #endregion
 
+    #region Converts positions to cellCoordinates and vice versa.
+    /// <summary>
+    /// Gives position on the screen of a column and row in the grid.
+    /// </summary>
+    /// <param name="column"></param>
+    /// <param name="row"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public Vector2 ToWorld(int column, int row)
     {
-        bool validInput = CheckColumnRowValidity(column, row);
+        bool validInput = CheckIfInGrid(column, row);
         if (!validInput)
         {
-            throw new ArgumentException("Invalid input.");
+            throw new ArgumentException("Element is outside of the Grid.");
         }
         Vector2 answerVector = new();
         answerVector.X = column * CellSize;
         answerVector.Y = row * CellSize;
         return answerVector;
     }
-    public (int, int) ToGrid(Vector2 position)
+
+    /// <summary>
+    /// Gives the position on the screen of a cellcoordinate on the screen.
+    /// </summary>
+    /// <param name="coordinates"></param>
+    /// <returns></returns>
+    public Vector2 ToWorld(CellCoordinates coordinates)
     {
+        return ToWorld(coordinates.X, coordinates.Y);
+    }
+
+    /// <summary>
+    /// Gives the position on the grid of a point in space.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public CellCoordinates ToGrid(Vector2 position)
+    {
+        bool validInput = CheckIfInGrid(position);
+        if (!validInput)
+        {
+            throw new ArgumentException("Element is outside of the Grid.");
+        }
         int column = (int)(position.X / CellSize);
         int row = (int)(position.Y / CellSize);
-        return (column, row);
+        CellCoordinates coordinates = new(column, row);
+        return coordinates;
     }
 
-    public bool[] MooreNeighborhood(int column, int row)
+    #endregion
+
+    public void Draw()
     {
-        var answerList = new bool[8];
-        int[] neighborOffsetX = { -1, 0, 1, -1, 1, -1, 0, 1 };
-        int[] neighborOffsetY = { -1, -1, -1, 0, 0, 1, 1, 1 };
-        for (int i = 0; i < neighborOffsetX.Length; i++)
-        {
-            if (CheckColumnRowValidity(column + neighborOffsetX[i], row + neighborOffsetY[i]))
-            {
-                answerList[i] = Cells[column + neighborOffsetX[i], row + neighborOffsetY[i]];
-            }
-            else
-            {
-                // By default all cells outside of our grid are false.
-                answerList[i] = false;
-            }
-        }
-        return answerList;
+
     }
 
-    public int MooreNeighborhoodCount(int column, int row)
-    {
-        int count = 0;
-        var answerList = MooreNeighborhood(column, row);
-        for (int i = 0; i < answerList.Length; i++)
-        {
-            if (answerList[i])
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public void UpdateGrid(bool[,] nextCells)
-    {
-        Cells = nextCells;
-    }
 }
