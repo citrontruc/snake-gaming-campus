@@ -1,0 +1,1 @@
+/* An object to draw Menus (example: start menu, game over menu...) */

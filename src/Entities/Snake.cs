@@ -1,0 +1,1 @@
+/* The Snake entity. The player can control the Snake. */

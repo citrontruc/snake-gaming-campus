@@ -1,0 +1,1 @@
+/* An abstract class to define generic scenes. */

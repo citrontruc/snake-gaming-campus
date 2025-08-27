@@ -1,0 +1,1 @@
+/* An object to handle keyboard and mouse inputs. */

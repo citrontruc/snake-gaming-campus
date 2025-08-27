@@ -1,0 +1,1 @@
+/* An object to control the player HUD and write game informations. */

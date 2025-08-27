@@ -1,0 +1,1 @@
+/* An object to register all the services used in the game. */

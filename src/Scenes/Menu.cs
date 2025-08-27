@@ -1,0 +1,1 @@
+/* An object to handle a menu scene in which the player can choose options. */

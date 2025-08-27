@@ -1,0 +1,1 @@
+/* An object to help handle elements that evolve with time. */
