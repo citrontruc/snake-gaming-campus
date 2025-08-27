@@ -1,1 +1,1 @@
-/* An object to link together all the different element of the game. */
+/* An object to link together all the different element of the game. Static!*/
