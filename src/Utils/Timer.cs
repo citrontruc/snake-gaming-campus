@@ -1,20 +1,12 @@
 /* An object to help handle elements that evolve with time. */
 
 
-using Raylib_cs;
-
 public class Timer
 {
     /// <summary>
     /// Time elapsed since the timer started to count time.
     /// </summary>
     public float TimeElapsed { get; private set; }
-
-    /// <summary>
-    /// Maximum and minimum time limits that can be fixed with a timer.
-    /// </summary>
-    private float _timeMin = 0.1f;
-    private float _timeMax = 1.0f;
 
     /// <summary>
     /// The time limit that the timer is evaluating.
@@ -38,15 +30,29 @@ public class Timer
         TimeElapsed = 0f;
     }
 
+    #region Setters & Getters
     /// <summary>
     /// Change time limit of the timer.
+    /// We have no fixed max and min values. We can add min and max vules with math.Clamp.
     /// </summary>
     /// <param name="timeLimit"></param>
     public void SetTimeLimit(double timeLimit)
     {
-        _timeLimit = Math.Clamp(timeLimit, _timeMin, _timeMax);
+        _timeLimit = timeLimit;
     }
 
+    /// <summary>
+    /// Resets the TimeElapsed value to 0.
+    /// </summary>
+    public void ResetTimer()
+    {
+        TimeElapsed = 0f;
+    }
+
+    #endregion
+
+
+    #region Update timer values
     /// <summary>
     /// Main method to update our timer
     /// </summary>
@@ -67,6 +73,10 @@ public class Timer
         TimeElapsed += deltaTime;
     }
 
+    #endregion
+
+
+    #region Checks on Timer values
     /// <summary>
     /// Checks if our timer has reached its end. If we have a Looping Timer, resets it.
     /// </summary>
@@ -83,14 +93,7 @@ public class Timer
         }
         return false;
     }
-
-    /// <summary>
-    /// Resets the TimeElapsed value to 0.
-    /// </summary>
-    public void ResetTimer()
-    {
-        TimeElapsed = 0f;
-    }
-
+    
+    #endregion
 
 }
