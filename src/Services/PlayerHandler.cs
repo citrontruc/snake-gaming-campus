@@ -1,0 +1,1 @@
+/* Handles key player characteristics like player score. */
