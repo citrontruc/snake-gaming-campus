@@ -24,7 +24,7 @@ public abstract class Menu : Scene
     /// List of all the options the user can choose in menu.
     /// </summary>
     private List<string> _listMenuOptions = new();
-    private List<Func<Menu>> _listMenuActions = new();
+    private List<Action> _listMenuActions = new();
 
     /// <summary>
     /// Indications on the position of the elements in the menu.
@@ -168,7 +168,7 @@ public abstract class Menu : Scene
     #endregion
 
     #region Options
-    public void AddOption(string optionName, Func<Menu> action)
+    public void AddOption(string optionName, Action action)
     {
         _listMenuOptions.Add(optionName);
         _listMenuActions.Add(action);
