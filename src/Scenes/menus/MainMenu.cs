@@ -12,6 +12,8 @@ public class MainMenu : Menu
     {
         Vector2 titlePosition = new(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 3);
         Vector2 optionPosition = new(Raylib.GetScreenWidth() / 2, 2 * Raylib.GetScreenHeight() / 3);
+        Console.WriteLine(titlePosition);
+        Console.WriteLine(optionPosition);
 
         SetBackgroundcharacteristics(Color.Black);
 
@@ -25,12 +27,13 @@ public class MainMenu : Menu
 
         SetMenuOptionCharacteristics(
             optionPosition,
-            Raylib.GetScreenHeight() / 50,
+            Raylib.GetScreenHeight() / 40,
             Color.White,
             true,
             Raylib.GetScreenHeight() / 50
             );
 
+        AddOption("Play Game", CloseWindow);
         AddOption("Quit Game", CloseWindow);
     }
 

@@ -64,7 +64,7 @@ public abstract class Menu : Scene
     {
         Title = title;
         _menuTitlePosition = menuTitlePosition;
-        _menuOptionSize = menuTitleSize;
+        _menuTitleSize = menuTitleSize;
         _menuTitleColor = menuTitleColor;
         _menuTitleCentered = menuTitleCentered;
     }
@@ -146,7 +146,7 @@ public abstract class Menu : Scene
                 string option = _listMenuOptions[i];
                 if (_menuOptionCentered)
                 {
-                    int textWidth = Raylib.MeasureText(Title, _menuTitleSize);
+                    int textWidth = Raylib.MeasureText(option, _menuOptionSize);
                     xPositionText = xPosition - textWidth / 2;
                     yPositionText = yPosition - (lenOptions / 2 - i) * _menuOptionSize - (lenOptions / 2 - 1 - i) * _menuOptionSpacing;
                 }
