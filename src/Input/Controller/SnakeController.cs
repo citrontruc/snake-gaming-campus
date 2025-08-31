@@ -1,1 +1,0 @@
-/* An object to transcript user input into player actions. */
