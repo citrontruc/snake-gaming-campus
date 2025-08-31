@@ -41,6 +41,11 @@ public struct CellCoordinates
         return cellResult;
     }
 
+    public static CellCoordinates operator -(CellCoordinates cellA)
+    {
+        return -1 * cellA;
+    }
+
     public static CellCoordinates operator *(CellCoordinates cellA, CellCoordinates cellB)
     {
         CellCoordinates cellResult = new(cellA.X * cellB.X, cellA.Y * cellB.Y);

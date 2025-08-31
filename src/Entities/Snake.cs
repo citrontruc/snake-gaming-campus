@@ -26,6 +26,24 @@ public class Snake
         }
     }
 
+    public void ChangeDirection(CellCoordinates direction)
+    {
+        if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
+        _currentDirection = direction;
+    }
+
+    public void growth()
+    {
+        _growing = true;
+    }
+
+    public void Move()
+    {
+        SnakeBody.Enqueue(SnakeBody.Last() + _currentDirection);
+        if (!_growing) SnakeBody.Dequeue();
+        else _growing = false;
+    }
+
     public void Draw()
     {
 
