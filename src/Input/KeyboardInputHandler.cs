@@ -7,7 +7,7 @@ public static class KeyboardInputHandler
     public enum Key
     {
         Space = KeyboardKey.Space,
-        Return = KeyboardKey.Enter,
+        Enter = KeyboardKey.Enter,
         Back = KeyboardKey.Back,
         Left = KeyboardKey.Left,
         Right = KeyboardKey.Right,
