@@ -49,10 +49,27 @@ public abstract class Menu : Scene
         Title = title;
     }
 
+    #region Get Important information
     public int GetLenOptions()
     {
         return _listMenuOptions.Count;
     }
+
+    public List<string> GetOptionText()
+    {
+        return _listMenuOptions;
+    }
+
+    public List<Vector2> GetPositionOptions()
+    {
+        return _listOptionPositions;
+    }
+
+    public int GetOptionSize()
+    {
+        return _menuOptionSize;
+    }
+    #endregion
 
     #region Set important Characteristics
     public void SetBackgroundcharacteristics(Color backGroundColor)
@@ -95,7 +112,7 @@ public abstract class Menu : Scene
     /// </summary>
     /// <param name="selectedScaleFactor">The higlighted entry is bigger by a scale factor.</param>
     /// <param name="selectedOptionColor">Colour of the highlighted entry.</param>
-    public void setSelectedOptionCharacteristics(float selectedScaleFactor, Color selectedOptionColor)
+    public void SetSelectedOptionCharacteristics(float selectedScaleFactor, Color selectedOptionColor)
     {
         _selectedScaleFactor = selectedScaleFactor;
         _selectedOptionColor = selectedOptionColor;
