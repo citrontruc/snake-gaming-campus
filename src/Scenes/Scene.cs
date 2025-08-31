@@ -15,7 +15,7 @@ public abstract class Scene
     /// <summary>
     /// Update the scene.
     /// </summary>
-    /// <param name="deltaTime"></param>
+    /// <param name="deltaTime"> Time between frames</param>
     public abstract void Update(float deltaTime);
 
     public abstract void Draw();
