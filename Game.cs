@@ -19,6 +19,8 @@ public class Game
         _mainMenu = new();
         while (!Raylib.WindowShouldClose())
         {
+            InputHandler.Update();
+            Console.WriteLine(InputHandler.GetUserInput());
             Draw();
         }
         Raylib.CloseWindow();
@@ -27,7 +29,7 @@ public class Game
     public static void Draw()
     {
         Raylib.BeginDrawing();
-        _mainMenu.Draw();
+        _mainMenu?.Draw();
         Raylib.EndDrawing();
     }
 }

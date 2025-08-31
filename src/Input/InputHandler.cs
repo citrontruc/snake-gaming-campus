@@ -1,10 +1,10 @@
 /* An object to handle keyboard, gamepad and mouse inputs. */
 
-public class InputHandler
+public static class InputHandler
 {
-    public UserInput _userInput { get; private set; } = new();
+    public static UserInput _userInput { get; private set; } = new();
 
-    public void Update()
+    public static void Update()
     {
         _userInput.MousePosition = MouseInputHandler.position;
         _userInput.LeftClickPress = MouseInputHandler.isButtonPressed(MouseInputHandler.Button.Left);
@@ -28,6 +28,11 @@ public class InputHandler
         // Other keys
         _userInput.Enter = KeyboardInputHandler.Keyboard.IsKeyReleased(KeyboardInputHandler.Key.Enter);
         _userInput.Pause = KeyboardInputHandler.Keyboard.IsKeyReleased(KeyboardInputHandler.Key.Space);
+    }
+
+    public static UserInput GetUserInput()
+    {
+        return _userInput;
     }
 
 }
