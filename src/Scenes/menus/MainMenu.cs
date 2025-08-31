@@ -60,7 +60,11 @@ public class MainMenu : Menu
         }
         if (userInput.DownRelease)
         {
-            _selectedOption = (_selectedOption + 1) % GetLenOptions(); 
+            _selectedOption = (_selectedOption + 1) % GetLenOptions();
+        }
+        if (userInput.Enter)
+        {
+            TakeAction(_selectedOption);
         }
     }
 

@@ -41,7 +41,7 @@ public abstract class Menu : Scene
     /// </summary>
     private float _selectedScaleFactor = 1.2f;
     private Color _selectedOptionColor = Color.Red;
-    protected int? _selectedOption;
+    protected int _selectedOption;
     #endregion
 
     public Menu(string title)
@@ -146,6 +146,7 @@ public abstract class Menu : Scene
             {
                 if (_selectedOption == i)
                 {
+                    // Draw highlighted option in big text.
                     Raylib.DrawText(
                     _listMenuOptions[i],
                     (int)_listOptionPositions[i].X,
@@ -175,8 +176,11 @@ public abstract class Menu : Scene
     {
         _listMenuOptions.Add(optionName);
         _listMenuActions.Add(action);
+        RecomputePositionOfOptions();
+    }
 
-        // Recompute position of all the elements of the list.
+    public void RecomputePositionOfOptions()
+    {
         _listOptionPositions = new();
         int lenOptions = _listMenuOptions.Count;
         int xPosition = (int)_menuOptionPosition.X;
@@ -199,6 +203,11 @@ public abstract class Menu : Scene
             Vector2 vectorPosition = new(xPositionText, yPositionText);
             _listOptionPositions.Add(vectorPosition);
         }
+    }
+
+    public void TakeAction(int ActionIndicator)
+    {
+        _listMenuActions[ActionIndicator]();
     }
     #endregion
 }
