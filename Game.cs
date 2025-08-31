@@ -19,8 +19,9 @@ public class Game
         _mainMenu = new();
         while (!Raylib.WindowShouldClose())
         {
+            float dt = Raylib.GetFrameTime();
             InputHandler.Update();
-            Console.WriteLine(InputHandler.GetUserInput());
+            _mainMenu.Update(dt);
             Draw();
         }
         Raylib.CloseWindow();

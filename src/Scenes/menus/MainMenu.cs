@@ -12,8 +12,6 @@ public class MainMenu : Menu
     {
         Vector2 titlePosition = new(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 3);
         Vector2 optionPosition = new(Raylib.GetScreenWidth() / 2, 2 * Raylib.GetScreenHeight() / 3);
-        Console.WriteLine(titlePosition);
-        Console.WriteLine(optionPosition);
 
         SetBackgroundcharacteristics(Color.Black);
 
@@ -33,8 +31,14 @@ public class MainMenu : Menu
             Raylib.GetScreenHeight() / 50
             );
 
+        setSelectedOptionCharacteristics(
+            1.2f,
+            Color.Red
+            );
+
         AddOption("Play Game", CloseWindow);
         AddOption("Quit Game", CloseWindow);
+        _selectedOption = 0;
     }
 
     public override void Load()
@@ -49,7 +53,15 @@ public class MainMenu : Menu
 
     public override void Update(float deltaTime)
     {
-        // Use service locator to get user action and act accordingly;
+        UserInput userInput = InputHandler.GetUserInput();
+        if (userInput.UpRelease)
+        {
+            _selectedOption = (_selectedOption - 1) % GetLenOptions();
+        }
+        if (userInput.DownRelease)
+        {
+            _selectedOption = (_selectedOption + 1) % GetLenOptions(); 
+        }
     }
 
     /// <summary>

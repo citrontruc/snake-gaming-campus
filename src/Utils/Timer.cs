@@ -11,7 +11,7 @@ public class Timer
     /// <summary>
     /// The time limit that the timer is evaluating.
     /// </summary>
-    private double _timeLimit;
+    private float _timeLimit;
 
     /// <summary>
     /// Does our timer loop when it is over?
@@ -23,7 +23,7 @@ public class Timer
     /// </summary>
     /// <param name="timeLimit"> Time Limit set for the Timer</param>
     /// <param name="isLooping"> Does the Timer reset itself at the end or does it just stop? </param>
-    public Timer(double timeLimit, bool isLooping = true)
+    public Timer(float timeLimit, bool isLooping = true)
     {
         SetTimeLimit(timeLimit);
         _isLooping = isLooping;
@@ -36,7 +36,7 @@ public class Timer
     /// We have no fixed max and min values. We can add min and max vules with math.Clamp.
     /// </summary>
     /// <param name="timeLimit"></param>
-    public void SetTimeLimit(double timeLimit)
+    public void SetTimeLimit(float timeLimit)
     {
         _timeLimit = timeLimit;
     }

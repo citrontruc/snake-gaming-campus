@@ -25,6 +25,7 @@ public abstract class Menu : Scene
     /// </summary>
     private List<string> _listMenuOptions = new();
     private List<Action> _listMenuActions = new();
+    private List<Vector2> _listOptionPositions = new();
 
     /// <summary>
     /// Indications on the position of the elements in the menu.
@@ -38,14 +39,19 @@ public abstract class Menu : Scene
     /// <summary>
     /// Variables containing the selected option and how it should be highlighted.
     /// </summary>
-    private float _scaleOnSelect = 1.2f;
+    private float _selectedScaleFactor = 1.2f;
     private Color _selectedOptionColor = Color.Red;
-    private int? _selectedOption;
+    protected int? _selectedOption;
     #endregion
 
     public Menu(string title)
     {
         Title = title;
+    }
+
+    public int GetLenOptions()
+    {
+        return _listMenuOptions.Count;
     }
 
     #region Set important Characteristics
@@ -87,11 +93,11 @@ public abstract class Menu : Scene
     /// <summary>
     /// If the user selects a text entry, the entry needs to be highlighted.
     /// </summary>
-    /// <param name="scaleOnSelect">The higlighted entry is bigger by a scale factor.</param>
+    /// <param name="selectedScaleFactor">The higlighted entry is bigger by a scale factor.</param>
     /// <param name="selectedOptionColor">Colour of the highlighted entry.</param>
-    public void setSelectedOptionCharacteristics(float scaleOnSelect, Color selectedOptionColor)
+    public void setSelectedOptionCharacteristics(float selectedScaleFactor, Color selectedOptionColor)
     {
-        _scaleOnSelect = scaleOnSelect;
+        _selectedScaleFactor = selectedScaleFactor;
         _selectedOptionColor = selectedOptionColor;
     }
     #endregion
@@ -129,7 +135,6 @@ public abstract class Menu : Scene
             _menuTitleSize,
             _menuTitleColor
             );
-
     }
 
     public void DrawOptions()
@@ -137,30 +142,28 @@ public abstract class Menu : Scene
         int lenOptions = _listMenuOptions.Count;
         if (lenOptions > 0)
         {
-            int xPosition = (int)_menuOptionPosition.X;
-            int yPosition = (int)_menuOptionPosition.Y;
-            int xPositionText = xPosition;
-            int yPositionText = yPosition;
             for (int i = 0; i < lenOptions; i++)
             {
-                string option = _listMenuOptions[i];
-                if (_menuOptionCentered)
+                if (_selectedOption == i)
                 {
-                    int textWidth = Raylib.MeasureText(option, _menuOptionSize);
-                    xPositionText = xPosition - textWidth / 2;
-                    yPositionText = yPosition - (lenOptions / 2 - i) * _menuOptionSize - (lenOptions / 2 - 1 - i) * _menuOptionSpacing;
+                    Raylib.DrawText(
+                    _listMenuOptions[i],
+                    (int)_listOptionPositions[i].X,
+                    (int)_listOptionPositions[i].Y,
+                    (int)(_menuOptionSize * _selectedScaleFactor),
+                    _selectedOptionColor
+                    );
                 }
                 else
                 {
-                    yPositionText = yPosition + _menuOptionSize + _menuOptionSpacing;
-                }
-                Raylib.DrawText(
-                        option,
-                        xPositionText,
-                        yPositionText,
-                        _menuOptionSize,
-                        _menuOptionColor
+                    Raylib.DrawText(
+                    _listMenuOptions[i],
+                    (int)_listOptionPositions[i].X,
+                    (int)_listOptionPositions[i].Y,
+                    _menuOptionSize,
+                    _menuOptionColor
                     );
+                }
             }
         }
 
@@ -172,6 +175,30 @@ public abstract class Menu : Scene
     {
         _listMenuOptions.Add(optionName);
         _listMenuActions.Add(action);
+
+        // Recompute position of all the elements of the list.
+        _listOptionPositions = new();
+        int lenOptions = _listMenuOptions.Count;
+        int xPosition = (int)_menuOptionPosition.X;
+        int yPosition = (int)_menuOptionPosition.Y;
+        int xPositionText = xPosition;
+        int yPositionText = yPosition;
+        for (int i = 0; i < lenOptions; i++)
+        {
+            string option = _listMenuOptions[i];
+            if (_menuOptionCentered)
+            {
+                int textWidth = Raylib.MeasureText(option, _menuOptionSize);
+                xPositionText = xPosition - textWidth / 2;
+                yPositionText = yPosition - (lenOptions / 2 - i) * _menuOptionSize - (lenOptions / 2 - 1 - i) * _menuOptionSpacing;
+            }
+            else
+            {
+                yPositionText = yPosition + _menuOptionSize + _menuOptionSpacing;
+            }
+            Vector2 vectorPosition = new(xPositionText, yPositionText);
+            _listOptionPositions.Add(vectorPosition);
+        }
     }
     #endregion
 }
