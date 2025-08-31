@@ -119,6 +119,52 @@ public abstract class Menu : Scene
     }
     #endregion
 
+    #region Update
+    public override void Update(float deltaTime)
+    {
+        UserInput userInput = InputHandler.GetUserInput();
+        if (userInput.UpRelease)
+        {
+            _selectedOption = Math.Clamp(_selectedOption - 1, 0, GetLenOptions() - 1);
+        }
+        if (userInput.DownRelease)
+        {
+            _selectedOption = Math.Clamp(_selectedOption + 1, 0, GetLenOptions() - 1);
+        }
+        if (userInput.Enter)
+        {
+            TakeAction(_selectedOption);
+        }
+
+        (bool mouseOnOption, int mouseSelectedOption) = CheckIfMouseOnOption(userInput.MousePosition);
+        if (mouseOnOption)
+        {
+            _selectedOption = mouseSelectedOption;
+            if (userInput.LeftClickPress)
+            {
+                TakeAction(_selectedOption);
+            }
+        }
+    }
+
+    public (bool, int) CheckIfMouseOnOption(Vector2 mousePosition)
+    {
+        for (int i = 0; i < _listOptionPositions.Count(); i++)
+        {
+            if (mousePosition.X > _listOptionPositions[i].X &&
+            mousePosition.X < _listOptionPositions[i].X + Raylib.MeasureText(_listMenuOptions[i], _menuOptionSize) &&
+            mousePosition.Y > _listOptionPositions[i].Y &&
+            mousePosition.Y < _listOptionPositions[i].Y + _menuOptionSize
+            )
+            {
+                return (true, i);
+            }
+        }
+        return (false, -1);
+    }
+
+    #endregion
+
     #region Draw functions
     /// <summary>
     /// We draw each of the elements of the menu independently.

@@ -51,54 +51,6 @@ public class MainMenu : Menu
 
     }
 
-    #region Update 
-    public override void Update(float deltaTime)
-    {
-        UserInput userInput = InputHandler.GetUserInput();
-        if (userInput.UpRelease)
-        {
-            _selectedOption = (_selectedOption - 1) % GetLenOptions();
-        }
-        if (userInput.DownRelease)
-        {
-            _selectedOption = (_selectedOption + 1) % GetLenOptions();
-        }
-        if (userInput.Enter)
-        {
-            TakeAction(_selectedOption);
-        }
-
-        (bool mouseOnOption, int mouseSelectedOption) = CheckIfMouseOnOption(userInput.MousePosition);
-        if (mouseOnOption)
-        {
-            _selectedOption = mouseSelectedOption;
-            if (userInput.LeftClickPress)
-            {
-                TakeAction(_selectedOption);
-            }
-        }
-    }
-
-    public (bool, int) CheckIfMouseOnOption(Vector2 mousePosition)
-    {
-        List<Vector2> positionOptions = GetPositionOptions();
-        List<string> textOptions = GetOptionText();
-        int sizeOptions = GetOptionSize();
-        for (int i = 0; i < positionOptions.Count(); i++)
-        {
-            if (mousePosition.X > positionOptions[i].X &&
-            mousePosition.X < positionOptions[i].X + Raylib.MeasureText(textOptions[i], sizeOptions) &&
-            mousePosition.Y > positionOptions[i].Y &&
-            mousePosition.Y < positionOptions[i].Y + sizeOptions
-            )
-            {
-                return (true, i);
-            }
-        }
-        return (false, -1);
-    }
-    #endregion
-
     #region Actions to take on selecting options
     /// <summary>
     /// We add an action to execute when the user clicks on a button.
