@@ -1,1 +1,0 @@
-/* Contains the Apple Factory to create apples that fill all our important Criteria. */

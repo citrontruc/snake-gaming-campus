@@ -1,1 +1,1 @@
-/* Handles key player characteristics like player score. */
+/* Handles key player characteristics like player score or the number of items. */

@@ -8,6 +8,14 @@ public struct CellCoordinates
     public int X { get; private set; }
     public int Y { get; private set; }
 
+    #region Useful CellCoordinates
+    public static CellCoordinates zero => new CellCoordinates(0, 0);
+    public static CellCoordinates left => new CellCoordinates(-1, 0);
+    public static CellCoordinates right => new CellCoordinates(1, 0);
+    public static CellCoordinates up => new CellCoordinates(0, -1);
+    public static CellCoordinates down => new CellCoordinates(0, 1);
+    #endregion
+
     public CellCoordinates(int x, int y)
     {
         X = x;

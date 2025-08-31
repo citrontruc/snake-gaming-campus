@@ -1,1 +1,0 @@
-/* Contains the Snake Factory to creates snakes that fill all our important Criteria. */
