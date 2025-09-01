@@ -1,1 +1,0 @@
-/* An object to verify collisions between different objects. */

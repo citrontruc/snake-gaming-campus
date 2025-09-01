@@ -1,10 +1,12 @@
 /* The Snake entity. The player can control the Snake. */
 
+using System.Numerics;
 using Raylib_cs;
 
 
 public class Snake
 {
+    Grid SnakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
     private float _speed = 1f;
@@ -17,15 +19,31 @@ public class Snake
     public CellCoordinates tail => SnakeBody.First();
     #endregion
 
-    public Snake(Color color, CellCoordinates Head, int length = 3)
+    public Snake(Color color, CellCoordinates Head, Grid snakeGrid, int length = 3)
     {
         _snakeColor = color;
         for (int i = length; i > 0; i--)
         {
             SnakeBody.Enqueue(Head - _currentDirection * i);
         }
+        SnakeGrid = snakeGrid;
     }
 
+    #region Retrieve information from grid
+    public Vector2 GetCellWorldPosition(CellCoordinates cell)
+    {
+        return SnakeGrid.ToWorld(cell.X, cell.Y);
+
+    }
+
+    public int GetGridCellSize()
+    {
+        return SnakeGrid.CellSize;
+
+    }
+    #endregion
+
+    #region Actions and reactions
     public void ChangeDirection(CellCoordinates direction)
     {
         if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
@@ -43,9 +61,21 @@ public class Snake
         if (!_growing) SnakeBody.Dequeue();
         else _growing = false;
     }
+    #endregion
 
-    public void Draw()
+    public void Draw(int offsetX, int offsetY)
     {
-
+        foreach (CellCoordinates cell in SnakeBody)
+        {
+            Vector2 cellPosition = GetCellWorldPosition(cell);
+            int cellSize = GetGridCellSize();
+            Raylib.DrawRectangle(
+                (int)cellPosition.X + offsetX,
+                (int)cellPosition.Y + offsetY,
+                cellSize,
+                cellSize,
+                _snakeColor
+                );
+        }
     }
 }

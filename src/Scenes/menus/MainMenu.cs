@@ -5,6 +5,8 @@ using Raylib_cs;
 
 public class MainMenu : Menu
 {
+    SceneHandler Handler;
+
     /// <summary>
     /// We initilialize our main menu.
     /// </summary>
@@ -58,6 +60,11 @@ public class MainMenu : Menu
     private void CloseWindow()
     {
         Raylib.CloseWindow();
+    }
+
+    private void LoadLevel()
+    {
+        //Handler.SetNewScene();
     }
     #endregion
 }

@@ -1,0 +1,1 @@
+/* An object to verify interactions between different objects. */
