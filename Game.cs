@@ -12,16 +12,19 @@ public class Game
     private static readonly int _screenWidth = 800;
     private static readonly int _targetFPS = 60;
     private static MainMenu? _mainMenu;
+    private static SceneHandler? _handler;
 
     public static void Main()
     {
+        Raylib.SetTargetFPS(_targetFPS);
         Raylib.InitWindow(_screenWidth, _screenHeight, "Snake");
         _mainMenu = new();
+        _handler = new(_mainMenu);
         while (!Raylib.WindowShouldClose())
         {
             float dt = Raylib.GetFrameTime();
             InputHandler.Update();
-            _mainMenu.Update(dt);
+            _handler.Update(dt);
             Draw();
         }
         Raylib.CloseWindow();
@@ -30,7 +33,7 @@ public class Game
     public static void Draw()
     {
         Raylib.BeginDrawing();
-        _mainMenu?.Draw();
+        _handler?.Draw();
         Raylib.EndDrawing();
     }
 }

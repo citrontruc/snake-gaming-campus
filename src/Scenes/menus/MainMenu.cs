@@ -5,12 +5,10 @@ using Raylib_cs;
 
 public class MainMenu : Menu
 {
-    SceneHandler Handler;
-
     /// <summary>
     /// We initilialize our main menu.
     /// </summary>
-    public MainMenu(SceneHandler handler) : base("Main Menu")
+    public MainMenu() : base("Main Menu")
     {
         Vector2 titlePosition = new(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 3);
         Vector2 optionPosition = new(Raylib.GetScreenWidth() / 2, 2 * Raylib.GetScreenHeight() / 3);
@@ -41,8 +39,6 @@ public class MainMenu : Menu
         AddOption("Play Game", CloseWindow);
         AddOption("Quit Game", CloseWindow);
         _selectedOption = 0;
-
-        Handler = handler;
     }
 
     public override void Load()
