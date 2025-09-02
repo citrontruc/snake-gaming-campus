@@ -149,7 +149,7 @@ public abstract class Menu : Scene
 
     public (bool, int) CheckIfMouseOnOption(Vector2 mousePosition)
     {
-        for (int i = 0; i < _listOptionPositions.Count(); i++)
+        for (int i = 0; i < _listOptionPositions.Count; i++)
         {
             if (mousePosition.X > _listOptionPositions[i].X &&
             mousePosition.X < _listOptionPositions[i].X + Raylib.MeasureText(_listMenuOptions[i], _menuOptionSize) &&
