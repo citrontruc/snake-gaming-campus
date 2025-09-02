@@ -2,6 +2,7 @@
 
 
 using System.Numerics;
+using Raylib_cs;
 
 public class Grid
 {
@@ -13,6 +14,7 @@ public class Grid
     public int CellSize { get; private set; }
     public int Columns { get; private set; }
     public int Rows { get; private set; }
+    public Color GridColor = Color.White;
 
     public Grid(int columns, int rows, int cellSize)
     {
@@ -126,7 +128,14 @@ public class Grid
 
     public void Draw()
     {
-
+        for (int interRows = 0; interRows < Rows; interRows++)
+        {
+            for (int interColumns = 0; interColumns < Columns; interColumns++)
+            {
+                Vector2 cellPosition = ToWorld(interRows, interColumns);
+                Raylib.DrawRectangleLines((int)cellPosition.X, (int)cellPosition.Y, CellSize, CellSize, GridColor);
+            }
+        }
     }
 
 }

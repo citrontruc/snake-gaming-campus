@@ -34,7 +34,7 @@ public abstract class Level : Scene
     /// <summary>
     /// We let the entity handler handle drawing.
     /// </summary>
-    override public void Draw()
+    public override void Draw()
     {
         DrawBackground();
         //DrawEntity();
