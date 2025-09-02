@@ -11,20 +11,22 @@ public class Game
     private static readonly int _screenHeight = 600;
     private static readonly int _screenWidth = 800;
     private static readonly int _targetFPS = 60;
-    private static MainMenu? _mainMenu;
-    private static SceneHandler? _handler;
+    private static SceneHandler? _sceneHandler;
+    private static InputHandler? _inputHandler;
 
     public static void Main()
     {
         Raylib.SetTargetFPS(_targetFPS);
         Raylib.InitWindow(_screenWidth, _screenHeight, "Snake");
-        _mainMenu = new();
-        _handler = new(_mainMenu);
+        _inputHandler = new();
+        Level1 level1 = new();
+        MainMenu mainMenu = new();
+        _sceneHandler = new(mainMenu);
         while (!Raylib.WindowShouldClose())
         {
             float dt = Raylib.GetFrameTime();
-            InputHandler.Update();
-            _handler.Update(dt);
+            _inputHandler.Update();
+            _sceneHandler.Update(dt);
             Draw();
         }
         Raylib.CloseWindow();
@@ -33,7 +35,7 @@ public class Game
     public static void Draw()
     {
         Raylib.BeginDrawing();
-        _handler?.Draw();
+        _sceneHandler?.Draw();
         Raylib.EndDrawing();
     }
 }

@@ -122,7 +122,7 @@ public abstract class Menu : Scene
     #region Update
     public override void Update(float deltaTime)
     {
-        UserInput userInput = InputHandler.GetUserInput();
+        UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
         if (userInput.UpRelease)
         {
             _selectedOption = Math.Clamp(_selectedOption - 1, 0, GetLenOptions() - 1);

@@ -40,6 +40,7 @@ public class GameOverMenu : Menu
         AddOption("Back to Main Menu", CloseWindow);
         AddOption("Quit Game", CloseWindow);
         _selectedOption = 0;
+        ServiceLocator.Register<GameOverMenu>(this);
     }
 
     public override void Load()

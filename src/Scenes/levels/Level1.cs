@@ -2,6 +2,11 @@
 
 public class Level1 : Level
 {
+    public Level1()
+    {
+        ServiceLocator.Register<Level1>(this);
+    }
+
     public override void Load()
     {
 

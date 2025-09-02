@@ -36,9 +36,10 @@ public class MainMenu : Menu
             Color.Red
             );
 
-        AddOption("Play Game", CloseWindow);
+        AddOption("Play Game", LoadLevel);
         AddOption("Quit Game", CloseWindow);
         _selectedOption = 0;
+        ServiceLocator.Register<MainMenu>(this);
     }
 
     public override void Load()
@@ -62,7 +63,9 @@ public class MainMenu : Menu
 
     private void LoadLevel()
     {
-        //Handler.SetNewScene();
+        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
+        Level1 level1 = ServiceLocator.Get<Level1>();
+        currentSceneHandler.SetNewScene(level1);
     }
     #endregion
 }

@@ -1,10 +1,15 @@
 /* An object to handle keyboard, gamepad and mouse inputs. */
 
-public static class InputHandler
+public class InputHandler
 {
-    public static UserInput _userInput { get; private set; } = new();
+    public UserInput _userInput { get; private set; } = new();
 
-    public static void Update()
+    public InputHandler()
+    {
+        ServiceLocator.Register<InputHandler>(this);
+    }
+
+    public void Update()
     {
         _userInput.MousePosition = MouseInputHandler.position;
         _userInput.LeftClickPress = MouseInputHandler.isButtonPressed(MouseInputHandler.Button.Left);
@@ -30,7 +35,7 @@ public static class InputHandler
         _userInput.Pause = KeyboardInputHandler.Keyboard.IsKeyReleased(KeyboardInputHandler.Key.Space);
     }
 
-    public static UserInput GetUserInput()
+    public UserInput GetUserInput()
     {
         return _userInput;
     }

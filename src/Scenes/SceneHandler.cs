@@ -11,6 +11,7 @@ public class SceneHandler
     {
         _currentScene = firstScene;
         _currentScene.Load();
+        ServiceLocator.Register<SceneHandler>(this);
     }
 
     #region Handle the arrival of a new scene
@@ -26,9 +27,12 @@ public class SceneHandler
     public void LoadNewScene()
     {
         _currentScene?.Unload();
-        _currentScene = _nextScene;
-        _nextScene = null;
-        _currentScene.Load();
+        if (_nextScene is not null)
+        {
+            _currentScene = _nextScene;
+            _nextScene = null;
+            _currentScene.Load();
+        }
     }
     #endregion
 
