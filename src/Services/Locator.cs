@@ -8,6 +8,10 @@ public static class ServiceLocator
     {
         if (_services.ContainsKey(typeof(T)))
             throw new InvalidOperationException($"Service of type {typeof(T)} is already registered.");
+        if (service is null)
+        {
+            throw new NullReferenceException($"Service of type {typeof(T)} is null.");
+        }
         _services[typeof(T)] = service;
     }
 
