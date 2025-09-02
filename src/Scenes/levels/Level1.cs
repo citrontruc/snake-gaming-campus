@@ -7,7 +7,7 @@ public class Level1 : Level
     private int _cellSize = 10;
     private int _columns = 20;
     private int _rows = 20;
-    private Color _backGroundColor = Color.Black;
+    private new Color _backGroundColor = Color.Black;
     private Grid? _level1Grid;
 
     public Level1()

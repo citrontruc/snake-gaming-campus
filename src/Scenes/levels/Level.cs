@@ -1,19 +1,18 @@
 /* An object to handle a level scene in which the player can evolve. */
 
-using System.Numerics;
 using Raylib_cs;
 
 public abstract class Level : Scene
 {
-    private Color _backGroundColor = Color.Black;
+    protected Color _backGroundColor;
 
     public Level()
     {
-        
+
     }
 
     #region Get Important information
-    
+
     #endregion
 
     #region Set important Characteristics
@@ -36,13 +35,7 @@ public abstract class Level : Scene
     /// </summary>
     public override void Draw()
     {
-        DrawBackground();
-        //DrawEntity();
-    }
 
-    public void DrawBackground()
-    {
-        Raylib.ClearBackground(_backGroundColor);
     }
     #endregion
 }
