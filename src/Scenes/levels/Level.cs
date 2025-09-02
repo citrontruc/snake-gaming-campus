@@ -5,6 +5,12 @@ using Raylib_cs;
 public abstract class Level : Scene
 {
     protected Color _backGroundColor;
+    protected enum GameState
+    {
+        play,
+        pause,
+        gameOver,
+    }
 
     public Level()
     {

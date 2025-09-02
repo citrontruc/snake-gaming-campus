@@ -6,22 +6,39 @@ using Raylib_cs;
 
 public class Grid
 {
+    #region Characteristics
     /// <summary>
-    /// Chck if elements are in the Grid and do operations on coordinates.
+    /// Check if elements are in the Grid and do operations on coordinates.
     /// </summary>
 
     /// Information on cell dimensions.
     public int CellSize { get; private set; }
     public int Columns { get; private set; }
     public int Rows { get; private set; }
-    public Color GridColor = Color.White;
+    #endregion
 
-    public Grid(int columns, int rows, int cellSize)
+    #region Draw information
+    public int OffsetX { get; private set; }
+    public int OffsetY { get; private set; }
+    public Color GridColor = Color.White;
+    #endregion
+
+
+    public Grid(int columns, int rows, int cellSize, int offsetX, int offsetY)
     {
         CellSize = cellSize;
         Columns = columns;
         Rows = rows;
+        OffsetX = offsetX;
+        OffsetY = offsetY;
     }
+
+    #region Getter
+    public (int, int) GetOffset()
+    {
+        return (OffsetX, OffsetY);
+    }
+    #endregion
 
     #region Check if elements are in a grid.
     /// <summary>
@@ -123,7 +140,6 @@ public class Grid
         CellCoordinates coordinates = new(column, row);
         return coordinates;
     }
-
     #endregion
 
     public void Draw()
@@ -133,7 +149,7 @@ public class Grid
             for (int interColumns = 0; interColumns < Columns; interColumns++)
             {
                 Vector2 cellPosition = ToWorld(interRows, interColumns);
-                Raylib.DrawRectangleLines((int)cellPosition.X, (int)cellPosition.Y, CellSize, CellSize, GridColor);
+                Raylib.DrawRectangleLines((int)cellPosition.X + OffsetX, (int)cellPosition.Y + OffsetY, CellSize, CellSize, GridColor);
             }
         }
     }

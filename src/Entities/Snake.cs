@@ -4,7 +4,7 @@ using System.Numerics;
 using Raylib_cs;
 
 
-public class Snake
+public class Snake : Entity
 {
     Grid SnakeGrid;
     private Color _snakeColor;
@@ -44,6 +44,12 @@ public class Snake
     #endregion
 
     #region Actions and reactions
+
+    public override void Update(float deltaTime)
+    {
+        throw new NotImplementedException();
+    }
+    
     public void ChangeDirection(CellCoordinates direction)
     {
         if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
@@ -63,8 +69,9 @@ public class Snake
     }
     #endregion
 
-    public void Draw(int offsetX, int offsetY)
+    public override void Draw()
     {
+        (int offsetX, int offsetY) = SnakeGrid.GetOffset();
         foreach (CellCoordinates cell in SnakeBody)
         {
             Vector2 cellPosition = GetCellWorldPosition(cell);

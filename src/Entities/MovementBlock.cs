@@ -3,7 +3,7 @@
 using System.Numerics;
 using Raylib_cs;
 
-public class MovementBlock
+public class MovementBlock : Entity
 {
     private bool _onGrid = false;
     readonly CellCoordinates _direction;
@@ -23,7 +23,12 @@ public class MovementBlock
         return _direction;
     }
 
-    public void Draw()
+    public override void Update(float deltaTime)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Draw()
     {
         double orientation = Math.Atan2(_direction.Y, _direction.X);
         Vector2 edge1 = new(_trianglePosition.X + _triangleSide * (float)Math.Cos(orientation), _trianglePosition.X + _triangleSide * (float)Math.Sin(orientation));
