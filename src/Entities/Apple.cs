@@ -2,6 +2,12 @@
 
 public class Apple : Entity
 {
+    private CellCoordinates _position;
+    public Apple()
+    {
+
+    }
+
     public override void Update(float deltaTime)
     {
         throw new NotImplementedException();
@@ -10,5 +16,10 @@ public class Apple : Entity
     public override void Draw()
     {
         throw new NotImplementedException();
+    }
+
+    public void RandomPosition()
+    {
+        
     }
 }

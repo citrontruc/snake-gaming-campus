@@ -38,6 +38,11 @@ public class Grid
     {
         return (OffsetX, OffsetY);
     }
+
+    public (int, int) GetDimensions()
+    {
+        return (Columns, Rows);
+    }
     #endregion
 
     #region Check if elements are in a grid.

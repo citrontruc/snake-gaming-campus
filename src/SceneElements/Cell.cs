@@ -5,8 +5,8 @@ public struct CellCoordinates
     /// <summary>
     /// Position of a cell in a grid;
     /// </summary>
-    public int X { get; private set; }
-    public int Y { get; private set; }
+    public int X;
+    public int Y;
 
     #region Useful CellCoordinates
     public static CellCoordinates zero => new CellCoordinates(0, 0);

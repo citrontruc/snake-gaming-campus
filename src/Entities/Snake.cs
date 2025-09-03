@@ -9,7 +9,11 @@ public class Snake : Entity
     Grid SnakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
+
+    #region Movement variables
     private float _speed = 1f;
+    private Timer _movementTimer;
+    #endregion
 
     #region Coordinate variables
     public Queue<CellCoordinates> SnakeBody { get; private set; } = new();
@@ -27,6 +31,7 @@ public class Snake : Entity
             SnakeBody.Enqueue(Head - _currentDirection * i);
         }
         SnakeGrid = snakeGrid;
+        _movementTimer = new(_speed, true);
     }
 
     #region Retrieve information from grid
@@ -41,14 +46,29 @@ public class Snake : Entity
         return SnakeGrid.CellSize;
 
     }
+
+    public (int, int) GetGridDimension()
+    {
+        return SnakeGrid.GetDimensions();
+
+    }
     #endregion
 
     #region Actions and reactions
-
     public override void Update(float deltaTime)
     {
-        throw new NotImplementedException();
+        bool isMoving = _movementTimer.Update(deltaTime);
+        if (isMoving)
+        {
+            Move();
+        }
     }
+
+    public void CheckUserInput(UserInput input)
+    {
+        
+    }
+
     
     public void ChangeDirection(CellCoordinates direction)
     {
@@ -56,14 +76,18 @@ public class Snake : Entity
         _currentDirection = direction;
     }
 
-    public void growth()
+    public void Growth()
     {
         _growing = true;
     }
 
     public void Move()
     {
-        SnakeBody.Enqueue(SnakeBody.Last() + _currentDirection);
+        CellCoordinates newPosition = SnakeBody.Last() + _currentDirection;
+        (int columns, int rows) = GetGridDimension();
+        newPosition.X = newPosition.X % columns;
+        newPosition.Y = newPosition.Y % rows;
+        SnakeBody.Enqueue(newPosition);
         if (!_growing) SnakeBody.Dequeue();
         else _growing = false;
     }

@@ -49,7 +49,7 @@ public abstract class Menu : Scene
         Title = title;
     }
 
-    #region Get Important information
+    #region Get information
     public int GetLenOptions()
     {
         return _listMenuOptions.Count;
@@ -71,7 +71,7 @@ public abstract class Menu : Scene
     }
     #endregion
 
-    #region Set important Characteristics
+    #region Set Characteristics
     public void SetBackgroundcharacteristics(Color backGroundColor)
     {
         _backGroundColor = backGroundColor;

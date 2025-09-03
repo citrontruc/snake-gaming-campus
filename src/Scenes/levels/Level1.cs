@@ -9,6 +9,7 @@ public class Level1 : Level
     private int _rows = 20;
     private new Color _backGroundColor = Color.Black;
     private Grid? _level1Grid;
+    private Snake? _snake;
     private GameState _currentState = GameState.play;
 
     public Level1()
@@ -19,6 +20,8 @@ public class Level1 : Level
     public override void Load()
     {
         _level1Grid = new(_columns, _rows, _cellSize, 0, 0);
+        CellCoordinates snakePosition = new(5, 5);
+        _snake = new(Color.Green, snakePosition, _level1Grid, 3);
     }
 
     public override void Unload()
@@ -28,6 +31,7 @@ public class Level1 : Level
 
     public override void Update(float deltaTime)
     {
+        _snake?.Update(deltaTime);
         if (_currentState == GameState.gameOver)
         {
             GameOver();
@@ -38,6 +42,7 @@ public class Level1 : Level
     {
         DrawBackground();
         DrawGrid();
+        _snake?.Draw();
     }
 
     public void DrawBackground()
