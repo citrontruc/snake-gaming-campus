@@ -18,8 +18,13 @@ public class Apple : Entity
         throw new NotImplementedException();
     }
 
+    public override void Collide(Entity entity)
+    {
+        // Check if entity is a snake and disappear to another random place.
+    }
+
     public void RandomPosition()
     {
-        
+
     }
 }

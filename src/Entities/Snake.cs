@@ -63,17 +63,17 @@ public class Snake : Entity
             Move();
         }
     }
-
-    public void CheckUserInput(UserInput input)
-    {
-        
-    }
-
     
     public void ChangeDirection(CellCoordinates direction)
     {
         if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
         _currentDirection = direction;
+    }
+
+    public override void Collide(Entity entity)
+    {
+        // Check what the entity is and act accordingly.
+        // Checks if we hit the head or something else.
     }
 
     public void Growth()

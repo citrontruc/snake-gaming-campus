@@ -9,7 +9,7 @@ public class MovementBlock : Entity
     readonly CellCoordinates _direction;
     private CellCoordinates _position;
     private int _triangleSideLength;
-    private Color _triangleColor = Color.White;
+    private Color _triangleColor = Color.SkyBlue;
     Grid BlockGrid;
 
     public MovementBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
@@ -34,16 +34,26 @@ public class MovementBlock : Entity
 
     public override void Update(float deltaTime)
     {
-        throw new NotImplementedException();
+        
+    }
+
+    public override void Collide(Entity entity)
+    {
+        // Check if entity is a snake and disappears.
     }
 
     public override void Draw()
     {
         double orientation = Math.Atan2(_direction.Y, _direction.X);
+        int cellsize = BlockGrid.GetCellSize();
         Vector2 worldPosition = BlockGrid.ToWorld(_position);
+        worldPosition.X += cellsize / 2;
+        worldPosition.Y += cellsize / 2;
         Vector2 edge1 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation), worldPosition.X + _triangleSideLength * (float)Math.Sin(orientation));
         Vector2 edge2 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 2 * Math.PI / 3), worldPosition.X + _triangleSideLength * (float)Math.Sin(orientation + 2 * Math.PI / 3));
         Vector2 edge3 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 4 * Math.PI / 3), worldPosition.X + _triangleSideLength * (float)Math.Sin(orientation + 4 * Math.PI / 3));
-        Raylib.DrawTriangle(edge1, edge2, edge3, _triangleColor);
+        // Order of vertices is not the same depending if you do it clockwise or counter clockwise.
+        Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
+        //Raylib.DrawTriangleLines(edge1, edge2, edge3, _triangleColor);
     }
 }

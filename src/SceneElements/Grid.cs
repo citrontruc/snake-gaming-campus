@@ -47,6 +47,11 @@ public class Grid
         return (Columns, Rows);
     }
 
+    public int GetCellSize()
+    {
+        return CellSize;
+    }
+
     public bool CheckIfEmptyCell(int column, int row)
     {
         return Cells[column, row] == 0;
