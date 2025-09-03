@@ -11,7 +11,7 @@ public class Snake : Entity
     private bool _growing = false;
 
     #region Movement variables
-    private float _speed = 1f;
+    private float _speed = 0.5f;
     private Timer _movementTimer;
     #endregion
 
@@ -32,6 +32,7 @@ public class Snake : Entity
         }
         SnakeGrid = snakeGrid;
         _movementTimer = new(_speed, true);
+        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
     }
 
     #region Retrieve information from grid
@@ -44,7 +45,6 @@ public class Snake : Entity
     public int GetGridCellSize()
     {
         return SnakeGrid.CellSize;
-
     }
 
     public (int, int) GetGridDimension()
@@ -81,14 +81,23 @@ public class Snake : Entity
         _growing = true;
     }
 
+    /// <summary>
+    /// Snake movement. If the snake should grow, he occupies a new space but without Dequeueing.
+    /// In order to keep track of occupied spaces, we have a method to update occupied spaces in our grid.
+    /// </summary>
     public void Move()
     {
         CellCoordinates newPosition = SnakeBody.Last() + _currentDirection;
         (int columns, int rows) = GetGridDimension();
-        newPosition.X = newPosition.X % columns;
-        newPosition.Y = newPosition.Y % rows;
+        newPosition.X %= columns;
+        newPosition.Y %= rows;
+        SnakeGrid.OccupyCell(newPosition, _entityID);
         SnakeBody.Enqueue(newPosition);
-        if (!_growing) SnakeBody.Dequeue();
+        if (!_growing)
+        {
+            CellCoordinates emptyCell = SnakeBody.Dequeue();
+            SnakeGrid.FreeCell(emptyCell);
+        }
         else _growing = false;
     }
     #endregion

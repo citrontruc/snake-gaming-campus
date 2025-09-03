@@ -16,6 +16,7 @@ public class MovementBlock : Entity
         _direction = direction;
         _trianglePosition = trianglePostion;
         _triangleSide = triangleSide;
+        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
     }
 
     public CellCoordinates GetDirection()

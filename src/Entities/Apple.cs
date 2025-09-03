@@ -5,7 +5,7 @@ public class Apple : Entity
     private CellCoordinates _position;
     public Apple()
     {
-
+        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
     }
 
     public override void Update(float deltaTime)

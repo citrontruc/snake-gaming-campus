@@ -20,6 +20,7 @@ public class Game
         Raylib.InitWindow(_screenWidth, _screenHeight, "Snake");
         _inputHandler = new();
         Level1 level1 = new();
+        EntityHandler entityHandler = new();
         MainMenu mainMenu = new();
         _sceneHandler = new(mainMenu);
         while (!Raylib.WindowShouldClose())

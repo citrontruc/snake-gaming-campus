@@ -23,6 +23,8 @@ public class Grid
     public Color GridColor = Color.White;
     #endregion
 
+    public int[,] Cells { get; private set; }
+    private Dictionary<int, CellCoordinates> _occupancyDict = new();
 
     public Grid(int columns, int rows, int cellSize, int offsetX, int offsetY)
     {
@@ -31,6 +33,7 @@ public class Grid
         Rows = rows;
         OffsetX = offsetX;
         OffsetY = offsetY;
+        Cells = new int[columns, rows];
     }
 
     #region Getter
@@ -42,6 +45,21 @@ public class Grid
     public (int, int) GetDimensions()
     {
         return (Columns, Rows);
+    }
+
+    public bool CheckIfEmptyCell(int column, int row)
+    {
+        return Cells[column, row] == 0;
+    }
+
+    public void FreeCell(CellCoordinates cell)
+    {
+        Cells[cell.X, cell.Y] = 0;
+    }
+
+    public void OccupyCell(CellCoordinates cell, int id)
+    {
+        _occupancyDict[id] = cell;
     }
     #endregion
 
