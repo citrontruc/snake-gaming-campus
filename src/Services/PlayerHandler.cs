@@ -20,7 +20,7 @@ public class PlayerHandler
 
     public void UpdateState(PlayerBlockState blockValue)
     {
-        _blockState = blockValue;
+        _blockState = blockValue;   
     }
 
     public void IncrementScore(int value)
