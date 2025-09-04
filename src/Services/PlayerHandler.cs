@@ -76,10 +76,12 @@ public class PlayerHandler
     {
         if (_blockQueue.Any())
         {
-            DirectionBlock directionBlock = _blockQueue.Dequeue();
+            
             CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
+            Console.WriteLine(_playerPosition);
             if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
             {
+                DirectionBlock directionBlock = _blockQueue.Dequeue();
                 directionBlock.Place(blockCell, _playerBlockDirection);
             }
         }

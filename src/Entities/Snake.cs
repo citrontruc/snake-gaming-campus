@@ -9,7 +9,6 @@ public class Snake : Entity
     readonly Grid _snakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
-    private EntityState _currentState = EntityState.active;
 
     #region Movement variables
     private float _speed = 0.3f;
@@ -34,6 +33,7 @@ public class Snake : Entity
         _snakeGrid = snakeGrid;
         _movementTimer = new(_speed, true);
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
+        _currentState = EntityState.active;
     }
 
     #region Retrieve information from grid

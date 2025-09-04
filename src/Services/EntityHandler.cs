@@ -17,18 +17,44 @@ public class EntityHandler
         return _entityID;
     }
 
+    /// <summary>
+    /// Method to update all the entities in our entity handler.
+    /// </summary>
+    /// <param name="deltaTime"></param>
     public void Update(float deltaTime)
     {
-        // Method to update all the entities in our entity handler.
+        foreach (KeyValuePair<int, Entity> entity in _entities)
+        {
+            UpdateEntity(deltaTime, entity.Value);
+        }
+    }
+
+    public void UpdateEntity(float deltaTime, Entity entity)
+    {
+        if (entity.GetState() == Entity.EntityState.active)
+        {
+            entity.Update(deltaTime);
+        }
     }
 
     public void EvaluateCollision()
     {
-        
+
     }
 
     public void Draw()
     {
-        // Method to draw all the entities in our entity handler.
+        foreach (KeyValuePair<int, Entity> entity in _entities)
+        {
+            DrawEntity(entity.Value);
+        }
+    }
+
+    public void DrawEntity(Entity entity)
+    {
+        if (entity.GetState() == Entity.EntityState.active)
+        {
+            entity.Draw();
+        }
     }
 }

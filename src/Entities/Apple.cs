@@ -5,11 +5,12 @@ public class Apple : Entity
     readonly Random _rnd = new(42);
     readonly Grid _appleGrid;
     private CellCoordinates _position;
-    private EntityState _currentState = EntityState.disabled;
+
     public Apple(Grid grid)
     {
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _appleGrid = grid;
+        _currentState = EntityState.active;
         RandomPosition();
     }
 
