@@ -40,6 +40,7 @@ public class Level1 : Level
     public override void Update(float deltaTime)
     {
         _playerHandler?.Update(deltaTime);
+        _level1Grid?.Update();
         if (_currentState == GameState.gameOver)
         {
             GameOver();

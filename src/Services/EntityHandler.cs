@@ -37,9 +37,25 @@ public class EntityHandler
         }
     }
 
-    public void EvaluateCollision()
+    public int EvaluateCollision(int index1, int index2)
     {
-
+        Entity entity1 = _entities[index1];
+        Entity entity2 = _entities[index2];
+        entity1.Collide(entity2);
+        entity2.Collide(entity1);
+        if (entity1.GetState() == Entity.EntityState.active || entity1.GetState() == Entity.EntityState.disabled)
+        {
+            return index1;
+        }
+        if (entity1.GetState() == Entity.EntityState.disabled || entity1.GetState() == Entity.EntityState.active)
+        {
+            return index2;
+        }
+        if (entity1.GetState() == Entity.EntityState.active || entity1.GetState() == Entity.EntityState.active)
+        {
+            throw new InvalidOperationException("Can't put two entities in the same Cell.");
+        }
+        return 0;
     }
 
     public void Draw()

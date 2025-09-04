@@ -52,6 +52,11 @@ public class Grid
         return CellSize;
     }
 
+    public bool CheckIfEmptyCell(CellCoordinates coordinates)
+    {
+        return CheckIfEmptyCell(coordinates.X, coordinates.Y);
+    }
+
     public bool CheckIfEmptyCell(int column, int row)
     {
         return Cells[column, row] == 0;
@@ -201,8 +206,25 @@ public class Grid
         }
         return hasNeighbor;
     }
-
     #endregion
+
+    public void Update()
+    {
+        foreach (KeyValuePair<int, CellCoordinates> occupy in _occupancyDict)
+        {
+            if (CheckIfEmptyCell(occupy.Value) && Cells[occupy.Value.X, occupy.Value.Y] != occupy.Key)
+            {
+                Cells[occupy.Value.X, occupy.Value.Y] = occupy.Key;
+            }
+            else
+            {
+                EntityHandler entityHandler = ServiceLocator.Get<EntityHandler>();
+                int finalIndex = entityHandler.EvaluateCollision(occupy.Key, Cells[occupy.Value.X, occupy.Value.Y]);
+                Cells[occupy.Value.X, occupy.Value.Y] = finalIndex;
+            }
+        }
+        _occupancyDict = new();
+    }
 
     public void Draw()
     {

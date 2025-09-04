@@ -78,7 +78,6 @@ public class PlayerHandler
         {
             
             CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
-            Console.WriteLine(_playerPosition);
             if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
             {
                 DirectionBlock directionBlock = _blockQueue.Dequeue();

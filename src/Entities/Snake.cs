@@ -112,8 +112,8 @@ public class Snake : Entity
     {
         CellCoordinates newPosition = SnakeBody.Last() + _currentDirection;
         (int columns, int rows) = GetGridDimension();
-        newPosition.X %= columns;
-        newPosition.Y %= rows;
+        newPosition.X = (newPosition.X + columns) % columns;
+        newPosition.Y = (newPosition.Y + rows) % rows;
         _snakeGrid.OccupyCell(newPosition, _entityID);
         SnakeBody.Enqueue(newPosition);
         if (!_growing)
