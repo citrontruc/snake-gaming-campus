@@ -26,7 +26,13 @@ public class Level1 : Level
         CellCoordinates snakePosition = new(5, 5);
         _snake = new(Color.Green, snakePosition, _level1Grid, 3);
         _playerHandler = new(_level1Grid, (int)(_cellSize * 1 / 2), _triangleColor);
-        _directionBlock = new(CellCoordinates.right, (int)(_cellSize * 1/2), new(10, 10), _level1Grid, _playerHandler);
+        _directionBlock = new(CellCoordinates.right, (int)(_cellSize * 1 / 2), new(10, 10), _level1Grid, _playerHandler);
+        _playerHandler.FillQueue();
+        _playerHandler.FillQueue();
+        _playerHandler.FillQueue();
+        _playerHandler.FillQueue();
+        _playerHandler.FillQueue();
+        _playerHandler.FillQueue();
     }
 
     public override void Unload()

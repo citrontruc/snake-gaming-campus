@@ -24,6 +24,12 @@ public class PlayerHandler
         _triangleColor = triangleColor;
     }
 
+    public void FillQueue()
+    {
+        DirectionBlock directionBlock = new(_playerBlockDirection, _triangleSideLength, CellCoordinates.zero, _levelGrid, this);
+        AddToQueue(directionBlock);
+    }
+
     public void AddToQueue(DirectionBlock block)
     {
         _blockQueue.Enqueue(block);
@@ -33,6 +39,10 @@ public class PlayerHandler
     {
         UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
         UpdateDirection(userInput);
+        if (userInput.LeftClickPress)
+        {
+            CreateBlock();
+        }
 
         // Update timers
         bool timerOver = _blockTimer.Update(deltaTime);
@@ -59,6 +69,19 @@ public class PlayerHandler
         if (userInput.LeftRelease)
         {
             _playerBlockDirection = CellCoordinates.left;
+        }
+    }
+
+    public void CreateBlock()
+    {
+        if (_blockQueue.Any())
+        {
+            DirectionBlock directionBlock = _blockQueue.Dequeue();
+            CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
+            if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
+            {
+                directionBlock.Place(blockCell, _playerBlockDirection);
+            }
         }
     }
 
