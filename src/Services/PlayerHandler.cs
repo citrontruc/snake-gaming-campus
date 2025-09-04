@@ -7,18 +7,10 @@ public class PlayerHandler
 {
     private Grid _levelGrid;
     private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
-    public enum PlayerBlockState
-    {
-        right,
-        left,
-        up,
-        down
-    }
 
     private Queue<DirectionBlock> _blockQueue = new();
     private int _triangleSideLength;
     private Color _triangleColor; 
-    private PlayerBlockState _blockState = PlayerBlockState.right;
     private CellCoordinates _playerBlockDirection = CellCoordinates.right;
     private Timer _blockTimer = new(.3f, true);
     private bool _blockVisible;
@@ -40,22 +32,7 @@ public class PlayerHandler
     public void Update(float deltaTime)
     {
         UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
-        if (userInput.UpRelease)
-        {
-            UpdateState(PlayerBlockState.up);
-        }
-        if (userInput.DownRelease)
-        {
-            UpdateState(PlayerBlockState.down);
-        }
-        if (userInput.RightRelease)
-        {
-            UpdateState(PlayerBlockState.right);
-        }
-        if (userInput.LeftRelease)
-        {
-            UpdateState(PlayerBlockState.left);
-        }
+        UpdateDirection(userInput);
 
         // Update timers
         bool timerOver = _blockTimer.Update(deltaTime);
@@ -65,23 +42,23 @@ public class PlayerHandler
         }
     }
 
-    public void UpdateState(PlayerBlockState blockValue)
+    public void UpdateDirection(UserInput userInput)
     {
-        _blockState = blockValue;
-        switch (_blockState)
+        if (userInput.UpRelease)
         {
-            case PlayerBlockState.right:
-                _playerBlockDirection = CellCoordinates.right;
-                break;
-            case PlayerBlockState.left:
-                _playerBlockDirection = CellCoordinates.left;
-                break;
-            case PlayerBlockState.up:
-                _playerBlockDirection = CellCoordinates.up;
-                break;
-            case PlayerBlockState.down:
-                _playerBlockDirection = CellCoordinates.down;
-                break;
+            _playerBlockDirection = CellCoordinates.up;
+        }
+        if (userInput.DownRelease)
+        {
+            _playerBlockDirection = CellCoordinates.down;
+        }
+        if (userInput.RightRelease)
+        {
+            _playerBlockDirection = CellCoordinates.right;
+        }
+        if (userInput.LeftRelease)
+        {
+            _playerBlockDirection = CellCoordinates.left;
         }
     }
 
@@ -98,7 +75,6 @@ public class PlayerHandler
             Vector2 edge1 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation));
             Vector2 edge2 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 2 * Math.PI / 3), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 2 * Math.PI / 3));
             Vector2 edge3 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 4 * Math.PI / 3), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 4 * Math.PI / 3));
-            // Order of vertices is not the same depending if you do it clockwise or counter clockwise.
             Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
         }
     }
