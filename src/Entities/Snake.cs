@@ -92,7 +92,7 @@ public class Snake : Entity
             }
         }
 
-        if (entity is MovementBlock block)
+        if (entity is DirectionBlock block)
         {
             if (block.GetPosition() == head)
             {

@@ -3,7 +3,7 @@
 using System.Numerics;
 using Raylib_cs;
 
-public class MovementBlock : Entity
+public class DirectionBlock : Entity
 {
     readonly CellCoordinates _direction;
     private CellCoordinates _position;
@@ -17,7 +17,7 @@ public class MovementBlock : Entity
     }
     private BlockState _currentState = BlockState.disabled;
 
-    public MovementBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
+    public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
     {
         _direction = direction;
         _triangleSideLength = triangleSideLength;

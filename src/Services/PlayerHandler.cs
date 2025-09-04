@@ -14,9 +14,20 @@ public class PlayerHandler
         down
     }
 
+    private Queue<DirectionBlock> _blockQueue = new();
     private PlayerBlockState _blockState = PlayerBlockState.None;
     private Timer _blockStateTimer = new(0.5f);
     private int _score = 0;
+
+    public PlayerHandler()
+    {
+        
+    }
+
+    public void Update(float deltaTime)
+    {
+
+    }
 
     public void UpdateState(PlayerBlockState blockValue)
     {

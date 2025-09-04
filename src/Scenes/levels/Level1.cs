@@ -11,7 +11,7 @@ public class Level1 : Level
     private Grid? _level1Grid;
     private Snake? _snake;
     private GameState _currentState = GameState.play;
-    private MovementBlock? _movementBlock;
+    private DirectionBlock? _directionBlock;
 
     public Level1()
     {
@@ -23,7 +23,7 @@ public class Level1 : Level
         _level1Grid = new(_columns, _rows, _cellSize, 0, 0);
         CellCoordinates snakePosition = new(5, 5);
         _snake = new(Color.Green, snakePosition, _level1Grid, 3);
-        _movementBlock = new(CellCoordinates.right, (int)(_cellSize * 1/2), new(10, 10), _level1Grid);
+        _directionBlock = new(CellCoordinates.right, (int)(_cellSize * 1/2), new(10, 10), _level1Grid);
     }
 
     public override void Unload()
@@ -45,7 +45,7 @@ public class Level1 : Level
         DrawBackground();
         DrawGrid();
         _snake?.Draw();
-        _movementBlock?.Draw();
+        _directionBlock?.Draw();
     }
 
     public void DrawBackground()
