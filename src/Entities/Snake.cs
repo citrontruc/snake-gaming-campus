@@ -9,6 +9,12 @@ public class Snake : Entity
     Grid SnakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
+    private SnakeState _currentState = SnakeState.active;
+    public enum SnakeState
+    {
+        active,
+        gameOver
+    }
 
     #region Movement variables
     private float _speed = 0.5f;
@@ -72,8 +78,27 @@ public class Snake : Entity
 
     public override void Collide(Entity entity)
     {
-        // Check what the entity is and act accordingly.
-        // Checks if we hit the head or something else.
+        if (entity is Snake snake)
+        {
+            _currentState = SnakeState.gameOver;
+        }
+        // Do more checks to see whose apple it is.
+        if (entity is Apple apple)
+        {
+            if (apple.GetPosition() == head)
+            {
+                Growth();
+                apple.RandomPosition();
+            }
+        }
+
+        if (entity is MovementBlock block)
+        {
+            if (block.GetPosition() == head)
+            {
+                ChangeDirection(block.GetDirection());
+            }
+        }
     }
 
     public void Growth()

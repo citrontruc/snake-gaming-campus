@@ -5,12 +5,17 @@ using Raylib_cs;
 
 public class MovementBlock : Entity
 {
-    private bool _onGrid = false;
     readonly CellCoordinates _direction;
     private CellCoordinates _position;
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
     Grid BlockGrid;
+    public enum BlockState
+    {
+        active,
+        disabled
+    }
+    private BlockState _currentState = BlockState.disabled;
 
     public MovementBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
     {
@@ -24,7 +29,11 @@ public class MovementBlock : Entity
     public void SetPosition(CellCoordinates position)
     {
         _position = position;
+    }
 
+    public CellCoordinates GetPosition()
+    {
+        return _position;
     }
 
     public CellCoordinates GetDirection()

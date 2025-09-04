@@ -1,1 +1,0 @@
-/*Menu on the screen where the user can choose which movement blocks to place on the grid.*/

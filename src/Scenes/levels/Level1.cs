@@ -11,7 +11,7 @@ public class Level1 : Level
     private Grid? _level1Grid;
     private Snake? _snake;
     private GameState _currentState = GameState.play;
-    private MovementBlock _movementBlock;
+    private MovementBlock? _movementBlock;
 
     public Level1()
     {
@@ -45,7 +45,7 @@ public class Level1 : Level
         DrawBackground();
         DrawGrid();
         _snake?.Draw();
-        _movementBlock.Draw();
+        _movementBlock?.Draw();
     }
 
     public void DrawBackground()

@@ -8,6 +8,11 @@ public class Apple : Entity
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
     }
 
+    public CellCoordinates GetPosition()
+    {
+        return _position;
+    }
+
     public override void Update(float deltaTime)
     {
         throw new NotImplementedException();
@@ -20,7 +25,7 @@ public class Apple : Entity
 
     public override void Collide(Entity entity)
     {
-        // Check if entity is a snake and disappear to another random place.
+        
     }
 
     public void RandomPosition()
