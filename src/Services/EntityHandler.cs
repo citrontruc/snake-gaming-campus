@@ -39,6 +39,7 @@ public class EntityHandler
 
     public int EvaluateCollision(int index1, int index2)
     {
+        Console.WriteLine("Collision");
         Entity entity1 = _entities[index1];
         Entity entity2 = _entities[index2];
         entity1.Collide(entity2);

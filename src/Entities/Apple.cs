@@ -1,17 +1,25 @@
 /* The apple entity. Snakes need to eat apples to grow and gain points. */
 
+using System.Numerics;
+using Raylib_cs;
+
+
 public class Apple : Entity
 {
     readonly Random _rnd = new(42);
     readonly Grid _appleGrid;
     private CellCoordinates _position;
+    private Color _color;
+    private int _radius;
 
-    public Apple(Grid grid)
+    public Apple(Grid grid, Color color, int radius)
     {
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _appleGrid = grid;
-        _currentState = EntityState.active;
+        _color = color;
+        _radius = radius;
         RandomPosition();
+        SetActive();
     }
 
     public CellCoordinates GetPosition()
@@ -42,7 +50,9 @@ public class Apple : Entity
 
     public override void Draw()
     {
-        throw new NotImplementedException();
+        int cellSize = _appleGrid.GetCellSize();
+        Vector2 worldCoordinates = _appleGrid.ToWorld(_position);
+        Raylib.DrawCircle((int)worldCoordinates.X + cellSize / 2, (int)worldCoordinates.Y + cellSize / 2, _radius, _color);
     }
 
     public override void Collide(Entity entity)
