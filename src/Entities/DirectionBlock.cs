@@ -5,7 +5,7 @@ using Raylib_cs;
 
 public class DirectionBlock : Entity
 {
-    readonly CellCoordinates _direction;
+    private CellCoordinates _direction;
     private CellCoordinates _position;
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
@@ -27,6 +27,11 @@ public class DirectionBlock : Entity
         _position = position;
     }
 
+    public void SetDirection(CellCoordinates direction)
+    {
+        _direction = direction;
+    }
+
     public CellCoordinates GetPosition()
     {
         return _position;
@@ -41,7 +46,14 @@ public class DirectionBlock : Entity
     #region Place & retrieve
     public void Place(CellCoordinates position, CellCoordinates direction)
     {
-        BlockGrid.CheckIfEmptyCell(position.X, position.Y);
+        bool cellIsEmpty = BlockGrid.CheckIfEmptyCell(position.X, position.Y);
+        if (cellIsEmpty)
+        {
+            SetPosition(position);
+            SetDirection(direction);
+            _currentState = EntityState.active;
+            BlockGrid.OccupyCell(position, _entityID);
+        }
     }
 
     public void Retrieve()
