@@ -6,4 +6,9 @@ public abstract class Entity
     public abstract void Update(float deltaTime);
     public abstract void Collide(Entity entity);
     public abstract void Draw();
+    public enum EntityState
+    {
+        active,
+        disabled
+    }
 }

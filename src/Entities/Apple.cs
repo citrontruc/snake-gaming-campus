@@ -3,6 +3,7 @@
 public class Apple : Entity
 {
     private CellCoordinates _position;
+    private EntityState _currentState = EntityState.disabled;
     public Apple()
     {
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
@@ -11,6 +12,11 @@ public class Apple : Entity
     public CellCoordinates GetPosition()
     {
         return _position;
+    }
+
+    public void Disable()
+    {
+        _currentState = EntityState.disabled;
     }
 
     public override void Update(float deltaTime)
@@ -30,6 +36,6 @@ public class Apple : Entity
 
     public void RandomPosition()
     {
-
+        // CheckMoore Neighboorhood to avoid.
     }
 }

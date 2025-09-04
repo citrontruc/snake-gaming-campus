@@ -9,12 +9,7 @@ public class Snake : Entity
     Grid SnakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
-    private SnakeState _currentState = SnakeState.active;
-    public enum SnakeState
-    {
-        active,
-        gameOver
-    }
+    private EntityState _currentState = EntityState.active;
 
     #region Movement variables
     private float _speed = 0.5f;
@@ -80,7 +75,7 @@ public class Snake : Entity
     {
         if (entity is Snake snake)
         {
-            _currentState = SnakeState.gameOver;
+            _currentState = EntityState.disabled;
         }
         // Do more checks to see whose apple it is.
         if (entity is Apple apple)
@@ -88,7 +83,7 @@ public class Snake : Entity
             if (apple.GetPosition() == head)
             {
                 Growth();
-                apple.RandomPosition();
+                apple.Disable();
             }
         }
 

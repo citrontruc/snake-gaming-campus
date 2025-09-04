@@ -10,12 +10,7 @@ public class DirectionBlock : Entity
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
     Grid BlockGrid;
-    public enum BlockState
-    {
-        active,
-        disabled
-    }
-    private BlockState _currentState = BlockState.disabled;
+    private EntityState _currentState = EntityState.disabled;
 
     public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
     {
@@ -26,6 +21,7 @@ public class DirectionBlock : Entity
         BlockGrid = grid;
     }
 
+    #region Getters & Setters
     public void SetPosition(CellCoordinates position)
     {
         _position = position;
@@ -40,16 +36,31 @@ public class DirectionBlock : Entity
     {
         return _direction;
     }
+    #endregion
 
-    public override void Update(float deltaTime)
+    #region Place & retrieve
+    public void Place(CellCoordinates position, CellCoordinates direction)
+    {
+        BlockGrid.CheckIfEmptyCell(position.X, position.Y);
+    }
+
+    public void Retrieve()
     {
         
+    }
+    #endregion
+
+    #region Updates
+    public override void Update(float deltaTime)
+    {
+
     }
 
     public override void Collide(Entity entity)
     {
         // Check if entity is a snake and disappears.
     }
+    #endregion
 
     public override void Draw()
     {
