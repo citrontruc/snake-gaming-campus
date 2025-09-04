@@ -7,7 +7,6 @@ public class PlayerHandler
     private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
     public enum PlayerBlockState
     {
-        None,
         right,
         left,
         up,
@@ -15,13 +14,18 @@ public class PlayerHandler
     }
 
     private Queue<DirectionBlock> _blockQueue = new();
-    private PlayerBlockState _blockState = PlayerBlockState.None;
-    private Timer _blockStateTimer = new(0.5f);
+    private PlayerBlockState _blockState = PlayerBlockState.right;
+    private Timer _gameOverTimer = new(10f, false);
     private int _score = 0;
 
     public PlayerHandler()
     {
         
+    }
+
+    public void AddToQueue(DirectionBlock block)
+    {
+        _blockQueue.Enqueue(block);
     }
 
     public void Update(float deltaTime)

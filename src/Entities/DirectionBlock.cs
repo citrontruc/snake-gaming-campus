@@ -9,16 +9,18 @@ public class DirectionBlock : Entity
     private CellCoordinates _position;
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
-    Grid BlockGrid;
+    readonly Grid _blockGrid;
+    readonly PlayerHandler _playerHandler;
     private EntityState _currentState = EntityState.disabled;
 
-    public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid)
+    public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid, PlayerHandler playerHandler)
     {
         _direction = direction;
         _triangleSideLength = triangleSideLength;
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _position = position;
-        BlockGrid = grid;
+        _blockGrid = grid;
+        _playerHandler = playerHandler;
     }
 
     #region Getters & Setters
@@ -41,44 +43,54 @@ public class DirectionBlock : Entity
     {
         return _direction;
     }
+
+    public void SetDisabled()
+    {
+        _currentState = EntityState.disabled;
+        _blockGrid.FreeCell(_position);
+        _playerHandler.AddToQueue(this);
+    }
     #endregion
 
-    #region Place & retrieve
+    #region Place on board
     public void Place(CellCoordinates position, CellCoordinates direction)
     {
-        bool cellIsEmpty = BlockGrid.CheckIfEmptyCell(position.X, position.Y);
+        bool cellIsEmpty = _blockGrid.CheckIfEmptyCell(position.X, position.Y);
         if (cellIsEmpty)
         {
             SetPosition(position);
             SetDirection(direction);
             _currentState = EntityState.active;
-            BlockGrid.OccupyCell(position, _entityID);
+            _blockGrid.OccupyCell(position, _entityID);
         }
-    }
-
-    public void Retrieve()
-    {
-        
     }
     #endregion
 
     #region Updates
     public override void Update(float deltaTime)
     {
-
+        return;
     }
 
     public override void Collide(Entity entity)
     {
-        // Check if entity is a snake and disappears.
+        SetDisabled();
+    }
+
+    public override void Reset()
+    {
+        if (_currentState != EntityState.disabled)
+        {
+            SetDisabled();
+        }
     }
     #endregion
 
     public override void Draw()
     {
         double orientation = Math.Atan2(_direction.Y, _direction.X);
-        int cellsize = BlockGrid.GetCellSize();
-        Vector2 worldPosition = BlockGrid.ToWorld(_position);
+        int cellsize = _blockGrid.GetCellSize();
+        Vector2 worldPosition = _blockGrid.ToWorld(_position);
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;
         Vector2 edge1 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation), worldPosition.X + _triangleSideLength * (float)Math.Sin(orientation));

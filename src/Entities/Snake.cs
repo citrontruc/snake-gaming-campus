@@ -6,13 +6,13 @@ using Raylib_cs;
 
 public class Snake : Entity
 {
-    Grid SnakeGrid;
+    readonly Grid _snakeGrid;
     private Color _snakeColor;
     private bool _growing = false;
     private EntityState _currentState = EntityState.active;
 
     #region Movement variables
-    private float _speed = 0.5f;
+    private float _speed = 0.3f;
     private Timer _movementTimer;
     #endregion
 
@@ -31,7 +31,7 @@ public class Snake : Entity
         {
             SnakeBody.Enqueue(Head - _currentDirection * i);
         }
-        SnakeGrid = snakeGrid;
+        _snakeGrid = snakeGrid;
         _movementTimer = new(_speed, true);
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
     }
@@ -39,18 +39,18 @@ public class Snake : Entity
     #region Retrieve information from grid
     public Vector2 GetCellWorldPosition(CellCoordinates cell)
     {
-        return SnakeGrid.ToWorld(cell.X, cell.Y);
+        return _snakeGrid.ToWorld(cell.X, cell.Y);
 
     }
 
     public int GetGridCellSize()
     {
-        return SnakeGrid.CellSize;
+        return _snakeGrid.CellSize;
     }
 
     public (int, int) GetGridDimension()
     {
-        return SnakeGrid.GetDimensions();
+        return _snakeGrid.GetDimensions();
 
     }
     #endregion
@@ -83,10 +83,8 @@ public class Snake : Entity
             if (apple.GetPosition() == head)
             {
                 Growth();
-                apple.Disable();
             }
         }
-
         if (entity is DirectionBlock block)
         {
             if (block.GetPosition() == head)
@@ -94,6 +92,11 @@ public class Snake : Entity
                 ChangeDirection(block.GetDirection());
             }
         }
+    }
+
+    public override void Reset()
+    {
+        return;
     }
 
     public void Growth()
@@ -111,12 +114,12 @@ public class Snake : Entity
         (int columns, int rows) = GetGridDimension();
         newPosition.X %= columns;
         newPosition.Y %= rows;
-        SnakeGrid.OccupyCell(newPosition, _entityID);
+        _snakeGrid.OccupyCell(newPosition, _entityID);
         SnakeBody.Enqueue(newPosition);
         if (!_growing)
         {
             CellCoordinates emptyCell = SnakeBody.Dequeue();
-            SnakeGrid.FreeCell(emptyCell);
+            _snakeGrid.FreeCell(emptyCell);
         }
         else _growing = false;
     }
@@ -124,7 +127,7 @@ public class Snake : Entity
 
     public override void Draw()
     {
-        (int offsetX, int offsetY) = SnakeGrid.GetOffset();
+        (int offsetX, int offsetY) = _snakeGrid.GetOffset();
         foreach (CellCoordinates cell in SnakeBody)
         {
             Vector2 cellPosition = GetCellWorldPosition(cell);

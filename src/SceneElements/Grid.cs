@@ -170,6 +170,40 @@ public class Grid
     }
     #endregion
 
+    #region Get Neighboors
+    public bool CheckIfNeumannNeighborhood(CellCoordinates coordinates)
+    {
+        bool hasNeighbor = false;
+        int[] neighborOffsetX = { 0, 0, 1, -1 };
+        int[] neighborOffsetY = { 1, -1, 0, 0 };
+        for (int i = 0; i < neighborOffsetX.Length; i++)
+        {
+            hasNeighbor = !CheckIfEmptyCell((coordinates.X + neighborOffsetX[i] + Columns) % Columns, (coordinates.Y + neighborOffsetY[i] + Rows) % Rows);
+            if (hasNeighbor)
+            {
+                return hasNeighbor;
+            }
+        }
+        return hasNeighbor;
+    }
+    public bool CheckIfMooreNeighborhood(CellCoordinates coordinates)
+    {
+        bool hasNeighbor = false;
+        int[] neighborOffsetX = { -1, 0, 1, -1, 1, -1, 0, 1 };
+        int[] neighborOffsetY = { -1, -1, -1, 0, 0, 1, 1, 1 };
+        for (int i = 0; i < neighborOffsetX.Length; i++)
+        {
+            hasNeighbor = !CheckIfEmptyCell((coordinates.X + neighborOffsetX[i] + Columns) % Columns, (coordinates.Y + neighborOffsetY[i] + Rows) % Rows);
+            if (hasNeighbor)
+            {
+                return hasNeighbor;
+            }
+        }
+        return hasNeighbor;
+    }
+
+    #endregion
+
     public void Draw()
     {
         for (int interRows = 0; interRows < Rows; interRows++)
