@@ -6,9 +6,9 @@ using Raylib_cs;
 
 public class Snake : Entity
 {
+    #region Related objects
     readonly Grid _snakeGrid;
-    private Color _snakeColor;
-    private bool _growing = false;
+    #endregion
 
     #region Movement variables
     private float _speed = 0.3f;
@@ -21,6 +21,14 @@ public class Snake : Entity
 
     public CellCoordinates head => SnakeBody.Last();
     public CellCoordinates tail => SnakeBody.First();
+    #endregion
+
+    #region State properties
+    private bool _growing = false;
+    #endregion
+
+    #region Draw properties
+    private Color _snakeColor;
     #endregion
 
     public Snake(Color color, CellCoordinates Head, Grid snakeGrid, int length = 3)
@@ -64,13 +72,24 @@ public class Snake : Entity
             Move();
         }
     }
-    
+
+    /// <summary>
+    /// A Snake can't go backwards but can only turn left or right.
+    /// </summary>
+    /// <param name="direction"> The direction to face.</param>
     public void ChangeDirection(CellCoordinates direction)
     {
         if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
         _currentDirection = direction;
     }
 
+    /// <summary>
+    /// Collisions depend on the entity the snake collides.
+    /// A snake dies if he hits another snake.
+    /// A snake changes direction on Direction blocks.
+    /// A snake eats an Apple.
+    /// </summary>
+    /// <param name="entity"></param>
     public override void Collide(Entity entity)
     {
         if (entity is Snake snake)
@@ -92,11 +111,6 @@ public class Snake : Entity
                 ChangeDirection(block.GetDirection());
             }
         }
-    }
-
-    public override void Reset()
-    {
-        return;
     }
 
     public void Growth()
@@ -125,6 +139,14 @@ public class Snake : Entity
     }
     #endregion
 
+    #region On reset
+    public override void Reset()
+    {
+        return;
+    }
+    #endregion
+
+    #region Draw
     public override void Draw()
     {
         (int offsetX, int offsetY) = _snakeGrid.GetOffset();
@@ -141,4 +163,5 @@ public class Snake : Entity
                 );
         }
     }
+    #endregion
 }

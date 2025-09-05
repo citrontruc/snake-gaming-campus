@@ -2,13 +2,15 @@
 
 public struct CellCoordinates
 {
+    #region Main characteristics
     /// <summary>
     /// Position of a cell in a grid;
     /// </summary>
     public int X;
     public int Y;
+    #endregion
 
-    #region Useful CellCoordinates
+    #region Generic CellCoordinates
     public static CellCoordinates zero => new CellCoordinates(0, 0);
     public static CellCoordinates left => new CellCoordinates(-1, 0);
     public static CellCoordinates right => new CellCoordinates(1, 0);
@@ -73,7 +75,6 @@ public struct CellCoordinates
     {
         return (cellA.X != cellB.X) || (cellA.Y != cellB.Y);
     }
-
     #endregion
 
     #region Override common methods
@@ -100,7 +101,6 @@ public struct CellCoordinates
     {
         return HashCode.Combine(X, Y);
     }
-
     #endregion
 
 }

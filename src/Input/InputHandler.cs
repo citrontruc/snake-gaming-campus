@@ -1,5 +1,8 @@
 /* An object to handle keyboard, gamepad and mouse inputs. */
 
+/// <summary>
+/// A class to make the synthesis of all the different inputs from the user.
+/// </summary>
 public class InputHandler
 {
     public UserInput _userInput { get; private set; } = new();
@@ -9,6 +12,14 @@ public class InputHandler
         ServiceLocator.Register<InputHandler>(this);
     }
 
+    #region Getters and Setters
+    public UserInput GetUserInput()
+    {
+        return _userInput;
+    }
+    #endregion
+
+    #region Update
     public void Update()
     {
         _userInput.MousePosition = MouseInputHandler.position;
@@ -34,10 +45,5 @@ public class InputHandler
         _userInput.Enter = KeyboardInputHandler.Keyboard.IsKeyReleased(KeyboardInputHandler.Key.Enter);
         _userInput.Pause = KeyboardInputHandler.Keyboard.IsKeyReleased(KeyboardInputHandler.Key.Space);
     }
-
-    public UserInput GetUserInput()
-    {
-        return _userInput;
-    }
-
+    #endregion
 }

@@ -5,12 +5,20 @@ using Raylib_cs;
 
 public class DirectionBlock : Entity
 {
-    private CellCoordinates _direction;
-    private CellCoordinates _position;
-    private int _triangleSideLength;
-    private Color _triangleColor = Color.SkyBlue;
+    #region Related objects
     readonly Grid _blockGrid;
     readonly PlayerHandler _playerHandler;
+    #endregion
+
+    #region Main Properties
+    private CellCoordinates _direction;
+    private CellCoordinates _position;
+    #endregion
+
+    #region Draw properties
+    private int _triangleSideLength;
+    private Color _triangleColor = Color.SkyBlue;
+    #endregion    
 
     public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid, PlayerHandler playerHandler)
     {
@@ -52,7 +60,7 @@ public class DirectionBlock : Entity
     }
     #endregion
 
-    #region Place on board
+    #region Place on grid
     public void Place(CellCoordinates position, CellCoordinates direction)
     {
         bool cellIsEmpty = _blockGrid.CheckIfEmptyCell(position.X, position.Y);
@@ -66,17 +74,7 @@ public class DirectionBlock : Entity
     }
     #endregion
 
-    #region Updates
-    public override void Update(float deltaTime)
-    {
-        return;
-    }
-
-    public override void Collide(Entity entity)
-    {
-        SetDisabled();
-    }
-
+    #region On reset of object
     public override void Reset()
     {
         if (_currentState != EntityState.disabled)
@@ -86,6 +84,19 @@ public class DirectionBlock : Entity
     }
     #endregion
 
+    #region Actions and reactions
+    public override void Update(float deltaTime)
+    {
+        return;
+    }
+
+    public override void Collide(Entity entity)
+    {
+        SetDisabled();
+    }
+    #endregion
+
+    #region Draw
     public override void Draw()
     {
         double orientation = Math.Atan2(_direction.Y, _direction.X);
@@ -100,4 +111,5 @@ public class DirectionBlock : Entity
         Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
         //Raylib.DrawTriangleLines(edge1, edge2, edge3, _triangleColor);
     }
+    #endregion
 }

@@ -6,7 +6,7 @@ using Raylib_cs;
 
 public class Grid
 {
-    #region Characteristics
+    #region Main Properties
     /// <summary>
     /// Check if elements are in the Grid and do operations on coordinates.
     /// </summary>
@@ -23,8 +23,10 @@ public class Grid
     public Color GridColor = Color.White;
     #endregion
 
+    #region Properties to check who is on the grid and Update
     public int[,] Cells { get; private set; }
     private Dictionary<int, CellCoordinates> _occupancyDict = new();
+    #endregion
 
     public Grid(int columns, int rows, int cellSize, int offsetX, int offsetY)
     {
@@ -67,6 +69,13 @@ public class Grid
         Cells[cell.X, cell.Y] = 0;
     }
 
+    /// <summary>
+    /// An entity does not occupy a cell immediately. 
+    /// There might be a conflict for occupation.
+    /// We store all occupation demands and sort conflicts later.
+    /// </summary>
+    /// <param name="cell">Cell to occupy</param>
+    /// <param name="id"> The ID of the entity who will occupy the grid</param>
     public void OccupyCell(CellCoordinates cell, int id)
     {
         _occupancyDict[id] = cell;
@@ -175,7 +184,7 @@ public class Grid
     }
     #endregion
 
-    #region Get Neighboors
+    #region Get Neighboors of a cell
     public bool CheckIfNeumannNeighborhood(CellCoordinates coordinates)
     {
         bool hasNeighbor = false;
@@ -208,6 +217,10 @@ public class Grid
     }
     #endregion
 
+    #region Update
+    /// <summary>
+    /// Update and possible conflict resolutions are done together.
+    /// </summary>
     public void Update()
     {
         foreach (KeyValuePair<int, CellCoordinates> occupy in _occupancyDict)
@@ -218,6 +231,7 @@ public class Grid
             }
             else
             {
+                // After collision handling, we retrieve the ID of the entity who should be on the Cell.
                 EntityHandler entityHandler = ServiceLocator.Get<EntityHandler>();
                 int finalIndex = entityHandler.EvaluateCollision(occupy.Key, Cells[occupy.Value.X, occupy.Value.Y]);
                 Cells[occupy.Value.X, occupy.Value.Y] = finalIndex;
@@ -225,7 +239,9 @@ public class Grid
         }
         _occupancyDict = new();
     }
+    #endregion
 
+    #region Draw
     public void Draw()
     {
         for (int interRows = 0; interRows < Rows; interRows++)
@@ -237,5 +253,6 @@ public class Grid
             }
         }
     }
+    #endregion
 
 }

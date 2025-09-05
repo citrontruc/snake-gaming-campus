@@ -17,7 +17,7 @@ public class UserInput
 
     #region Keyboard Actions
     /// <summary>
-    /// Movement
+    /// Mouse keys
     /// </summary>
     public bool UpHold { get; set; }
     public bool DownHold { get; set; }
@@ -29,7 +29,9 @@ public class UserInput
     public bool LeftRelease { get; set; }
     public bool RightRelease { get; set; }
 
-    // Other
+    /// <summary>
+    /// Other Keys
+    /// </summary>
     public bool Enter { get; set; }
     public bool Pause { get; set; }
     #endregion

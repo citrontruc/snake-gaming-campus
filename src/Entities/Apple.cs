@@ -1,4 +1,4 @@
-/* The apple entity. Snakes need to eat apples to grow and gain points. */
+/* The apple entity. Snakes need to eat apples to grow and gain points.*/
 
 using System.Numerics;
 using Raylib_cs;
@@ -6,11 +6,21 @@ using Raylib_cs;
 
 public class Apple : Entity
 {
-    readonly Random _rnd = new(42);
+    #region Related objects
     readonly Grid _appleGrid;
+    #endregion
+
+    #region Location properties
     private CellCoordinates _position;
+    #endregion
+
+
+    #region Draw properties
     private Color _color;
     private int _radius;
+    #endregion
+
+    readonly Random _rnd = new(42);
 
     public Apple(Grid grid, Color color, int radius)
     {
@@ -22,6 +32,7 @@ public class Apple : Entity
         SetActive();
     }
 
+    #region Getters and Setters
     public CellCoordinates GetPosition()
     {
         return _position;
@@ -42,30 +53,22 @@ public class Apple : Entity
         _currentState = EntityState.disabled;
         _appleGrid.FreeCell(_position);
     }
+    #endregion
 
-    public override void Update(float deltaTime)
-    {
-        return;
-    }
-
-    public override void Draw()
-    {
-        int cellSize = _appleGrid.GetCellSize();
-        Vector2 worldCoordinates = _appleGrid.ToWorld(_position);
-        Raylib.DrawCircle((int)worldCoordinates.X + cellSize / 2, (int)worldCoordinates.Y + cellSize / 2, _radius, _color);
-    }
-
-    public override void Collide(Entity entity)
-    {
-        SetDisabled();
-    }
-
+    #region On reset of object
+    /// <summary>
+    /// On reset of an apple, we choose a new location for it.
+    /// </summary>
     public override void Reset()
     {
         RandomPosition();
         SetActive();
     }
 
+    /// <summary>
+    /// Generate a new position for our apple.
+    /// An apple cannot appear on another object.
+    /// </summary>
     public void RandomPosition()
     {
         (int column, int row) = _appleGrid.GetDimensions();
@@ -74,6 +77,8 @@ public class Apple : Entity
         {
             int newAppleColumn = _rnd.Next(column);
             int newAppleRow = _rnd.Next(row);
+            // In order to avoid situations where the player can't see an apple coming, 
+            // we avoid to make an apple appear in front of the player.
             if (!_appleGrid.CheckIfNeumannNeighborhood(new(newAppleColumn, newAppleRow)))
             {
                 validApplePosition = true;
@@ -81,4 +86,26 @@ public class Apple : Entity
             }
         }
     }
+    #endregion
+
+    #region Actions and reactions
+    public override void Collide(Entity entity)
+    {
+        SetDisabled();
+    }
+
+    public override void Update(float deltaTime)
+    {
+        return;
+    }
+    #endregion
+
+    #region Draw
+    public override void Draw()
+    {
+        int cellSize = _appleGrid.GetCellSize();
+        Vector2 worldCoordinates = _appleGrid.ToWorld(_position);
+        Raylib.DrawCircle((int)worldCoordinates.X + cellSize / 2, (int)worldCoordinates.Y + cellSize / 2, _radius, _color);
+    }
+    #endregion
 }
