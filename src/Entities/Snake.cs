@@ -55,11 +55,6 @@ public class Snake : Entity
 
     }
 
-    public int GetGridCellSize()
-    {
-        return _snakeGrid.CellSize;
-    }
-
     public (int, int) GetGridDimension()
     {
         return _snakeGrid.GetDimensions();
@@ -165,7 +160,7 @@ public class Snake : Entity
         foreach (CellCoordinates cell in SnakeBody)
         {
             Vector2 cellPosition = GetCellWorldPosition(cell);
-            int cellSize = GetGridCellSize();
+            int cellSize = _snakeGrid.GetCellSize();
             Raylib.DrawRectangle(
                 (int)cellPosition.X + offsetX,
                 (int)cellPosition.Y + offsetY,
@@ -177,19 +172,17 @@ public class Snake : Entity
         DrawHead();
     }
 
+    /// <summary>
+    /// In order to show in which direction the snake is going, we add a triangle at the position of the head.
+    /// </summary>
     public void DrawHead()
     {
-        double orientation = Math.Atan2(_currentDirection.Y, _currentDirection.X);
-        int cellsize = _snakeGrid.GetCellSize();
         Vector2 worldPosition = _snakeGrid.ToWorld(head);
+        int cellsize = _snakeGrid.GetCellSize();
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;
         int headSize = cellsize / 3;
-        Vector2 edge1 = new(worldPosition.X + headSize * (float)Math.Cos(orientation), worldPosition.Y + headSize * (float)Math.Sin(orientation));
-        Vector2 edge2 = new(worldPosition.X + headSize * (float)Math.Cos(orientation + 2 * Math.PI / 3), worldPosition.Y + headSize * (float)Math.Sin(orientation + 2 * Math.PI / 3));
-        Vector2 edge3 = new(worldPosition.X + headSize * (float)Math.Cos(orientation + 4 * Math.PI / 3), worldPosition.Y + headSize * (float)Math.Sin(orientation + 4 * Math.PI / 3));
-        // Order of vertices is not the same depending if you do it clockwise or counter clockwise.
-        Raylib.DrawTriangle(edge1, edge3, edge2, _headColor);
+        DrawTools.DrawFullTriangle(_currentDirection, worldPosition, headSize, _headColor);
     }
     #endregion
 }

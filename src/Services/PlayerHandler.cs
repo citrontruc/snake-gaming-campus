@@ -118,11 +118,7 @@ public class PlayerHandler
     {
         if (_blockVisible)
         {
-            double orientation = Math.Atan2(_playerBlockDirection.Y, _playerBlockDirection.X);
-            Vector2 edge1 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation));
-            Vector2 edge2 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 2 * Math.PI / 3), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 2 * Math.PI / 3));
-            Vector2 edge3 = new(_playerPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 4 * Math.PI / 3), _playerPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 4 * Math.PI / 3));
-            Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
+            DrawTools.DrawFullTriangle(_playerBlockDirection, _playerPosition, _triangleSideLength, _triangleColor);
         }
     }
     #endregion

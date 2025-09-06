@@ -78,8 +78,6 @@ public class Grid
     /// <param name="id"> The ID of the entity who will occupy the grid</param>
     public void OccupyCell(CellCoordinates cell, int id)
     {
-        Console.WriteLine(id);
-        Console.WriteLine(cell);
         if (!_occupancyDict.ContainsKey(id))
         {
             _occupancyDict[id] = new();
@@ -232,10 +230,8 @@ public class Grid
     {
         foreach (KeyValuePair<int, List<CellCoordinates>> occupy in _occupancyDict)
         {
-            //Console.WriteLine(occupy.Key);
             foreach (CellCoordinates coordinates in occupy.Value)
             {
-                //Console.WriteLine(coordinates);
                 if (CheckIfEmptyCell(coordinates) || Cells[coordinates.X, coordinates.Y] == occupy.Key)
                 {
                     Cells[coordinates.X, coordinates.Y] = occupy.Key;

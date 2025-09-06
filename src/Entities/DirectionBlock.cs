@@ -99,17 +99,11 @@ public class DirectionBlock : Entity
     #region Draw
     public override void Draw()
     {
-        double orientation = Math.Atan2(_direction.Y, _direction.X);
-        int cellsize = _blockGrid.GetCellSize();
         Vector2 worldPosition = _blockGrid.ToWorld(_position);
+        int cellsize = _blockGrid.GetCellSize();
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;
-        Vector2 edge1 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation), worldPosition.Y + _triangleSideLength * (float)Math.Sin(orientation));
-        Vector2 edge2 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 2 * Math.PI / 3), worldPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 2 * Math.PI / 3));
-        Vector2 edge3 = new(worldPosition.X + _triangleSideLength * (float)Math.Cos(orientation + 4 * Math.PI / 3), worldPosition.Y + _triangleSideLength * (float)Math.Sin(orientation + 4 * Math.PI / 3));
-        // Order of vertices is not the same depending if you do it clockwise or counter clockwise.
-        Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
-        //Raylib.DrawTriangleLines(edge1, edge2, edge3, _triangleColor);
+        DrawTools.DrawFullTriangle(_direction, worldPosition, _triangleSideLength, _triangleColor);        
     }
     #endregion
 }
