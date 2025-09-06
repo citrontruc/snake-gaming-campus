@@ -22,6 +22,7 @@ public class Game
         _inputHandler = new();
         Level1 level1 = new();
         MainMenu mainMenu = new();
+        GameOverMenu gameOverMenu = new();
         _sceneHandler = new(mainMenu);
         while (!Raylib.WindowShouldClose())
         {

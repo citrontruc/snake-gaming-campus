@@ -33,14 +33,15 @@ public class Snake : Entity
 
     public Snake(Color color, CellCoordinates Head, Grid snakeGrid, int length = 3)
     {
+        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _snakeColor = color;
+        _snakeGrid = snakeGrid;
         for (int i = length; i > 0; i--)
         {
             SnakeBody.Enqueue(Head - _currentDirection * i);
+            _snakeGrid.OccupyCell(Head - _currentDirection * i, _entityID);
         }
-        _snakeGrid = snakeGrid;
         _movementTimer = new(_speed, true);
-        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _currentState = EntityState.active;
     }
 

@@ -14,13 +14,10 @@ public class Apple : Entity
     private CellCoordinates _position;
     #endregion
 
-
     #region Draw properties
     private Color _color;
     private int _radius;
     #endregion
-
-    readonly Random _rnd = new(42);
 
     public Apple(Grid grid, Color color, int radius)
     {
@@ -75,11 +72,11 @@ public class Apple : Entity
         bool validApplePosition = false;
         while (!validApplePosition)
         {
-            int newAppleColumn = _rnd.Next(column);
-            int newAppleRow = _rnd.Next(row);
+            int newAppleColumn = RandomGlobal.Next(column);
+            int newAppleRow = RandomGlobal.Next(row);
             // In order to avoid situations where the player can't see an apple coming, 
             // we avoid to make an apple appear in front of the player.
-            if (!_appleGrid.CheckIfNeumannNeighborhood(new(newAppleColumn, newAppleRow)))
+            if (_appleGrid.CheckIfEmptyCell(new(newAppleColumn, newAppleRow)) && !_appleGrid.CheckIfNeumannNeighborhood(new(newAppleColumn, newAppleRow)))
             {
                 validApplePosition = true;
                 SetPosition(new(newAppleColumn, newAppleRow));

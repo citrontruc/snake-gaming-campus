@@ -16,6 +16,16 @@ public class EntityHandler
         _entities.Add(_entityID, entity);
         return _entityID;
     }
+    
+    public Entity GetEntity(int entityId)
+    {
+        return _entities[entityId];
+    }
+
+    public bool CheckIfActive(int entityId)
+    {
+        return _entities[entityId].GetState() == Entity.EntityState.active;
+    }
 
     public void Reset()
     {

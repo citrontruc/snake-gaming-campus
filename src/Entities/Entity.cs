@@ -21,6 +21,11 @@ public abstract class Entity
     {
         return _currentState;
     }
+
+    public int GetID()
+    {
+        return _entityID;
+    }
     #endregion
 
     #region On reset

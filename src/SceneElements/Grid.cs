@@ -25,7 +25,7 @@ public class Grid
 
     #region Properties to check who is on the grid and Update
     public int[,] Cells { get; private set; }
-    private Dictionary<int, CellCoordinates> _occupancyDict = new();
+    private Dictionary<int, List<CellCoordinates>> _occupancyDict = new();
     #endregion
 
     public Grid(int columns, int rows, int cellSize, int offsetX, int offsetY)
@@ -78,7 +78,13 @@ public class Grid
     /// <param name="id"> The ID of the entity who will occupy the grid</param>
     public void OccupyCell(CellCoordinates cell, int id)
     {
-        _occupancyDict[id] = cell;
+        Console.WriteLine(id);
+        Console.WriteLine(cell);
+        if (!_occupancyDict.ContainsKey(id))
+        {
+            _occupancyDict[id] = new();
+        }
+        _occupancyDict[id].Add(cell);
     }
     #endregion
 
@@ -200,6 +206,7 @@ public class Grid
         }
         return hasNeighbor;
     }
+
     public bool CheckIfMooreNeighborhood(CellCoordinates coordinates)
     {
         bool hasNeighbor = false;
@@ -223,18 +230,23 @@ public class Grid
     /// </summary>
     public void Update()
     {
-        foreach (KeyValuePair<int, CellCoordinates> occupy in _occupancyDict)
+        foreach (KeyValuePair<int, List<CellCoordinates>> occupy in _occupancyDict)
         {
-            if (CheckIfEmptyCell(occupy.Value) && Cells[occupy.Value.X, occupy.Value.Y] != occupy.Key)
+            //Console.WriteLine(occupy.Key);
+            foreach (CellCoordinates coordinates in occupy.Value)
             {
-                Cells[occupy.Value.X, occupy.Value.Y] = occupy.Key;
-            }
-            else
-            {
-                // After collision handling, we retrieve the ID of the entity who should be on the Cell.
-                EntityHandler entityHandler = ServiceLocator.Get<EntityHandler>();
-                int finalIndex = entityHandler.EvaluateCollision(occupy.Key, Cells[occupy.Value.X, occupy.Value.Y]);
-                Cells[occupy.Value.X, occupy.Value.Y] = finalIndex;
+                //Console.WriteLine(coordinates);
+                if (CheckIfEmptyCell(coordinates) || Cells[coordinates.X, coordinates.Y] == occupy.Key)
+                {
+                    Cells[coordinates.X, coordinates.Y] = occupy.Key;
+                }
+                else
+                {
+                    // After collision handling, we retrieve the ID of the entity who should be on the Cell.
+                    EntityHandler entityHandler = ServiceLocator.Get<EntityHandler>();
+                    int finalIndex = entityHandler.EvaluateCollision(occupy.Key, Cells[coordinates.X, coordinates.Y]);
+                    Cells[coordinates.X, coordinates.Y] = finalIndex;
+                }
             }
         }
         _occupancyDict = new();

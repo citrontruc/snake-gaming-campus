@@ -44,7 +44,7 @@ public class Timer
     /// <summary>
     /// Resets the TimeElapsed value to 0.
     /// </summary>
-    public void ResetTimer()
+    public void Reset()
     {
         TimeElapsed = 0f;
     }
@@ -87,7 +87,7 @@ public class Timer
         {
             if (_isLooping)
             {
-                ResetTimer();
+                Reset();
             }
             return true;
         }

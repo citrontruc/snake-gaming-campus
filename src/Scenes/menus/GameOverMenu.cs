@@ -36,8 +36,8 @@ public class GameOverMenu : Menu
             Color.Red
             );
 
-        AddOption("Retry Game", CloseWindow);
-        AddOption("Back to Main Menu", CloseWindow);
+        AddOption("Retry Game", LoadLevel);
+        AddOption("Back to Main Menu", LoadMainMenu);
         AddOption("Quit Game", CloseWindow);
         _selectedOption = 0;
         ServiceLocator.Register<GameOverMenu>(this);
@@ -60,6 +60,18 @@ public class GameOverMenu : Menu
     private void CloseWindow()
     {
         Raylib.CloseWindow();
+    }
+
+    private void LoadMainMenu()
+    {
+        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
+        currentSceneHandler.SetNewScene(ServiceLocator.Get<MainMenu>());
+    }
+
+    private void LoadLevel()
+    {
+        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
+        currentSceneHandler.SetNewScene(ServiceLocator.Get<Level1>());
     }
     #endregion
 }
