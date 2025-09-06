@@ -29,12 +29,13 @@ public class Snake : Entity
 
     #region Draw properties
     private Color _snakeColor;
+    private Color _headColor;
     #endregion
 
-    public Snake(Color color, CellCoordinates Head, Grid snakeGrid, int length = 3)
+    public Snake(CellCoordinates Head, Grid snakeGrid, int length = 3, Color? color = null, Color? headColor = null)
     {
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
-        _snakeColor = color;
+
         _snakeGrid = snakeGrid;
         for (int i = length; i > 0; i--)
         {
@@ -43,6 +44,8 @@ public class Snake : Entity
         }
         _movementTimer = new(_speed, true);
         _currentState = EntityState.active;
+        _snakeColor = color ??= Color.Green;
+        _headColor = headColor ??= Color.Lime;
     }
 
     #region Retrieve information from grid
@@ -171,7 +174,22 @@ public class Snake : Entity
                 _snakeColor
                 );
         }
+        DrawHead();
+    }
 
+    public void DrawHead()
+    {
+        double orientation = Math.Atan2(_currentDirection.Y, _currentDirection.X);
+        int cellsize = _snakeGrid.GetCellSize();
+        Vector2 worldPosition = _snakeGrid.ToWorld(head);
+        worldPosition.X += cellsize / 2;
+        worldPosition.Y += cellsize / 2;
+        int headSize = cellsize / 3;
+        Vector2 edge1 = new(worldPosition.X + headSize * (float)Math.Cos(orientation), worldPosition.Y + headSize * (float)Math.Sin(orientation));
+        Vector2 edge2 = new(worldPosition.X + headSize * (float)Math.Cos(orientation + 2 * Math.PI / 3), worldPosition.Y + headSize * (float)Math.Sin(orientation + 2 * Math.PI / 3));
+        Vector2 edge3 = new(worldPosition.X + headSize * (float)Math.Cos(orientation + 4 * Math.PI / 3), worldPosition.Y + headSize * (float)Math.Sin(orientation + 4 * Math.PI / 3));
+        // Order of vertices is not the same depending if you do it clockwise or counter clockwise.
+        Raylib.DrawTriangle(edge1, edge3, edge2, _headColor);
     }
     #endregion
 }

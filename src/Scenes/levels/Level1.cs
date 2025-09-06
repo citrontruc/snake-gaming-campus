@@ -40,8 +40,8 @@ public class Level1 : Level
         _level1Grid = new(_columns, _rows, _cellSize, 0, 0);
         CellCoordinates snakePosition = new(5, 5);
         CellCoordinates secondSnakePosition = new(5, 10);
-        Snake snake = new(Color.Green, snakePosition, _level1Grid, 3);
-        Snake secondSnake = new(Color.Red, secondSnakePosition, _level1Grid, 3);
+        Snake snake = new(snakePosition, _level1Grid, 3);
+        Snake secondSnake = new(secondSnakePosition, _level1Grid, 3, Color.Red);
         _snakeIDList.Add(snake.GetID());
         _snakeIDList.Add(secondSnake.GetID());
         _level1Grid.Update();
