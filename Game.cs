@@ -23,6 +23,7 @@ public class Game
         Level1 level1 = new();
         MainMenu mainMenu = new();
         GameOverMenu gameOverMenu = new();
+        PlayerHandler playerHandler = new((int)(24 * 1 / 2), Color.SkyBlue);
         _sceneHandler = new(mainMenu);
         while (!Raylib.WindowShouldClose())
         {

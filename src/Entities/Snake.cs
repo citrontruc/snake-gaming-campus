@@ -71,6 +71,10 @@ public class Snake : Entity
         if (isMoving)
         {
             Move();
+            if (IsCollidingWithItself())
+            {
+                _currentState = EntityState.disabled;
+            }
         }
     }
 
@@ -82,6 +86,10 @@ public class Snake : Entity
     {
         if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
         _currentDirection = direction;
+    }
+    public bool IsCollidingWithItself()
+    {
+        return SnakeBody.Count != SnakeBody.Distinct().Count();
     }
 
     /// <summary>
@@ -163,6 +171,7 @@ public class Snake : Entity
                 _snakeColor
                 );
         }
+
     }
     #endregion
 }
