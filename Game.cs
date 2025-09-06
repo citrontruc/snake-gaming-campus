@@ -20,6 +20,7 @@ public class Game
         Raylib.SetTargetFPS(_targetFPS);
         Raylib.InitWindow(_screenWidth, _screenHeight, "Snake");
         _inputHandler = new();
+        Tutorial tutorial = new();
         Level1 level1 = new();
         MainMenu mainMenu = new();
         GameOverMenu gameOverMenu = new();

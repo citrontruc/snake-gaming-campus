@@ -10,6 +10,7 @@ public abstract class Level : Scene
         play,
         pause,
         gameOver,
+        complete
     }
 
     public Level()

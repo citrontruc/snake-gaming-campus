@@ -52,6 +52,7 @@ public class PlayerHandler
     public void Reset()
     {
         _blockQueue = new();
+        _pause = true;
     }
 
     #region Update

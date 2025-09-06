@@ -37,6 +37,7 @@ public class MainMenu : Menu
             );
 
         AddOption("Play Game", LoadLevel);
+        AddOption("Play Tutorial", LoadTutorial);
         AddOption("Quit Game", CloseWindow);
         _selectedOption = 0;
         ServiceLocator.Register<MainMenu>(this);
@@ -66,6 +67,13 @@ public class MainMenu : Menu
         SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
         Level1 level1 = ServiceLocator.Get<Level1>();
         currentSceneHandler.SetNewScene(level1);
+    }
+
+    public void LoadTutorial()
+    {
+        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
+        Tutorial tutorial = ServiceLocator.Get<Tutorial>();
+        currentSceneHandler.SetNewScene(tutorial);
     }
     #endregion
 }
