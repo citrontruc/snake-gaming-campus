@@ -1,4 +1,4 @@
-/* Handles player control and key player characteristics like player score or items. */
+/* Handles player control and player items. */
 
 using System.Numerics;
 using Raylib_cs;
@@ -8,7 +8,10 @@ public class PlayerHandler
     private Grid? _levelGrid;
     private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
 
+    #region State information
+    private bool _pause = true;
     private Queue<DirectionBlock> _blockQueue = new();
+    #endregion
 
     #region Draw properties
     private int _triangleSideLength;
@@ -17,9 +20,6 @@ public class PlayerHandler
     private Timer _blockTimer = new(.3f, true);
     private bool _blockVisible;
     #endregion
-
-    private bool _pause = true;
-    private int _score = 0;
 
     public PlayerHandler(int triangleSideLength, Color triangleColor)
     {
@@ -52,12 +52,6 @@ public class PlayerHandler
     public void Reset()
     {
         _blockQueue = new();
-        _score = 0;
-    }
-
-    public void IncrementScore(int value)
-    {
-        _score += value;
     }
 
     #region Update
@@ -103,11 +97,13 @@ public class PlayerHandler
     {
         if (_blockQueue.Any())
         {
-            CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
-            if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
-            {
-                DirectionBlock directionBlock = _blockQueue.Dequeue();
-                directionBlock.Place(blockCell, _playerBlockDirection);
+            if (_levelGrid.CheckIfInGrid(_playerPosition)){
+                CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
+                if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
+                {
+                    DirectionBlock directionBlock = _blockQueue.Dequeue();
+                    directionBlock.Place(blockCell, _playerBlockDirection);
+                }
             }
         }
     }

@@ -17,6 +17,7 @@ public class EntityHandler
         return _entityID;
     }
     
+    #region Getters and Setters
     public Entity GetEntity(int entityId)
     {
         return _entities[entityId];
@@ -32,6 +33,7 @@ public class EntityHandler
         _entityID = 0;
         _entities.Clear();
     }
+    #endregion
 
     #region Update and reaction of objects
     /// <summary>

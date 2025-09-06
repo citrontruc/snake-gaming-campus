@@ -19,11 +19,11 @@ public class Apple : Entity
     private int _radius;
     #endregion
 
-    public Apple(Grid grid, Color color, int radius)
+    public Apple(Grid grid, int radius, Color? color = null)
     {
         _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
         _appleGrid = grid;
-        _color = color;
+        _color = color ??= Color.Red;
         _radius = radius;
         RandomPosition();
         SetActive();

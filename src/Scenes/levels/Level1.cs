@@ -6,13 +6,16 @@ public class Level1 : Level
 {
     #region Related objects
     private PlayerHandler _playerHandler => ServiceLocator.Get<PlayerHandler>();
+    private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
     #endregion
 
     #region Grid properties
-    private int _cellSize = 24;
-    private int _columns = 15;
-    private int _rows = 15;
-    private Grid? _level1Grid;
+    private static int _cellSize = 24;
+    private static int _columns = 15;
+    private static int _rows = 15;
+    private static int _offsetX = 0;
+    private static int _offsetY = 0;
+    private Grid _level1Grid = new(_columns, _rows, _cellSize, _offsetX, _offsetY);
     #endregion
 
     #region  Update properties
@@ -25,7 +28,6 @@ public class Level1 : Level
 
     #region Draw properties
     private new Color _backGroundColor = Color.Black;
-    private Color _triangleColor = Color.SkyBlue;
     #endregion
     
     
@@ -34,35 +36,50 @@ public class Level1 : Level
         ServiceLocator.Register<Level1>(this);
     }
 
+    #region Initialization
     public override void Load()
     {
-        _currentState = GameState.play;
-        _level1Grid = new(_columns, _rows, _cellSize, 0, 0);
+        _gameOverTimer.Reset();
+        _currentState = GameState.pause;
+        initializeSnake();
+        initializeApple();
+        initilializePlayer();
+    }
+
+    private void initilializePlayer()
+    {
+        _playerHandler.SetGrid(_level1Grid);
+        for (int i = 0; i < 6; i++) {
+            _playerHandler.FillQueue();
+        }
+    }
+
+    private void initializeSnake()
+    {
         CellCoordinates snakePosition = new(5, 5);
         CellCoordinates secondSnakePosition = new(5, 10);
         Snake snake = new(snakePosition, _level1Grid, 3);
-        Snake secondSnake = new(secondSnakePosition, _level1Grid, 3, Color.Red);
+        Snake secondSnake = new(secondSnakePosition, _level1Grid, 3);
         _snakeIDList.Add(snake.GetID());
         _snakeIDList.Add(secondSnake.GetID());
         _level1Grid.Update();
-        Apple apple = new(_level1Grid, Color.Lime, _cellSize/4);
-        Apple secondapple = new(_level1Grid, Color.Red, _cellSize/4);
+    }
+
+    private void initializeApple()
+    {
+        Apple apple = new(_level1Grid, _cellSize / 4);
+        Apple secondapple = new(_level1Grid, _cellSize / 4);
         _appleIDList.Add(apple.GetID());
         _appleIDList.Add(secondapple.GetID());
         _level1Grid.Update();
-        _playerHandler.SetGrid(_level1Grid);
-        _playerHandler.FillQueue();
-        _playerHandler.FillQueue();
-        _playerHandler.FillQueue();
-        _playerHandler.FillQueue();
-        _playerHandler.FillQueue();
-        _playerHandler.FillQueue();
     }
+    #endregion
 
     #region Scene transitions
     public override void Unload()
     {
-        ServiceLocator.Get<EntityHandler>().Reset();
+        _entityHandler.Reset();
+        _playerHandler.Reset();
     }
 
     private void GameOver()
