@@ -1,0 +1,1 @@
+/* A tutorial level to let the User familiarize himself with the controls. */

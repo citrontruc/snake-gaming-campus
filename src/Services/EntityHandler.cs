@@ -17,6 +17,13 @@ public class EntityHandler
         return _entityID;
     }
 
+    public void Reset()
+    {
+        _entityID = 0;
+        _entities.Clear();
+    }
+
+    #region Update and reaction of objects
     /// <summary>
     /// Method to update all the entities in our entity handler.
     /// </summary>
@@ -37,6 +44,18 @@ public class EntityHandler
         }
     }
 
+    /// <summary>
+    /// Only one entity can stay in a cell.
+    /// We run the collision methods and return which entity is still alive after collision.
+    /// If we wanted to do something more complicated, we would need three steps:
+    ///     - A step to ask for movement.
+    ///     - A step to evaluate the feasability of movements depending on collisions.
+    ///     - A step to actually move the entities.
+    /// </summary>
+    /// <param name="index1"> EntityID of the first entity.</param>
+    /// <param name="index2"> EntityID of the second entity.</param>
+    /// <returns> The id off the entity </returns>
+    /// <exception cref="InvalidOperationException"> After collision, both our entities are still alive. </exception>
     public int EvaluateCollision(int index1, int index2)
     {
         Console.WriteLine("Collision");
@@ -58,7 +77,9 @@ public class EntityHandler
         }
         return 0;
     }
+    #endregion
 
+    #region Draw
     public void Draw()
     {
         foreach (KeyValuePair<int, Entity> entity in _entities)
@@ -74,4 +95,5 @@ public class EntityHandler
             entity.Draw();
         }
     }
+    #endregion
 }

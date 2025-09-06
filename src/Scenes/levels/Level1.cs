@@ -13,6 +13,8 @@ public class Level1 : Level
     private GameState _currentState = GameState.play;
     private PlayerHandler? _playerHandler;
 
+    private Timer _gameOverTimer = new(10f, false);
+
     public Level1()
     {
         ServiceLocator.Register<Level1>(this);
@@ -35,7 +37,7 @@ public class Level1 : Level
 
     public override void Unload()
     {
-
+        ServiceLocator.Get<EntityHandler>().Reset();
     }
 
     public override void Update(float deltaTime)
@@ -48,6 +50,14 @@ public class Level1 : Level
         }
     }
 
+    private void GameOver()
+    {
+        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
+        GameOverMenu gameOverScreen = ServiceLocator.Get<GameOverMenu>();
+        currentSceneHandler.SetNewScene(gameOverScreen);
+    } 
+
+    #region Draw
     public override void Draw()
     {
         DrawBackground();
@@ -64,16 +74,5 @@ public class Level1 : Level
     {
         _level1Grid?.Draw();
     }
-
-    public void DrawEntities()
-    {
-        _level1Grid?.Draw();
-    }
-
-    private void GameOver()
-    {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        GameOverMenu gameOverScreen = ServiceLocator.Get<GameOverMenu>();
-        currentSceneHandler.SetNewScene(gameOverScreen);
-    } 
+    #endregion
 }

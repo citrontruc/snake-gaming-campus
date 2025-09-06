@@ -17,11 +17,7 @@ public abstract class Level : Scene
 
     }
 
-    #region Get Important information
-
-    #endregion
-
-    #region Set important Characteristics
+    #region Getters and Setters
     public void SetBackgroundcharacteristics(Color backGroundColor)
     {
         _backGroundColor = backGroundColor;

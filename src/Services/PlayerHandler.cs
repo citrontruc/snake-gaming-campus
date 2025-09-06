@@ -1,4 +1,4 @@
-/* Handles key player characteristics like player score or the number of items. */
+/* Handles player control and key player characteristics like player score or items. */
 
 using System.Numerics;
 using Raylib_cs;
@@ -9,12 +9,15 @@ public class PlayerHandler
     private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
 
     private Queue<DirectionBlock> _blockQueue = new();
+
+    #region Draw properties
     private int _triangleSideLength;
-    private Color _triangleColor; 
+    private Color _triangleColor;
     private CellCoordinates _playerBlockDirection = CellCoordinates.right;
     private Timer _blockTimer = new(.3f, true);
     private bool _blockVisible;
-    private Timer _gameOverTimer = new(10f, false);
+    #endregion
+
     private int _score = 0;
 
     public PlayerHandler(Grid grid, int triangleSideLength, Color triangleColor)
@@ -76,7 +79,7 @@ public class PlayerHandler
     {
         if (_blockQueue.Any())
         {
-            
+
             CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
             if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
             {
@@ -91,6 +94,7 @@ public class PlayerHandler
         _score += value;
     }
 
+    #region Draw
     public void Draw()
     {
         if (_blockVisible)
@@ -102,5 +106,6 @@ public class PlayerHandler
             Raylib.DrawTriangle(edge1, edge3, edge2, _triangleColor);
         }
     }
+    #endregion
 
 }
