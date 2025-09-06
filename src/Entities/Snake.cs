@@ -113,7 +113,7 @@ public class Snake : Entity
         }
     }
 
-    public void Growth()
+    private void Growth()
     {
         _growing = true;
     }

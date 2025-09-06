@@ -26,7 +26,8 @@ public class Level1 : Level
         CellCoordinates snakePosition = new(5, 5);
         Snake snake = new(Color.Green, snakePosition, _level1Grid, 3);
         Apple apple = new(_level1Grid, Color.Lime, _cellSize/4);
-        _playerHandler = new(_level1Grid, (int)(_cellSize * 1 / 2), _triangleColor);
+        _playerHandler = new((int)(_cellSize * 1 / 2), _triangleColor);
+        _playerHandler.SetGrid(_level1Grid);
         _playerHandler.FillQueue();
         _playerHandler.FillQueue();
         _playerHandler.FillQueue();
@@ -42,7 +43,13 @@ public class Level1 : Level
 
     public override void Update(float deltaTime)
     {
-        _playerHandler?.Update(deltaTime);
+        _playerHandler.Update(deltaTime);
+        bool pause = _playerHandler.GetPause();
+        _currentState = pause ? GameState.pause : GameState.play;
+        if (!pause)
+        {
+            ServiceLocator.Get<EntityHandler>().Update(deltaTime);
+        }
         _level1Grid?.Update();
         if (_currentState == GameState.gameOver)
         {

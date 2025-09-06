@@ -5,7 +5,7 @@ using Raylib_cs;
 
 public class PlayerHandler
 {
-    private Grid _levelGrid;
+    private Grid? _levelGrid;
     private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
 
     private Queue<DirectionBlock> _blockQueue = new();
@@ -18,13 +18,24 @@ public class PlayerHandler
     private bool _blockVisible;
     #endregion
 
+    private bool _pause = true;
     private int _score = 0;
 
-    public PlayerHandler(Grid grid, int triangleSideLength, Color triangleColor)
+    public PlayerHandler(int triangleSideLength, Color triangleColor)
     {
-        _levelGrid = grid;
         _triangleSideLength = triangleSideLength;
         _triangleColor = triangleColor;
+        ServiceLocator.Register<PlayerHandler>(this);
+    }
+
+    public void SetGrid(Grid grid)
+    {
+        _levelGrid = grid;
+    }
+
+    public bool GetPause()
+    {
+        return _pause;
     }
 
     public void FillQueue()
@@ -38,10 +49,23 @@ public class PlayerHandler
         _blockQueue.Enqueue(block);
     }
 
+    public void Reset()
+    {
+        _blockQueue = new();
+        _score = 0;
+    }
+
+    public void IncrementScore(int value)
+    {
+        _score += value;
+    }
+
+    #region Update
     public void Update(float deltaTime)
     {
         UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
         UpdateDirection(userInput);
+        _pause = userInput.Pause ? !_pause : _pause;
         if (userInput.LeftClickPress)
         {
             CreateBlock();
@@ -55,7 +79,7 @@ public class PlayerHandler
         }
     }
 
-    public void UpdateDirection(UserInput userInput)
+    private void UpdateDirection(UserInput userInput)
     {
         if (userInput.UpRelease)
         {
@@ -75,11 +99,10 @@ public class PlayerHandler
         }
     }
 
-    public void CreateBlock()
+    private void CreateBlock()
     {
         if (_blockQueue.Any())
         {
-
             CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
             if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
             {
@@ -88,11 +111,7 @@ public class PlayerHandler
             }
         }
     }
-
-    public void IncrementScore(int value)
-    {
-        _score += value;
-    }
+    #endregion
 
     #region Draw
     public void Draw()

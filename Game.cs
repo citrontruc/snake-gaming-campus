@@ -27,7 +27,6 @@ public class Game
         {
             float dt = Raylib.GetFrameTime();
             _inputHandler.Update();
-            _entityHandler.Update(dt);
             _sceneHandler.Update(dt);
             Draw();
         }
