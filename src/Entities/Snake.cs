@@ -162,8 +162,8 @@ public class Snake : Entity
             Vector2 cellPosition = GetCellWorldPosition(cell);
             int cellSize = _snakeGrid.GetCellSize();
             Raylib.DrawRectangle(
-                (int)cellPosition.X + offsetX,
-                (int)cellPosition.Y + offsetY,
+                (int)cellPosition.X,
+                (int)cellPosition.Y,
                 cellSize,
                 cellSize,
                 _snakeColor
@@ -177,7 +177,7 @@ public class Snake : Entity
     /// </summary>
     public void DrawHead()
     {
-        Vector2 worldPosition = _snakeGrid.ToWorld(head);
+        Vector2 worldPosition = GetCellWorldPosition(head);
         int cellsize = _snakeGrid.GetCellSize();
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;

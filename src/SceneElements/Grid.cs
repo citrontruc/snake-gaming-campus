@@ -44,6 +44,12 @@ public class Grid
         return (OffsetX, OffsetY);
     }
 
+    public Vector2 GetOffsetVector()
+    {
+        return new(OffsetX, OffsetY);
+    }
+
+
     public (int, int) GetDimensions()
     {
         return (Columns, Rows);
@@ -95,10 +101,10 @@ public class Grid
     public bool CheckIfInGrid(Vector2 vectorPosition)
     {
         if (
-            vectorPosition.X >= 0 &&
-            vectorPosition.X < Columns * CellSize &&
-            vectorPosition.Y >= 0 &&
-            vectorPosition.Y < Rows * CellSize
+            vectorPosition.X >= OffsetX &&
+            vectorPosition.X < Columns * CellSize + OffsetX &&
+            vectorPosition.Y >= OffsetY &&
+            vectorPosition.Y < Rows * CellSize + OffsetY
          )
         {
             return true;
@@ -154,8 +160,8 @@ public class Grid
             throw new ArgumentException("Element is outside of the Grid.");
         }
         Vector2 answerVector = new();
-        answerVector.X = column * CellSize;
-        answerVector.Y = row * CellSize;
+        answerVector.X = column * CellSize + OffsetX;
+        answerVector.Y = row * CellSize + OffsetY;
         return answerVector;
     }
 
@@ -181,8 +187,8 @@ public class Grid
         {
             throw new ArgumentException("Element is outside of the Grid.");
         }
-        int column = (int)(position.X / CellSize);
-        int row = (int)(position.Y / CellSize);
+        int column = (int)((position.X - OffsetX) / CellSize);
+        int row = (int)((position.Y - OffsetY) / CellSize);
         CellCoordinates coordinates = new(column, row);
         return coordinates;
     }
@@ -257,7 +263,7 @@ public class Grid
             for (int interColumns = 0; interColumns < Columns; interColumns++)
             {
                 Vector2 cellPosition = ToWorld(interRows, interColumns);
-                Raylib.DrawRectangleLines((int)cellPosition.X + OffsetX, (int)cellPosition.Y + OffsetY, CellSize, CellSize, GridColor);
+                Raylib.DrawRectangleLines((int)cellPosition.X, (int)cellPosition.Y, CellSize, CellSize, GridColor);
             }
         }
     }

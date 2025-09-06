@@ -13,8 +13,8 @@ public class Level1 : Level
     private static int _cellSize = 24;
     private static int _columns = 15;
     private static int _rows = 15;
-    private static int _offsetX = 0;
-    private static int _offsetY = 0;
+    private static int _offsetX = 50;
+    private static int _offsetY = 100;
     private Grid _level1Grid = new(_columns, _rows, _cellSize, _offsetX, _offsetY);
     #endregion
 
