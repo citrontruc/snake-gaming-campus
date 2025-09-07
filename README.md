@@ -2,6 +2,8 @@
 
 Version 1.0.0: 20250907.
 
+Si vous êtes de Gaming campus, vous pourrez trouver une présentation détaillée du projet dans Presentation_snake.pdf.
+
 English Version (French below)
 ---
 
