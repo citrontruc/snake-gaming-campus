@@ -16,7 +16,7 @@ public class Level1 : Level
     private static int _columns = 15;
     private static int _rows = 15;
     private static int _offsetX = (_screenWidth - _cellSize * _columns) / 2;
-    private static int _offsetY = (_screenHeight - _cellSize * _columns) / 2;
+    private static int _offsetY = (_screenHeight - _cellSize * _rows) / 2;
     private Grid _level1Grid = new(_columns, _rows, _cellSize, _offsetX, _offsetY);
     #endregion
 
@@ -27,6 +27,20 @@ public class Level1 : Level
     private Timer _gameOverTimer = new(10f, false);
     #endregion
 
+    #region HUD Properties
+    private static string _title = "Endless mode";
+    private static int _titleFontSize = 20;
+    private int _titleX = ( _screenWidth - Raylib.MeasureText(_title, _titleFontSize)) / 2;
+    private int _titleY = _screenHeight / 10;
+    private Color _titleColor = Color.Red;
+
+    private int _hudY = _offsetY  + _cellSize + _rows + (_screenHeight - (_offsetY  + _cellSize + _rows ))/2;
+    private int _fontSize = 18;
+    private static string _timerTitle = "Remaining Time: ";
+    
+    private static string _scoreTitle = "Apples Eaten: ";
+    private static string _directionBlockTitle = "Direction blocks left: ";
+    #endregion
 
     #region Draw properties
     private new Color _backGroundColor = Color.Black;
@@ -41,9 +55,9 @@ public class Level1 : Level
     #region Initialization
     public override void Load()
     {
-
         _gameOverTimer.Reset();
         _currentState = GameState.pause;
+        _level1Grid.Reset();
         initializeSnake();
         initializeApple();
         initilializePlayer();
@@ -155,6 +169,7 @@ public class Level1 : Level
     {
         DrawBackground();
         DrawGrid();
+        DrawHud();
         _playerHandler?.Draw();
     }
 
@@ -171,6 +186,12 @@ public class Level1 : Level
 
     public void DrawHud()
     {
-        
+        Raylib.DrawText(
+            _title,
+            _titleX,
+            _titleY,
+            _titleFontSize,
+            _titleColor
+        );
     }
 }

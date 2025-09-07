@@ -39,6 +39,10 @@ public class Grid
     }
 
     #region Getter
+    public void Reset()
+    {
+        Cells = new int[Columns, Rows];
+    }
     public (int, int) GetOffset()
     {
         return (OffsetX, OffsetY);

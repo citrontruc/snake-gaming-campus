@@ -65,6 +65,8 @@ public class Tutorial : Level
     {
         _gameOverTimer.Reset();
         _currentState = GameState.pause;
+        _tutorialGrid.Reset();
+        _appleCounter = 0;
         initializeSnake();
         initializeApple();
         initilializePlayer();
@@ -204,12 +206,12 @@ public class Tutorial : Level
     public void DrawHUD()
     {
         Raylib.DrawText(
-                        _title,
-                        _titleX,
-                        _titleY,
-                        _titleFontSize,
-                        _titleColor
-                    );
+            _title,
+            _titleX,
+            _titleY,
+            _titleFontSize,
+            _titleColor
+        );
 
         int numSentence = 0;
         string sentence = "";
