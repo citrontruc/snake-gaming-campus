@@ -43,7 +43,7 @@ Version française
 
 Dans ce jeu, vous incarnez un ou plusieurs Snake, votre but est de manger le plus de pommes possibles. Afin de pouvoir controler tous les serpents, vous allez devoir placer sur leur chemin des **Blocs de direction**. Un snake qui marche sur un bloc de direction va adopter la direction pointée par le bloc.
 
-Le joueur choisit la direction du bloc à placer avec les **flèches directionnelle** et place un bloc en utilisant le **clic gauche de la souris**. Si vous voulez ralentir le jeu afin de réfléchir, appuyez sur la **barre d'espace pour mettre le jeu en pause**. Les snakes ne bougent plus en pause, mais vous pouvez mettre des blocs de direction.
+Le joueur choisit la direction du bloc à placer avec les **flèches directionnelles** et place un bloc en utilisant le **clic gauche de la souris**. Si vous voulez ralentir le jeu afin de réfléchir, appuyez sur la **barre d'espace pour mettre le jeu en pause**. Les snakes ne bougent plus en pause, mais vous pouvez mettre des blocs de direction.
 
 Le jeu ne possède **pas de condition de victoire (c'est un jeu infini)**. Le joueur perd la partie si les snake rentrent en collision avec eux-mêmes ou l'un avec l'autre. Il y a aussi un **timer** de 10s. Si les snake n'ont pas mangé toutes les pommes à l'écran à l'issue du timer, le joueur perd la partie. Le timer se réinitialise à chaque fois que les snake mangent toutes les pommes à l'écran.
 
