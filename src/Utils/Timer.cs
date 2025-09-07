@@ -41,6 +41,11 @@ public class Timer
         _timeLimit = timeLimit;
     }
 
+    public int GetTime()
+    {
+        return (int)(_timeLimit - TimeElapsed);
+    }
+
     /// <summary>
     /// Resets the TimeElapsed value to 0.
     /// </summary>

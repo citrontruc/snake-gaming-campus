@@ -4,6 +4,8 @@ using Raylib_cs;
 
 public class Level1 : Level
 {
+    private int _appleCount = 0;
+
     #region Related objects
     private PlayerHandler _playerHandler => ServiceLocator.Get<PlayerHandler>();
     private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
@@ -34,12 +36,16 @@ public class Level1 : Level
     private int _titleY = _screenHeight / 10;
     private Color _titleColor = Color.Red;
 
-    private int _hudY = _offsetY  + _cellSize + _rows + (_screenHeight - (_offsetY  + _cellSize + _rows ))/2;
-    private int _fontSize = 18;
-    private static string _timerTitle = "Remaining Time: ";
-    
-    private static string _scoreTitle = "Apples Eaten: ";
-    private static string _directionBlockTitle = "Direction blocks left: ";
+    private Color _hudColor = Color.White;
+    private int _hudY = (_screenHeight + _offsetY + _cellSize * _rows) / 2;
+    private static int _fontSize = 18;
+    private static int _gapSize = 10;
+    private static string _timerTitle = "Remaining Time:";
+    private int _timerTitleX = _screenWidth / 4 - Raylib.MeasureText(_timerTitle, _fontSize) / 2;
+    private static string _scoreTitle = "Apples Eaten:";
+    private int _scoreTitleX = _screenWidth / 2 - Raylib.MeasureText(_scoreTitle, _fontSize) / 2;
+    private static string _directionBlockTitle = "Direction blocks left:";
+    private int _directionBlockTitleX = _screenWidth * 3 / 4 - Raylib.MeasureText(_directionBlockTitle, _fontSize) / 2;
     #endregion
 
     #region Draw properties
@@ -58,6 +64,7 @@ public class Level1 : Level
         _gameOverTimer.Reset();
         _currentState = GameState.pause;
         _level1Grid.Reset();
+        _appleCount = 0;
         initializeSnake();
         initializeApple();
         initilializePlayer();
@@ -139,6 +146,7 @@ public class Level1 : Level
         foreach (int appleID in _appleIDList)
         {
             _entityHandler.GetEntity(appleID).Reset();
+            _appleCount++;
         }
     }
 
@@ -192,6 +200,54 @@ public class Level1 : Level
             _titleY,
             _titleFontSize,
             _titleColor
+        );
+
+        Raylib.DrawText(
+            _timerTitle,
+            _timerTitleX,
+            _hudY,
+            _fontSize,
+            _hudColor
+        );
+
+        Raylib.DrawText(
+            _gameOverTimer.GetTime().ToString(),
+            _timerTitleX,
+            _hudY + _fontSize + _gapSize,
+            _fontSize,
+            _hudColor
+        );
+
+        Raylib.DrawText(
+            _scoreTitle,
+            _scoreTitleX,
+            _hudY,
+            _fontSize,
+            _hudColor
+        );
+
+        Raylib.DrawText(
+            _appleCount.ToString(),
+            _scoreTitleX,
+            _hudY + _fontSize + _gapSize,
+            _fontSize,
+            _hudColor
+        );
+
+        Raylib.DrawText(
+            _directionBlockTitle,
+            _directionBlockTitleX,
+            _hudY,
+            _fontSize,
+            _hudColor
+        );
+
+        Raylib.DrawText(
+            _playerHandler.GetRemainingBlockCount().ToString(),
+            _directionBlockTitleX,
+            _hudY + _fontSize + _gapSize,
+            _fontSize,
+            _hudColor
         );
     }
 }

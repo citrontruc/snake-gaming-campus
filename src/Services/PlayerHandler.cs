@@ -33,6 +33,7 @@ public class PlayerHandler
         ServiceLocator.Register<PlayerHandler>(this);
     }
 
+    #region Getter and setters
     public void SetGrid(Grid grid)
     {
         _levelGrid = grid;
@@ -43,6 +44,19 @@ public class PlayerHandler
         return _pause;
     }
 
+    public int GetRemainingBlockCount()
+    {
+        return _blockQueue.Count;
+    }
+
+    public void Reset()
+    {
+        _blockQueue = new();
+        _pause = true;
+    }
+    #endregion
+
+    #region Handle blockQueue
     public void FillQueue()
     {
         DirectionBlock directionBlock = new(_playerBlockDirection, _triangleSideLength, CellCoordinates.zero, _levelGrid, this);
@@ -53,12 +67,7 @@ public class PlayerHandler
     {
         _blockQueue.Enqueue(block);
     }
-
-    public void Reset()
-    {
-        _blockQueue = new();
-        _pause = true;
-    }
+    #endregion
 
     #region Update
     public void Update(float deltaTime)
