@@ -11,11 +11,6 @@ public class MainMenu : Menu
     private Tutorial _tutorial => ServiceLocator.Get<Tutorial>();
     #endregion
 
-    #region Display information
-    private int _screenWidth = Raylib.GetScreenWidth();
-    private int _screenHeight = Raylib.GetScreenHeight();
-    #endregion
-
     /// <summary>
     /// We initilialize our main menu.
     /// </summary>

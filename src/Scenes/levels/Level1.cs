@@ -15,8 +15,8 @@ public class Level1 : Level
     private static int _cellSize = 24;
     private static int _columns = 15;
     private static int _rows = 15;
-    private static int _offsetX = 50;
-    private static int _offsetY = 100;
+    private static int _offsetX = (_screenWidth - _cellSize * _columns) / 2;
+    private static int _offsetY = (_screenHeight - _cellSize * _columns) / 2;
     private Grid _level1Grid = new(_columns, _rows, _cellSize, _offsetX, _offsetY);
     #endregion
 
@@ -31,8 +31,8 @@ public class Level1 : Level
     #region Draw properties
     private new Color _backGroundColor = Color.Black;
     #endregion
-    
-    
+
+
     public Level1()
     {
         ServiceLocator.Register<Level1>(this);
@@ -41,7 +41,7 @@ public class Level1 : Level
     #region Initialization
     public override void Load()
     {
-        
+
         _gameOverTimer.Reset();
         _currentState = GameState.pause;
         initializeSnake();
@@ -52,7 +52,8 @@ public class Level1 : Level
     private void initilializePlayer()
     {
         _playerHandler.SetGrid(_level1Grid);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
+        {
             _playerHandler.FillQueue();
         }
     }
@@ -167,4 +168,9 @@ public class Level1 : Level
         _level1Grid?.Draw();
     }
     #endregion
+
+    public void DrawHud()
+    {
+        
+    }
 }

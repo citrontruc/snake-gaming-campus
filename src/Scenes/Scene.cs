@@ -1,7 +1,15 @@
 /* An abstract class to define generic scenes. */
 
+using Raylib_cs;
+
+
 public abstract class Scene
 {
+    #region Display information
+    protected static int _screenWidth = Raylib.GetScreenWidth();
+    protected static int _screenHeight = Raylib.GetScreenHeight();
+    #endregion
+
     /// <summary>
     /// Load any assets necessary for the scene.
     /// </summary>

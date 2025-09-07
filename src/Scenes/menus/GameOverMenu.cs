@@ -11,11 +11,6 @@ public class GameOverMenu : Menu
     private Level1 _level1 => ServiceLocator.Get<Level1>();
     #endregion
 
-    #region Display information
-    private int _screenWidth = Raylib.GetScreenWidth();
-    private int _screenHeight = Raylib.GetScreenHeight();
-    #endregion
-
     /// <summary>
     /// We initilialize our game over screen.
     /// </summary>
