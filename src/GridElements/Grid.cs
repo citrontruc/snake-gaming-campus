@@ -42,6 +42,7 @@ public class Grid
     public void Reset()
     {
         Cells = new int[Columns, Rows];
+        _occupancyDict = new();
     }
     public (int, int) GetOffset()
     {

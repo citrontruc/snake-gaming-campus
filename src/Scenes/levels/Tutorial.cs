@@ -83,6 +83,7 @@ public class Tutorial : Level
 
     private void initializeSnake()
     {
+        _snakeIDList = new();
         CellCoordinates snakePosition = new(5, 5);
         Snake snake = new(snakePosition, _tutorialGrid, 3);
         _snakeIDList.Add(snake.GetID());
@@ -91,6 +92,7 @@ public class Tutorial : Level
 
     private void initializeApple()
     {
+        _appleIDList = new();
         Apple apple = new(_tutorialGrid, _cellSize / 4);
         Apple secondapple = new(_tutorialGrid, _cellSize / 4);
         _appleIDList.Add(apple.GetID());
@@ -104,6 +106,7 @@ public class Tutorial : Level
     {
         _entityHandler.Reset();
         _playerHandler.Reset();
+        _tutorialGrid.Reset();
     }
 
     private void GameOver()

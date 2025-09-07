@@ -59,8 +59,16 @@ public class PlayerHandler
     #region Handle blockQueue
     public void FillQueue()
     {
-        DirectionBlock directionBlock = new(_playerBlockDirection, _triangleSideLength, CellCoordinates.zero, _levelGrid, this);
-        AddToQueue(directionBlock);
+        if (_levelGrid is not null)
+        {
+            DirectionBlock directionBlock = new(_playerBlockDirection, _triangleSideLength, CellCoordinates.zero, _levelGrid, this);
+            AddToQueue(directionBlock);
+        }
+        else
+        {
+            throw new InvalidOperationException("No grid attached to the playerHandler!");
+        }
+        
     }
 
     public void AddToQueue(DirectionBlock block)
@@ -110,7 +118,7 @@ public class PlayerHandler
 
     private void CreateBlock()
     {
-        if (_blockQueue.Any())
+        if (_blockQueue.Any() && _levelGrid is not null)
         {
             if (_levelGrid.CheckIfInGrid(_playerPosition)){
                 CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);

@@ -81,6 +81,7 @@ public class Level1 : Level
 
     private void initializeSnake()
     {
+        _snakeIDList = new();
         CellCoordinates snakePosition = new(5, 5);
         CellCoordinates secondSnakePosition = new(5, 10);
         Snake snake = new(snakePosition, _level1Grid, 3);
@@ -92,6 +93,7 @@ public class Level1 : Level
 
     private void initializeApple()
     {
+        _appleIDList = new();
         Apple apple = new(_level1Grid, _cellSize / 4);
         Apple secondapple = new(_level1Grid, _cellSize / 4);
         _appleIDList.Add(apple.GetID());
