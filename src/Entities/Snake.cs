@@ -8,6 +8,7 @@ public class Snake : Entity
 {
     #region Related objects
     readonly Grid _snakeGrid;
+    private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
     #endregion
 
     #region Movement variables
@@ -34,7 +35,7 @@ public class Snake : Entity
 
     public Snake(CellCoordinates Head, Grid snakeGrid, int length = 3, Color? color = null, Color? headColor = null)
     {
-        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
+        _entityID = _entityHandler.Register(this);
 
         _snakeGrid = snakeGrid;
         for (int i = length; i > 0; i--)

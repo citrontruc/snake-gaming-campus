@@ -8,6 +8,7 @@ public class DirectionBlock : Entity
     #region Related objects
     readonly Grid _blockGrid;
     readonly PlayerHandler _playerHandler;
+    private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
     #endregion
 
     #region Main Properties
@@ -24,7 +25,7 @@ public class DirectionBlock : Entity
     {
         _direction = direction;
         _triangleSideLength = triangleSideLength;
-        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
+        _entityID = _entityHandler.Register(this);
         _position = position;
         _blockGrid = grid;
         _playerHandler = playerHandler;

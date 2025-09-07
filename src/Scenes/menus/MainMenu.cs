@@ -5,30 +5,41 @@ using Raylib_cs;
 
 public class MainMenu : Menu
 {
+    #region Related objects
+    private Level1 _level1 => ServiceLocator.Get<Level1>();
+    private SceneHandler _sceneHandler => ServiceLocator.Get<SceneHandler>();
+    private Tutorial _tutorial => ServiceLocator.Get<Tutorial>();
+    #endregion
+
+    #region Display information
+    private int _screenWidth = Raylib.GetScreenWidth();
+    private int _screenHeight = Raylib.GetScreenHeight();
+    #endregion
+
     /// <summary>
     /// We initilialize our main menu.
     /// </summary>
     public MainMenu() : base("Twin Snakes")
     {
-        Vector2 titlePosition = new(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 3);
-        Vector2 optionPosition = new(Raylib.GetScreenWidth() / 2, 2 * Raylib.GetScreenHeight() / 3);
+        Vector2 titlePosition = new(_screenWidth / 2, _screenHeight / 3);
+        Vector2 optionPosition = new(_screenWidth / 2, 2 * _screenHeight / 3);
 
         SetBackgroundcharacteristics(Color.Black);
 
         SetMenuTitleCharacteristics(
             "Twin Snakes",
             titlePosition,
-            Raylib.GetScreenHeight() / 10,
+            _screenHeight / 10,
             Color.White,
             true
             );
 
         SetMenuOptionCharacteristics(
             optionPosition,
-            Raylib.GetScreenHeight() / 40,
+            _screenHeight / 40,
             Color.White,
             true,
-            Raylib.GetScreenHeight() / 50
+            _screenHeight / 50
             );
 
         SetSelectedOptionCharacteristics(
@@ -64,16 +75,12 @@ public class MainMenu : Menu
 
     private void LoadLevel()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        Level1 level1 = ServiceLocator.Get<Level1>();
-        currentSceneHandler.SetNewScene(level1);
+        _sceneHandler.SetNewScene(_level1);
     }
 
     public void LoadTutorial()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        Tutorial tutorial = ServiceLocator.Get<Tutorial>();
-        currentSceneHandler.SetNewScene(tutorial);
+        _sceneHandler.SetNewScene(_tutorial);
     }
     #endregion
 }

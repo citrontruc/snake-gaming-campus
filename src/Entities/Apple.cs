@@ -8,6 +8,7 @@ public class Apple : Entity
 {
     #region Related objects
     readonly Grid _appleGrid;
+    private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
     #endregion
 
     #region Location properties
@@ -21,7 +22,7 @@ public class Apple : Entity
 
     public Apple(Grid grid, int radius, Color? color = null)
     {
-        _entityID = ServiceLocator.Get<EntityHandler>().Register(this);
+        _entityID = _entityHandler.Register(this);
         _appleGrid = grid;
         _color = color ??= Color.Red;
         _radius = radius;

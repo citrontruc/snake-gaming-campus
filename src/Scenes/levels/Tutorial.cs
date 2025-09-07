@@ -7,6 +7,9 @@ public class Tutorial : Level
     #region Related objects
     private PlayerHandler _playerHandler => ServiceLocator.Get<PlayerHandler>();
     private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
+    private SceneHandler _sceneHandler => ServiceLocator.Get<SceneHandler>();
+    private GameOverMenu _gameOverMenu => ServiceLocator.Get<GameOverMenu>();
+    private Level1 _level1 => ServiceLocator.Get<Level1>();
     #endregion
 
     #region Grid properties
@@ -83,16 +86,12 @@ public class Tutorial : Level
 
     private void GameOver()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        GameOverMenu gameOverScreen = ServiceLocator.Get<GameOverMenu>();
-        currentSceneHandler.SetNewScene(gameOverScreen);
+        _sceneHandler.SetNewScene(_gameOverMenu);
     }
 
     private void NextLevel()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        Level1 Level1Screen = ServiceLocator.Get<Level1>();
-        currentSceneHandler.SetNewScene(Level1Screen);
+        _sceneHandler.SetNewScene(_level1);
     }
     #endregion
 
@@ -104,7 +103,7 @@ public class Tutorial : Level
         _currentState = pause ? GameState.pause : GameState.play;
         if (!pause)
         {
-            ServiceLocator.Get<EntityHandler>().Update(deltaTime);
+            _entityHandler.Update(deltaTime);
             CheckTimeOver(deltaTime);
         }
         _tutorialGrid?.Update();
@@ -124,14 +123,14 @@ public class Tutorial : Level
     {
         foreach (int appleID in _appleIDList)
         {
-            if (ServiceLocator.Get<EntityHandler>().CheckIfActive(appleID))
+            if (_entityHandler.CheckIfActive(appleID))
             {
                 return;
             }
         }
         foreach (int appleID in _appleIDList)
         {
-            ServiceLocator.Get<EntityHandler>().GetEntity(appleID).Reset();
+            _entityHandler.GetEntity(appleID).Reset();
         }
         _gameOverTimer.Reset();
         _appleCounter++;
@@ -145,7 +144,7 @@ public class Tutorial : Level
     {
         foreach (int snakeID in _snakeIDList)
         {
-            if (!ServiceLocator.Get<EntityHandler>().CheckIfActive(snakeID))
+            if (!_entityHandler.CheckIfActive(snakeID))
             {
                 _currentState = GameState.gameOver;
             }

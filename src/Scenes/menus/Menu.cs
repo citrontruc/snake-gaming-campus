@@ -6,6 +6,9 @@ using Raylib_cs;
 
 public abstract class Menu : Scene
 {
+    #region Related objects
+    private InputHandler _inputHandler => ServiceLocator.Get<InputHandler>();
+    #endregion
     private Color _backGroundColor = Color.Black;
 
     #region Menu title Characteristics
@@ -122,7 +125,7 @@ public abstract class Menu : Scene
     #region Update
     public override void Update(float deltaTime)
     {
-        UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
+        UserInput userInput = _inputHandler.GetUserInput();
         if (userInput.UpRelease)
         {
             _selectedOption = Math.Clamp(_selectedOption - 1, 0, GetLenOptions() - 1);

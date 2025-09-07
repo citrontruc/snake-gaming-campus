@@ -7,6 +7,8 @@ public class Level1 : Level
     #region Related objects
     private PlayerHandler _playerHandler => ServiceLocator.Get<PlayerHandler>();
     private EntityHandler _entityHandler => ServiceLocator.Get<EntityHandler>();
+    private SceneHandler _sceneHandler => ServiceLocator.Get<SceneHandler>();
+    private GameOverMenu _gameOverMenu => ServiceLocator.Get<GameOverMenu>();
     #endregion
 
     #region Grid properties
@@ -39,6 +41,7 @@ public class Level1 : Level
     #region Initialization
     public override void Load()
     {
+        
         _gameOverTimer.Reset();
         _currentState = GameState.pause;
         initializeSnake();
@@ -84,9 +87,7 @@ public class Level1 : Level
 
     private void GameOver()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        GameOverMenu gameOverScreen = ServiceLocator.Get<GameOverMenu>();
-        currentSceneHandler.SetNewScene(gameOverScreen);
+        _sceneHandler.SetNewScene(_gameOverMenu);
     }
     #endregion
 
@@ -98,7 +99,7 @@ public class Level1 : Level
         _currentState = pause ? GameState.pause : GameState.play;
         if (!pause)
         {
-            ServiceLocator.Get<EntityHandler>().Update(deltaTime);
+            _entityHandler.Update(deltaTime);
             CheckTimeOver(deltaTime);
         }
         _level1Grid?.Update();
@@ -114,7 +115,7 @@ public class Level1 : Level
     {
         foreach (int appleID in _appleIDList)
         {
-            if (ServiceLocator.Get<EntityHandler>().CheckIfActive(appleID))
+            if (_entityHandler.CheckIfActive(appleID))
             {
                 return;
             }
@@ -122,7 +123,7 @@ public class Level1 : Level
         _gameOverTimer.Reset();
         foreach (int appleID in _appleIDList)
         {
-            ServiceLocator.Get<EntityHandler>().GetEntity(appleID).Reset();
+            _entityHandler.GetEntity(appleID).Reset();
         }
     }
 
@@ -130,7 +131,7 @@ public class Level1 : Level
     {
         foreach (int snakeID in _snakeIDList)
         {
-            if (!ServiceLocator.Get<EntityHandler>().CheckIfActive(snakeID))
+            if (!_entityHandler.CheckIfActive(snakeID))
             {
                 _currentState = GameState.gameOver;
             }

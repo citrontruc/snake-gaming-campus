@@ -5,8 +5,13 @@ using Raylib_cs;
 
 public class PlayerHandler
 {
+    
     private Grid? _levelGrid;
-    private Vector2 _playerPosition => ServiceLocator.Get<InputHandler>().GetUserInput().MousePosition;
+
+    #region Related objects
+    private Vector2 _playerPosition => _inputHandler.GetUserInput().MousePosition;
+    private static InputHandler _inputHandler => ServiceLocator.Get<InputHandler>();
+    #endregion
 
     #region State information
     private bool _pause = true;
@@ -58,7 +63,7 @@ public class PlayerHandler
     #region Update
     public void Update(float deltaTime)
     {
-        UserInput userInput = ServiceLocator.Get<InputHandler>().GetUserInput();
+        UserInput userInput = _inputHandler.GetUserInput();
         UpdateDirection(userInput);
         _pause = userInput.Pause ? !_pause : _pause;
         if (userInput.LeftClickPress)

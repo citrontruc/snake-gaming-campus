@@ -5,30 +5,41 @@ using Raylib_cs;
 
 public class GameOverMenu : Menu
 {
+    #region Related objects
+    private SceneHandler _sceneHandler => ServiceLocator.Get<SceneHandler>();
+    private MainMenu _mainMenu => ServiceLocator.Get<MainMenu>();
+    private Level1 _level1 => ServiceLocator.Get<Level1>();
+    #endregion
+
+    #region Display information
+    private int _screenWidth = Raylib.GetScreenWidth();
+    private int _screenHeight = Raylib.GetScreenHeight();
+    #endregion
+
     /// <summary>
     /// We initilialize our game over screen.
     /// </summary>
     public GameOverMenu() : base("Main Menu")
     {
-        Vector2 titlePosition = new(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 3);
-        Vector2 optionPosition = new(Raylib.GetScreenWidth() / 2, 2 * Raylib.GetScreenHeight() / 3);
+        Vector2 titlePosition = new(_screenWidth / 2, _screenHeight / 3);
+        Vector2 optionPosition = new(_screenWidth / 2, 2 * _screenHeight / 3);
 
         SetBackgroundcharacteristics(Color.Black);
 
         SetMenuTitleCharacteristics(
             "Game Over",
             titlePosition,
-            Raylib.GetScreenHeight() / 10,
+            _screenHeight / 10,
             Color.Red,
             true
             );
 
         SetMenuOptionCharacteristics(
             optionPosition,
-            Raylib.GetScreenHeight() / 40,
+            _screenHeight / 40,
             Color.White,
             true,
-            Raylib.GetScreenHeight() / 50
+            _screenHeight / 50
             );
 
         SetSelectedOptionCharacteristics(
@@ -64,14 +75,12 @@ public class GameOverMenu : Menu
 
     private void LoadMainMenu()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        currentSceneHandler.SetNewScene(ServiceLocator.Get<MainMenu>());
+        _sceneHandler.SetNewScene(_mainMenu);
     }
 
     private void LoadLevel()
     {
-        SceneHandler currentSceneHandler = ServiceLocator.Get<SceneHandler>();
-        currentSceneHandler.SetNewScene(ServiceLocator.Get<Level1>());
+        _sceneHandler.SetNewScene(_level1);
     }
     #endregion
 }
