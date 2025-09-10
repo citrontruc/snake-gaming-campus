@@ -79,7 +79,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: snake-builds-*
-          path: .
+          path: release
       # Utilise une action de la communauté pour créer une Release et y attacher les .zip
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
