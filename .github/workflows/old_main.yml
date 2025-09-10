@@ -3,29 +3,15 @@ name: Build and deploy snake
 
 on:
   push:
-    tags: ["v*"]
+    tags: ["old-v*"]
 
 jobs:
   build-and-release:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            rid: linux-x64
-            ext: ""
-            folder: linux
-            configuration: Release
-          - os: windows-latest
-            rid: win-x64
-            ext: ".exe"
-            folder: windows
-            configuration: Release
-          - os: macos-latest
-            rid: osx-x64
-            ext: ""
-            folder: macos
-            configuration: Release
-            
+    #strategy:
+    #  matrix:
+    #    os: [ubuntu-latest, windows-latest, macos-latest]
+    #    configuration: [Release]
+
     runs-on: ubuntu-latest
     permissions:
       contents: write # Autorise l'action à créer une release et à uploader des fichiers
@@ -43,10 +29,18 @@ jobs:
           dotnet-version: 8.0.x
 
       # Windows (64-bit)
-      - name: Publish for ${{ matrix.rid }}
-        run: dotnet publish --configuration Release --runtime ${{ matrix.rid }} --self-contained true /p:PublishSingleFile=true
+      - name: Publish for Windows
+        run: dotnet publish --configuration Release --runtime win-x64 --self-contained true /p:PublishSingleFile=true
         # --self-contained : inclut le runtime .NET pour que le jeu fonctionne partout
         # /p:PublishSingleFile=true : crée un seul fichier .exe, c'est plus propre !
+
+      # Linux (64-bit)
+      - name: Publish for Linux
+        run: dotnet publish --configuration Release --runtime linux-x64 --self-contained true /p:PublishSingleFile=true
+
+      # macOS (64-bit)
+      - name: Publish for macOS
+        run: dotnet publish --configuration Release --runtime osx-x64 --self-contained true /p:PublishSingleFile=true
 
       # --- 3. Archivage des binaires ---
 
@@ -56,11 +50,23 @@ jobs:
         id: get_project_name
         run: echo "project_name=$(basename -s .csproj $(find . -name '*.csproj'))" >> $GITHUB_ENV
 
-      - name: Archive ${{ matrix.folder }} release
+      - name: Archive Windows release
         run: |
           mkdir -p release/windows
-          cp bin/Release/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
-          cd release/${{ matrix.folder }} && zip -r ../snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
+          cp bin/Release/net8.0/win-x64/publish/${{ env.project_name }}.exe release/windows/
+          cd release/windows && zip -r ../snake-gaming-campus-Windows-${{ github.ref_name }}-x64.zip .
+
+      - name: Archive Linux release
+        run: |
+          mkdir -p release/linux
+          cp bin/Release/net8.0/linux-x64/publish/${{ env.project_name }} release/linux/
+          cd release/linux && zip -r ../snake-gaming-campus-Linux-${{ github.ref_name }}-x64.zip .
+
+      - name: Archive macOS release
+        run: |
+          mkdir -p release/macos
+          cp bin/Release/net8.0/osx-x64/publish/${{ env.project_name }} release/macos/
+          cd release/macos && zip -r ../snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip .
 
       # --- 4. Création de la Release sur GitHub ---
 
@@ -74,6 +80,8 @@ jobs:
           generate_release_notes: true
           # Les fichiers à uploader
           files: |
-            release/snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-Windows-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-Linux-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip
           overwrite_files: true
           make_latest: true
