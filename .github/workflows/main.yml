@@ -90,3 +90,4 @@ jobs:
           release/snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip
         overwrite_files: true
         make_latest: true
+        fail_on_unmatched_files: false
