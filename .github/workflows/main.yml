@@ -6,7 +6,7 @@ on:
     tags: ["v*"]
 
 jobs:
-  build-and-release:
+  build:
     strategy:
       matrix:
         include:
@@ -63,7 +63,17 @@ jobs:
           cd release/${{ matrix.folder }} && zip -r ../snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
 
       # --- 4. Création de la Release sur GitHub ---
-
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: snake-builds
+          path: .
       # Utilise une action de la communauté pour créer une Release et y attacher les .zip
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -74,6 +84,8 @@ jobs:
           generate_release_notes: true
           # Les fichiers à uploader
           files: |
-            release/snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-linux-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-windows-${{ github.ref_name }}-x64.zip
+            release/snake-gaming-campus-macos-${{ github.ref_name }}-x64.zip
           overwrite_files: true
           make_latest: true
