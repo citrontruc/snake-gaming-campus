@@ -65,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: snake-builds
+          name: snake-builds-${{ matrix.folder }}
           path: release/*.zip
 
       # --- 4. Création de la Release sur GitHub ---
@@ -78,7 +78,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: snake-builds
+          name: snake-builds-*
           path: .
       # Utilise une action de la communauté pour créer une Release et y attacher les .zip
       - name: Create GitHub Release
