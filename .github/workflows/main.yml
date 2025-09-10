@@ -56,21 +56,18 @@ jobs:
     - name: Archive Windows release
       run: |
         mkdir -p release/windows
-        cp -r Assets release/windows/Assets
         cp bin/Release/net8.0/win-x64/publish/${{ env.project_name }}.exe release/windows/
         cd release/windows && zip -r ../snake-gaming-campus-Windows-x64.zip .
 
     - name: Archive Linux release
       run: |
         mkdir -p release/linux
-        cp -r Assets release/linux/Assets
         cp bin/Release/net8.0/linux-x64/publish/${{ env.project_name }} release/linux/
         cd release/linux && zip -r ../snake-gaming-campus-Linux-x64.zip .
 
     - name: Archive macOS release
       run: |
         mkdir -p release/macos
-        cp -r Assets release/macos/Assets
         cp bin/Release/net8.0/osx-x64/publish/${{ env.project_name }} release/macos/
         cd release/macos && zip -r ../snake-gaming-campus-macOS-x64.zip .
 
