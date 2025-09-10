@@ -6,12 +6,11 @@ on:
     tags: ["v*"]
 
 jobs:
-
   build-and-release:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        configuration: [Release]
+    #strategy:
+    #  matrix:
+    #    os: [ubuntu-latest, windows-latest, macos-latest]
+    #    configuration: [Release]
 
     runs-on: ubuntu-latest
     permissions:
@@ -19,10 +18,9 @@ jobs:
 
     # Checkout code
     steps:
+    # Préparation
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Install the .NET Core workload
       - name: Install .NET Core
