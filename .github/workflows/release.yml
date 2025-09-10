@@ -1,0 +1,91 @@
+
+name: Build and deploy snake
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        configuration: [Debug, Release]
+
+    runs-on: ubuntu-latest
+
+    # Checkout code
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # Windows (64-bit)
+    - name: Publish for Windows
+      run: dotnet publish --configuration Release --runtime win-x64 --self-contained true /p:PublishSingleFile=true
+      # --self-contained : inclut le runtime .NET pour que le jeu fonctionne partout
+      # /p:PublishSingleFile=true : crée un seul fichier .exe, c'est plus propre !
+
+    # Linux (64-bit)
+    - name: Publish for Linux
+      run: dotnet publish --configuration Release --runtime linux-x64 --self-contained true /p:PublishSingleFile=true
+
+    # macOS (64-bit)
+    - name: Publish for macOS
+      run: dotnet publish --configuration Release --runtime osx-x64 --self-contained true /p:PublishSingleFile=true
+
+    # --- 3. Archivage des binaires ---
+
+    # Crée une archive .zip pour chaque binaire et ses assets
+    # On doit d'abord trouver le nom du projet, qui est le nom du fichier .csproj
+    - name: Get project name
+      id: get_project_name
+      run: echo "project_name=$(basename -s .csproj $(find . -name '*.csproj'))" >> $GITHUB_ENV
+
+    - name: Archive Windows release
+      run: |
+        mkdir -p release/windows
+        cp -r Assets release/windows/Assets
+        cp bin/Release/net8.0/win-x64/publish/${{ env.project_name }}.exe release/windows/
+        cd release/windows && zip -r ../snake-gaming-campus-Windows-x64.zip .
+
+    - name: Archive Linux release
+      run: |
+        mkdir -p release/linux
+        cp -r Assets release/linux/Assets
+        cp bin/Release/net8.0/linux-x64/publish/${{ env.project_name }} release/linux/
+        cd release/linux && zip -r ../snake-gaming-campus-Linux-x64.zip .
+
+    - name: Archive macOS release
+      run: |
+        mkdir -p release/macos
+        cp -r Assets release/macos/Assets
+        cp bin/Release/net8.0/osx-x64/publish/${{ env.project_name }} release/macos/
+        cd release/macos && zip -r ../snake-gaming-campus-macOS-x64.zip .
+
+    # --- 4. Création de la Release sur GitHub ---
+
+    # Utilise une action de la communauté pour créer une Release et y attacher les .zip
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        # Utilise le contenu du tag (ex: v1.0) comme nom de la release
+        name: Release ${{ github.ref_name }}
+        # Génère automatiquement le texte de la release à partir des derniers commits
+        generate_release_notes: true
+        # Les fichiers à uploader
+        files: |
+          release/snake-gaming-campus-Windows-x64.zip
+          release/snake-gaming-campus-Linux-x64.zip
+          release/snake-gaming-campus-macOS-x64.zip
