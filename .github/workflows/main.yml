@@ -89,5 +89,4 @@ jobs:
           release/snake-gaming-campus-Windows-${{ github.ref_name }}-x64.zip
           release/snake-gaming-campus-Linux-${{ github.ref_name }}-x64.zip
           release/snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip
-        overwrite: true
         overwrite_files: true
