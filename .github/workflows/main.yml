@@ -11,13 +11,14 @@ on:
 jobs:
 
   build:
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         configuration: [Debug, Release]
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Autorise l'action à créer une release et à uploader des fichiers
 
     # Checkout code
     steps:
