@@ -61,6 +61,12 @@ jobs:
           mkdir -p release/${{ matrix.folder }}
           cp bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
           cd release/${{ matrix.folder }} && zip -r ../snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: snake-builds
+          path: release/*.zip
 
       # --- 4. Création de la Release sur GitHub ---
   release:
