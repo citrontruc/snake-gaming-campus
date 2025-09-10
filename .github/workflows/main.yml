@@ -59,19 +59,19 @@ jobs:
       run: |
         mkdir -p release/windows
         cp bin/Release/net8.0/win-x64/publish/${{ env.project_name }}.exe release/windows/
-        cd release/windows && zip -r ../snake-gaming-campus-Windows-x64.zip .
+        cd release/windows && zip -r ../snake-gaming-campus-Windows-${{ github.ref_name }}-x64.zip .
 
     - name: Archive Linux release
       run: |
         mkdir -p release/linux
         cp bin/Release/net8.0/linux-x64/publish/${{ env.project_name }} release/linux/
-        cd release/linux && zip -r ../snake-gaming-campus-Linux-x64.zip .
+        cd release/linux && zip -r ../snake-gaming-campus-Linux-${{ github.ref_name }}-x64.zip .
 
     - name: Archive macOS release
       run: |
         mkdir -p release/macos
         cp bin/Release/net8.0/osx-x64/publish/${{ env.project_name }} release/macos/
-        cd release/macos && zip -r ../snake-gaming-campus-macOS-x64.zip .
+        cd release/macos && zip -r ../snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip .
 
     # --- 4. Création de la Release sur GitHub ---
 
@@ -88,5 +88,5 @@ jobs:
           release/snake-gaming-campus-Windows-${{ github.ref_name }}-x64.zip
           release/snake-gaming-campus-Linux-${{ github.ref_name }}-x64.zip
           release/snake-gaming-campus-macOS-${{ github.ref_name }}-x64.zip
-        #overwrite_files: true
-        #make_latest: true
+        overwrite_files: true
+        make_latest: true
