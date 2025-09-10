@@ -78,7 +78,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: snake-builds-*
+          pattern: snake-builds-*
           path: .
       # Utilise une action de la communauté pour créer une Release et y attacher les .zip
       - name: Create GitHub Release
