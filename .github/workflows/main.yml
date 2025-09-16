@@ -60,7 +60,7 @@ jobs:
         run: |
           mkdir -p release/${{ matrix.folder }}
           cp bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
-          cd release/${{ matrix.folder }} && zip -r ../snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
+          cd release/${{ matrix.folder }} && zip -r ../${{ env.project_name }}-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -90,8 +90,8 @@ jobs:
           generate_release_notes: true
           # Les fichiers à uploader
           files: |
-            release/snake-builds-linux/snake-gaming-campus-linux-${{ github.ref_name }}-x64.zip
-            release/snake-builds-windows/snake-gaming-campus-windows-${{ github.ref_name }}-x64.zip
-            release/snake-builds-macos/snake-gaming-campus-macos-${{ github.ref_name }}-x64.zip
+            release/snake-builds-linux/${{ env.project_name }}-linux-${{ github.ref_name }}-x64.zip
+            release/snake-builds-windows/${{ env.project_name }}-windows-${{ github.ref_name }}-x64.zip
+            release/snake-builds-macos/${{ env.project_name }}-macos-${{ github.ref_name }}-x64.zip
           overwrite_files: true
           make_latest: true
