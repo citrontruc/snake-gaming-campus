@@ -1,11 +1,13 @@
 # Snake Gaming Campus
 
-Version 1.0.0: 20250907.
+Version 1.1.1: 20250916.
 
 Si vous êtes de Gaming campus, vous pourrez trouver une présentation détaillée du projet dans Presentation_snake.pdf.
 
 ## English Version (French below)
 ---
+
+The project is stored in the Game folder.
 
 ### Description
 
@@ -30,7 +32,7 @@ This project has six main folders:
 
 This project uses the Raylib library.
 
-You can launch the project by typing the command
+You can launch the project by going in the Game folder and typing the command
 ```bash
 dotnet run .
 ```
