@@ -44,7 +44,7 @@ jobs:
 
       # Windows (64-bit)
       - name: Publish for ${{ matrix.rid }}
-        run: dotnet publish --configuration ${{ matrix.configuration }} --runtime ${{ matrix.rid }} --self-contained true /p:PublishSingleFile=true
+        run: dotnet publish --configuration ${{ matrix.configuration }} --runtime ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
         # --self-contained : inclut le runtime .NET pour que le jeu fonctionne partout
         # /p:PublishSingleFile=true : crée un seul fichier .exe, c'est plus propre !
 
@@ -54,13 +54,13 @@ jobs:
       # On doit d'abord trouver le nom du projet, qui est le nom du fichier .csproj
       - name: Get project name
         id: get_project_name
-        run: echo "project_name=$(basename -s .csproj $(find . -name '*.csproj'))" >> $GITHUB_ENV
+        run: echo "project_name=snake-gaming-campus" >> $GITHUB_ENV
 
       - name: Archive ${{ matrix.folder }} release
         run: |
           mkdir -p release/${{ matrix.folder }}
-          cp bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
-          cd release/${{ matrix.folder }} && zip -r ../snake-gaming-campus-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
+          cp Game/bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
+          cd release/${{ matrix.folder }} && zip -r ../${{ env.project_name }}-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
