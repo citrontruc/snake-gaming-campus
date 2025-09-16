@@ -59,7 +59,7 @@ jobs:
       - name: Archive ${{ matrix.folder }} release
         run: |
           mkdir -p release/${{ matrix.folder }}
-          cp bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
+          cp Game/bin/${{ matrix.configuration }}/net8.0/${{ matrix.rid }}/publish/${{ env.project_name }}${{ matrix.ext }} release/${{ matrix.folder }}/
           cd release/${{ matrix.folder }} && zip -r ../${{ env.project_name }}-${{ matrix.folder }}-${{ github.ref_name }}-x64.zip .
       
       - name: Upload artifact

@@ -7,6 +7,8 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <IsPublishable>false</IsPublishable>
+    <DeployOnBuild>false</DeployOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

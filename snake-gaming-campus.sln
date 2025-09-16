@@ -1,8 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "snake-gaming-campus", "snake-gaming-campus.csproj", "{B7A11980-04C2-0CCF-2255-D0F1AC4022A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "snake-gaming-campus", "Game\snake-gaming-campus.csproj", "{572AAC0B-E413-422E-87DC-85D64E43B135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tests", "Game.Tests\Game.Tests.csproj", "{9F346DBE-1B99-4759-B8B4-49C52431309B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,10 +12,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7A11980-04C2-0CCF-2255-D0F1AC4022A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A11980-04C2-0CCF-2255-D0F1AC4022A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A11980-04C2-0CCF-2255-D0F1AC4022A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A11980-04C2-0CCF-2255-D0F1AC4022A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{572AAC0B-E413-422E-87DC-85D64E43B135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{572AAC0B-E413-422E-87DC-85D64E43B135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572AAC0B-E413-422E-87DC-85D64E43B135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{572AAC0B-E413-422E-87DC-85D64E43B135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F346DBE-1B99-4759-B8B4-49C52431309B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F346DBE-1B99-4759-B8B4-49C52431309B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F346DBE-1B99-4759-B8B4-49C52431309B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F346DBE-1B99-4759-B8B4-49C52431309B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
