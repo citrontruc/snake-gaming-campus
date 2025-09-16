@@ -44,7 +44,7 @@ jobs:
 
       # Windows (64-bit)
       - name: Publish for ${{ matrix.rid }}
-        run: dotnet publish --configuration ${{ matrix.configuration }} --runtime ${{ matrix.rid }} --self-contained true /p:PublishSingleFile=true
+        run: dotnet publish --configuration ${{ matrix.configuration }} --runtime ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
         # --self-contained : inclut le runtime .NET pour que le jeu fonctionne partout
         # /p:PublishSingleFile=true : crée un seul fichier .exe, c'est plus propre !
 
