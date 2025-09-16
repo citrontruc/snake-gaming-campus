@@ -54,7 +54,7 @@ jobs:
       # On doit d'abord trouver le nom du projet, qui est le nom du fichier .csproj
       - name: Get project name
         id: get_project_name
-        run: echo "project_name=$(basename -s .csproj $(find . -name '*.csproj'))" >> $GITHUB_ENV
+        run: echo "project_name=snake-gaming-campus" >> $GITHUB_ENV
 
       - name: Archive ${{ matrix.folder }} release
         run: |
