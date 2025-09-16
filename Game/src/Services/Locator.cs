@@ -7,7 +7,9 @@ public static class ServiceLocator
     public static void Register<T>(T service)
     {
         if (_services.ContainsKey(typeof(T)))
-            throw new InvalidOperationException($"Service of type {typeof(T)} is already registered.");
+            throw new InvalidOperationException(
+                $"Service of type {typeof(T)} is already registered."
+            );
         if (service is null)
         {
             throw new NullReferenceException($"Service of type {typeof(T)} is null.");

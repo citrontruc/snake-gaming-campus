@@ -9,10 +9,11 @@ public abstract class Entity
 
     #region State information
     protected EntityState _currentState;
+
     public enum EntityState
     {
         active,
-        disabled
+        disabled,
     }
     #endregion
 

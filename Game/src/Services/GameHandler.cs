@@ -2,7 +2,6 @@
 
 using Raylib_cs;
 
-
 public static class GameHandler
 {
     #region Rzlated classes
@@ -57,6 +56,7 @@ public static class GameHandler
         }
         Raylib.CloseWindow();
     }
+
     public static void Draw()
     {
         Raylib.BeginDrawing();

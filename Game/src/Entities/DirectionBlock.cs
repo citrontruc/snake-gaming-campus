@@ -19,9 +19,15 @@ public class DirectionBlock : Entity
     #region Draw properties
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
-    #endregion    
+    #endregion
 
-    public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid, PlayerHandler playerHandler)
+    public DirectionBlock(
+        CellCoordinates direction,
+        int triangleSideLength,
+        CellCoordinates position,
+        Grid grid,
+        PlayerHandler playerHandler
+    )
     {
         _direction = direction;
         _triangleSideLength = triangleSideLength;

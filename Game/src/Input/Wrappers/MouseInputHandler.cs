@@ -5,12 +5,11 @@ using Raylib_cs;
 
 public static class MouseInputHandler
 {
-
     public enum Button
     {
         Left = MouseButton.Left,
         Right = MouseButton.Right,
-        Middle = MouseButton.Middle
+        Middle = MouseButton.Middle,
     }
 
     public static Vector2 position => Raylib.GetMousePosition();
@@ -43,6 +42,7 @@ public static class MouseInputHandler
         else
             Raylib.HideCursor();
     }
+
     public static void setCursorLocked(bool locked)
     {
         if (locked)
@@ -52,5 +52,4 @@ public static class MouseInputHandler
     }
 
     public static bool isCursorLocked => Raylib.IsCursorOnScreen();
-
 }

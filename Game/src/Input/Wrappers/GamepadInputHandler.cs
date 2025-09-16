@@ -29,7 +29,7 @@ public static class GamepadInputHandler
 
         // Sticks
         LeftStick = GamepadButton.LeftThumb,
-        RightStick = GamepadButton.RightThumb
+        RightStick = GamepadButton.RightThumb,
     }
 
     public enum Axis
@@ -39,7 +39,7 @@ public static class GamepadInputHandler
         RightX = GamepadAxis.RightX,
         RightY = GamepadAxis.RightY,
         LeftTrigger = GamepadAxis.LeftTrigger,
-        RightTrigger = GamepadAxis.RightTrigger
+        RightTrigger = GamepadAxis.RightTrigger,
     }
 
     public class Gamepad

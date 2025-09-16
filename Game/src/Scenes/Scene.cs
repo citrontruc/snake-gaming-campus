@@ -2,7 +2,6 @@
 
 using Raylib_cs;
 
-
 public abstract class Scene
 {
     #region Display information

@@ -1,6 +1,5 @@
 /* An object to help handle elements that evolve with time. */
 
-
 public class Timer
 {
     /// <summary>
@@ -100,5 +99,4 @@ public class Timer
     }
 
     #endregion
-
 }

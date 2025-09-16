@@ -14,7 +14,8 @@ public class MainMenu : Menu
     /// <summary>
     /// We initilialize our main menu.
     /// </summary>
-    public MainMenu() : base("Twin Snakes")
+    public MainMenu()
+        : base("Twin Snakes")
     {
         Vector2 titlePosition = new(_screenWidth / 2, _screenHeight / 3);
         Vector2 optionPosition = new(_screenWidth / 2, 2 * _screenHeight / 3);
@@ -27,7 +28,7 @@ public class MainMenu : Menu
             _screenHeight / 10,
             Color.White,
             true
-            );
+        );
 
         SetMenuOptionCharacteristics(
             optionPosition,
@@ -35,12 +36,9 @@ public class MainMenu : Menu
             Color.White,
             true,
             _screenHeight / 50
-            );
+        );
 
-        SetSelectedOptionCharacteristics(
-            1.2f,
-            Color.Red
-            );
+        SetSelectedOptionCharacteristics(1.2f, Color.Red);
 
         AddOption("Play Game", LoadLevel);
         AddOption("Play Tutorial", LoadTutorial);
@@ -49,15 +47,9 @@ public class MainMenu : Menu
         ServiceLocator.Register<MainMenu>(this);
     }
 
-    public override void Load()
-    {
+    public override void Load() { }
 
-    }
-
-    public override void Unload()
-    {
-
-    }
+    public override void Unload() { }
 
     #region Actions to take on selecting options
     /// <summary>
