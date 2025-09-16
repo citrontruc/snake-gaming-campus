@@ -24,7 +24,8 @@ public class Tutorial : Level
     #region HUD Properties
     private static string _title = "Tutorial";
     private static int _titleFontSize = 20;
-    private int _titleX = _offsetX + (_cellSize * _columns - Raylib.MeasureText(_title, _titleFontSize)) / 2;
+    private int _titleX =
+        _offsetX + (_cellSize * _columns - Raylib.MeasureText(_title, _titleFontSize)) / 2;
     private int _titleY = _screenHeight / 10;
     private Color _titleColor = Color.Red;
     private int _hudPositionX = 2 * _offsetX + _columns * _cellSize;
@@ -32,12 +33,15 @@ public class Tutorial : Level
     private int _hudPositionY = _screenHeight / 10;
     private int _fontSize = 18;
     private int _gapSize = 4;
-    private List<string> _instructions = ["Your task is to make the snake eat apples.",
-    "In order to do so, place Direction blocks in its path to change the direction he's heading in.",
-    "Choose the direction of the block to place with the arrow keys and place the block by clicking on a cell with the mouse.",
-    "If you need time to place your blocks, press space to pause / restart the game.",
-    "This is a tutorial level, so you have no constraints on time or the number of Directions block to put.",
-    "Press space to start the level. The tutorial is over when you eat 6 apples."];
+    private List<string> _instructions =
+    [
+        "Your task is to make the snake eat apples.",
+        "In order to do so, place Direction blocks in its path to change the direction he's heading in.",
+        "Choose the direction of the block to place with the arrow keys and place the block by clicking on a cell with the mouse.",
+        "If you need time to place your blocks, press space to pause / restart the game.",
+        "This is a tutorial level, so you have no constraints on time or the number of Directions block to put.",
+        "Press space to start the level. The tutorial is over when you eat 6 apples.",
+    ];
     #endregion
 
     #region  Update properties
@@ -208,13 +212,7 @@ public class Tutorial : Level
 
     public void DrawHUD()
     {
-        Raylib.DrawText(
-            _title,
-            _titleX,
-            _titleY,
-            _titleFontSize,
-            _titleColor
-        );
+        Raylib.DrawText(_title, _titleX, _titleY, _titleFontSize, _titleColor);
 
         int numSentence = 0;
         string sentence = "";
@@ -247,7 +245,6 @@ public class Tutorial : Level
             numSentence++;
             sentence = "";
         }
-            
     }
     #endregion
 }

@@ -56,6 +56,5 @@ public static class KeyboardInputHandler
         {
             Raylib.SetExitKey((KeyboardKey)key);
         }
-
     }
 }

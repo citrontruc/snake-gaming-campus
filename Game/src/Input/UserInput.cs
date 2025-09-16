@@ -2,7 +2,6 @@
 
 using System.Numerics;
 
-
 public class UserInput
 {
     #region Mouse actions
@@ -35,5 +34,4 @@ public class UserInput
     public bool Enter { get; set; }
     public bool Pause { get; set; }
     #endregion
-
 }

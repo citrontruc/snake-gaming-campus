@@ -102,5 +102,4 @@ public struct CellCoordinates
         return HashCode.Combine(X, Y);
     }
     #endregion
-
 }

@@ -3,7 +3,6 @@
 using System.Numerics;
 using Raylib_cs;
 
-
 public abstract class Menu : Scene
 {
     #region Related objects
@@ -86,7 +85,7 @@ public abstract class Menu : Scene
         int menuTitleSize,
         Color menuTitleColor,
         bool menuTitleCentered
-        )
+    )
     {
         Title = title;
         _menuTitlePosition = menuTitlePosition;
@@ -101,7 +100,7 @@ public abstract class Menu : Scene
         Color menuOptionColor,
         bool menuOptionCentered,
         int menuOptionSpacing
-        )
+    )
     {
         _menuOptionPosition = menuOptionPosition;
         _menuOptionSize = menuOptionSize;
@@ -115,7 +114,10 @@ public abstract class Menu : Scene
     /// </summary>
     /// <param name="selectedScaleFactor">The higlighted entry is bigger by a scale factor.</param>
     /// <param name="selectedOptionColor">Colour of the highlighted entry.</param>
-    public void SetSelectedOptionCharacteristics(float selectedScaleFactor, Color selectedOptionColor)
+    public void SetSelectedOptionCharacteristics(
+        float selectedScaleFactor,
+        Color selectedOptionColor
+    )
     {
         _selectedScaleFactor = selectedScaleFactor;
         _selectedOptionColor = selectedOptionColor;
@@ -139,7 +141,9 @@ public abstract class Menu : Scene
             TakeAction(_selectedOption);
         }
 
-        (bool mouseOnOption, int mouseSelectedOption) = CheckIfMouseOnOption(userInput.MousePosition);
+        (bool mouseOnOption, int mouseSelectedOption) = CheckIfMouseOnOption(
+            userInput.MousePosition
+        );
         if (mouseOnOption)
         {
             _selectedOption = mouseSelectedOption;
@@ -154,10 +158,13 @@ public abstract class Menu : Scene
     {
         for (int i = 0; i < _listOptionPositions.Count; i++)
         {
-            if (mousePosition.X > _listOptionPositions[i].X &&
-            mousePosition.X < _listOptionPositions[i].X + Raylib.MeasureText(_listMenuOptions[i], _menuOptionSize) &&
-            mousePosition.Y > _listOptionPositions[i].Y &&
-            mousePosition.Y < _listOptionPositions[i].Y + _menuOptionSize
+            if (
+                mousePosition.X > _listOptionPositions[i].X
+                && mousePosition.X
+                    < _listOptionPositions[i].X
+                        + Raylib.MeasureText(_listMenuOptions[i], _menuOptionSize)
+                && mousePosition.Y > _listOptionPositions[i].Y
+                && mousePosition.Y < _listOptionPositions[i].Y + _menuOptionSize
             )
             {
                 return (true, i);
@@ -194,13 +201,7 @@ public abstract class Menu : Scene
             x_position -= textWidth / 2;
             y_position -= _menuTitleSize / 2;
         }
-        Raylib.DrawText(
-            Title,
-            x_position,
-            y_position,
-            _menuTitleSize,
-            _menuTitleColor
-            );
+        Raylib.DrawText(Title, x_position, y_position, _menuTitleSize, _menuTitleColor);
     }
 
     public void DrawOptions()
@@ -214,26 +215,25 @@ public abstract class Menu : Scene
                 {
                     // Draw highlighted option in big text.
                     Raylib.DrawText(
-                    _listMenuOptions[i],
-                    (int)_listOptionPositions[i].X,
-                    (int)_listOptionPositions[i].Y,
-                    (int)(_menuOptionSize * _selectedScaleFactor),
-                    _selectedOptionColor
+                        _listMenuOptions[i],
+                        (int)_listOptionPositions[i].X,
+                        (int)_listOptionPositions[i].Y,
+                        (int)(_menuOptionSize * _selectedScaleFactor),
+                        _selectedOptionColor
                     );
                 }
                 else
                 {
                     Raylib.DrawText(
-                    _listMenuOptions[i],
-                    (int)_listOptionPositions[i].X,
-                    (int)_listOptionPositions[i].Y,
-                    _menuOptionSize,
-                    _menuOptionColor
+                        _listMenuOptions[i],
+                        (int)_listOptionPositions[i].X,
+                        (int)_listOptionPositions[i].Y,
+                        _menuOptionSize,
+                        _menuOptionColor
                     );
                 }
             }
         }
-
     }
     #endregion
 
@@ -260,7 +260,10 @@ public abstract class Menu : Scene
             {
                 int textWidth = Raylib.MeasureText(option, _menuOptionSize);
                 xPositionText = xPosition - textWidth / 2;
-                yPositionText = yPosition - (lenOptions / 2 - i) * _menuOptionSize - (lenOptions / 2 - 1 - i) * _menuOptionSpacing;
+                yPositionText =
+                    yPosition
+                    - (lenOptions / 2 - i) * _menuOptionSize
+                    - (lenOptions / 2 - 1 - i) * _menuOptionSpacing;
             }
             else
             {

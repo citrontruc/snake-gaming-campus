@@ -9,10 +9,11 @@ public abstract class Entity
 
     #region State information
     protected EntityState _currentState;
+
     public enum EntityState
     {
         active,
-        disabled
+        disabled,
     }
     #endregion
 
@@ -36,7 +37,7 @@ public abstract class Entity
     public abstract void Update(float deltaTime);
     public abstract void Collide(Entity entity);
     #endregion
-    
+
     #region Draw
     public abstract void Draw();
     #endregion

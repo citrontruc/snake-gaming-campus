@@ -5,7 +5,6 @@ using Raylib_cs;
 
 public class PlayerHandler
 {
-    
     private Grid? _levelGrid;
 
     #region Related objects
@@ -61,14 +60,19 @@ public class PlayerHandler
     {
         if (_levelGrid is not null)
         {
-            DirectionBlock directionBlock = new(_playerBlockDirection, _triangleSideLength, CellCoordinates.zero, _levelGrid, this);
+            DirectionBlock directionBlock = new(
+                _playerBlockDirection,
+                _triangleSideLength,
+                CellCoordinates.zero,
+                _levelGrid,
+                this
+            );
             AddToQueue(directionBlock);
         }
         else
         {
             throw new InvalidOperationException("No grid attached to the playerHandler!");
         }
-        
     }
 
     public void AddToQueue(DirectionBlock block)
@@ -120,7 +124,8 @@ public class PlayerHandler
     {
         if (_blockQueue.Any() && _levelGrid is not null)
         {
-            if (_levelGrid.CheckIfInGrid(_playerPosition)){
+            if (_levelGrid.CheckIfInGrid(_playerPosition))
+            {
                 CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
                 if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
                 {
@@ -137,9 +142,13 @@ public class PlayerHandler
     {
         if (_blockVisible)
         {
-            DrawTools.DrawFullTriangle(_playerBlockDirection, _playerPosition, _triangleSideLength, _triangleColor);
+            DrawTools.DrawFullTriangle(
+                _playerBlockDirection,
+                _playerPosition,
+                _triangleSideLength,
+                _triangleColor
+            );
         }
     }
     #endregion
-
 }

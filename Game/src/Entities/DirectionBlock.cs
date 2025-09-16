@@ -19,9 +19,15 @@ public class DirectionBlock : Entity
     #region Draw properties
     private int _triangleSideLength;
     private Color _triangleColor = Color.SkyBlue;
-    #endregion    
+    #endregion
 
-    public DirectionBlock(CellCoordinates direction, int triangleSideLength, CellCoordinates position, Grid grid, PlayerHandler playerHandler)
+    public DirectionBlock(
+        CellCoordinates direction,
+        int triangleSideLength,
+        CellCoordinates position,
+        Grid grid,
+        PlayerHandler playerHandler
+    )
     {
         _direction = direction;
         _triangleSideLength = triangleSideLength;
@@ -104,7 +110,7 @@ public class DirectionBlock : Entity
         int cellsize = _blockGrid.GetCellSize();
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;
-        DrawTools.DrawFullTriangle(_direction, worldPosition, _triangleSideLength, _triangleColor);        
+        DrawTools.DrawFullTriangle(_direction, worldPosition, _triangleSideLength, _triangleColor);
     }
     #endregion
 }

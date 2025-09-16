@@ -3,7 +3,6 @@
 using System.Numerics;
 using Raylib_cs;
 
-
 public class Snake : Entity
 {
     #region Related objects
@@ -33,7 +32,13 @@ public class Snake : Entity
     private Color _headColor;
     #endregion
 
-    public Snake(CellCoordinates Head, Grid snakeGrid, int length = 3, Color? color = null, Color? headColor = null)
+    public Snake(
+        CellCoordinates Head,
+        Grid snakeGrid,
+        int length = 3,
+        Color? color = null,
+        Color? headColor = null
+    )
     {
         _entityID = _entityHandler.Register(this);
 
@@ -53,13 +58,11 @@ public class Snake : Entity
     public Vector2 GetCellWorldPosition(CellCoordinates cell)
     {
         return _snakeGrid.ToWorld(cell.X, cell.Y);
-
     }
 
     public (int, int) GetGridDimension()
     {
         return _snakeGrid.GetDimensions();
-
     }
     #endregion
 
@@ -83,9 +86,11 @@ public class Snake : Entity
     /// <param name="direction"> The direction to face.</param>
     public void ChangeDirection(CellCoordinates direction)
     {
-        if (direction == -_currentDirection || direction == CellCoordinates.zero) return;
+        if (direction == -_currentDirection || direction == CellCoordinates.zero)
+            return;
         _currentDirection = direction;
     }
+
     public bool IsCollidingWithItself()
     {
         return SnakeBody.Count != SnakeBody.Distinct().Count();
@@ -143,7 +148,8 @@ public class Snake : Entity
             CellCoordinates emptyCell = SnakeBody.Dequeue();
             _snakeGrid.FreeCell(emptyCell);
         }
-        else _growing = false;
+        else
+            _growing = false;
     }
     #endregion
 
@@ -168,7 +174,7 @@ public class Snake : Entity
                 cellSize,
                 cellSize,
                 _snakeColor
-                );
+            );
         }
         DrawHead();
     }

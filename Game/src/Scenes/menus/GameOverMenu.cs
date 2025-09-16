@@ -14,7 +14,8 @@ public class GameOverMenu : Menu
     /// <summary>
     /// We initilialize our game over screen.
     /// </summary>
-    public GameOverMenu() : base("Main Menu")
+    public GameOverMenu()
+        : base("Main Menu")
     {
         Vector2 titlePosition = new(_screenWidth / 2, _screenHeight / 3);
         Vector2 optionPosition = new(_screenWidth / 2, 2 * _screenHeight / 3);
@@ -27,7 +28,7 @@ public class GameOverMenu : Menu
             _screenHeight / 10,
             Color.Red,
             true
-            );
+        );
 
         SetMenuOptionCharacteristics(
             optionPosition,
@@ -35,12 +36,9 @@ public class GameOverMenu : Menu
             Color.White,
             true,
             _screenHeight / 50
-            );
+        );
 
-        SetSelectedOptionCharacteristics(
-            1.2f,
-            Color.Red
-            );
+        SetSelectedOptionCharacteristics(1.2f, Color.Red);
 
         AddOption("Retry Game", LoadLevel);
         AddOption("Back to Main Menu", LoadMainMenu);
@@ -49,15 +47,9 @@ public class GameOverMenu : Menu
         ServiceLocator.Register<GameOverMenu>(this);
     }
 
-    public override void Load()
-    {
+    public override void Load() { }
 
-    }
-
-    public override void Unload()
-    {
-
-    }
+    public override void Unload() { }
 
     #region Actions to take on selecting options
     /// <summary>

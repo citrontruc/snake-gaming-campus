@@ -1,6 +1,5 @@
 /* An object to handle the level grids. */
 
-
 using System.Numerics;
 using Raylib_cs;
 
@@ -10,7 +9,6 @@ public class Grid
     /// <summary>
     /// Check if elements are in the Grid and do operations on coordinates.
     /// </summary>
-
     /// Information on cell dimensions.
     public int CellSize { get; private set; }
     public int Columns { get; private set; }
@@ -44,6 +42,7 @@ public class Grid
         Cells = new int[Columns, Rows];
         _occupancyDict = new();
     }
+
     public (int, int) GetOffset()
     {
         return (OffsetX, OffsetY);
@@ -53,7 +52,6 @@ public class Grid
     {
         return new(OffsetX, OffsetY);
     }
-
 
     public (int, int) GetDimensions()
     {
@@ -81,7 +79,7 @@ public class Grid
     }
 
     /// <summary>
-    /// An entity does not occupy a cell immediately. 
+    /// An entity does not occupy a cell immediately.
     /// There might be a conflict for occupation.
     /// We store all occupation demands and sort conflicts later.
     /// </summary>
@@ -106,11 +104,11 @@ public class Grid
     public bool CheckIfInGrid(Vector2 vectorPosition)
     {
         if (
-            vectorPosition.X >= OffsetX &&
-            vectorPosition.X < Columns * CellSize + OffsetX &&
-            vectorPosition.Y >= OffsetY &&
-            vectorPosition.Y < Rows * CellSize + OffsetY
-         )
+            vectorPosition.X >= OffsetX
+            && vectorPosition.X < Columns * CellSize + OffsetX
+            && vectorPosition.Y >= OffsetY
+            && vectorPosition.Y < Rows * CellSize + OffsetY
+        )
         {
             return true;
         }
@@ -125,12 +123,7 @@ public class Grid
     /// <returns></returns>
     public bool CheckIfInGrid(int column, int row)
     {
-        if (
-            column >= 0 &&
-            column < Columns &&
-            row >= 0 &&
-            row < Rows
-         )
+        if (column >= 0 && column < Columns && row >= 0 && row < Rows)
         {
             return true;
         }
@@ -207,7 +200,10 @@ public class Grid
         int[] neighborOffsetY = { 1, -1, 0, 0 };
         for (int i = 0; i < neighborOffsetX.Length; i++)
         {
-            hasNeighbor = !CheckIfEmptyCell((coordinates.X + neighborOffsetX[i] + Columns) % Columns, (coordinates.Y + neighborOffsetY[i] + Rows) % Rows);
+            hasNeighbor = !CheckIfEmptyCell(
+                (coordinates.X + neighborOffsetX[i] + Columns) % Columns,
+                (coordinates.Y + neighborOffsetY[i] + Rows) % Rows
+            );
             if (hasNeighbor)
             {
                 return hasNeighbor;
@@ -223,7 +219,10 @@ public class Grid
         int[] neighborOffsetY = { -1, -1, -1, 0, 0, 1, 1, 1 };
         for (int i = 0; i < neighborOffsetX.Length; i++)
         {
-            hasNeighbor = !CheckIfEmptyCell((coordinates.X + neighborOffsetX[i] + Columns) % Columns, (coordinates.Y + neighborOffsetY[i] + Rows) % Rows);
+            hasNeighbor = !CheckIfEmptyCell(
+                (coordinates.X + neighborOffsetX[i] + Columns) % Columns,
+                (coordinates.Y + neighborOffsetY[i] + Rows) % Rows
+            );
             if (hasNeighbor)
             {
                 return hasNeighbor;
@@ -243,7 +242,10 @@ public class Grid
         {
             foreach (CellCoordinates coordinates in occupy.Value)
             {
-                if (CheckIfEmptyCell(coordinates) || Cells[coordinates.X, coordinates.Y] == occupy.Key)
+                if (
+                    CheckIfEmptyCell(coordinates)
+                    || Cells[coordinates.X, coordinates.Y] == occupy.Key
+                )
                 {
                     Cells[coordinates.X, coordinates.Y] = occupy.Key;
                 }
@@ -251,7 +253,10 @@ public class Grid
                 {
                     // After collision handling, we retrieve the ID of the entity who should be on the Cell.
                     EntityHandler entityHandler = ServiceLocator.Get<EntityHandler>();
-                    int finalIndex = entityHandler.EvaluateCollision(occupy.Key, Cells[coordinates.X, coordinates.Y]);
+                    int finalIndex = entityHandler.EvaluateCollision(
+                        occupy.Key,
+                        Cells[coordinates.X, coordinates.Y]
+                    );
                     Cells[coordinates.X, coordinates.Y] = finalIndex;
                 }
             }
@@ -268,10 +273,15 @@ public class Grid
             for (int interColumns = 0; interColumns < Columns; interColumns++)
             {
                 Vector2 cellPosition = ToWorld(interRows, interColumns);
-                Raylib.DrawRectangleLines((int)cellPosition.X, (int)cellPosition.Y, CellSize, CellSize, GridColor);
+                Raylib.DrawRectangleLines(
+                    (int)cellPosition.X,
+                    (int)cellPosition.Y,
+                    CellSize,
+                    CellSize,
+                    GridColor
+                );
             }
         }
     }
     #endregion
-
 }

@@ -3,7 +3,6 @@
 using System.Numerics;
 using Raylib_cs;
 
-
 public class Apple : Entity
 {
     #region Related objects
@@ -35,6 +34,7 @@ public class Apple : Entity
     {
         return _position;
     }
+
     public void SetPosition(CellCoordinates cell)
     {
         _position = cell;
@@ -75,9 +75,12 @@ public class Apple : Entity
         {
             int newAppleColumn = RandomGlobal.Next(column);
             int newAppleRow = RandomGlobal.Next(row);
-            // In order to avoid situations where the player can't see an apple coming, 
+            // In order to avoid situations where the player can't see an apple coming,
             // we avoid to make an apple appear in front of the player.
-            if (_appleGrid.CheckIfEmptyCell(new(newAppleColumn, newAppleRow)) && !_appleGrid.CheckIfNeumannNeighborhood(new(newAppleColumn, newAppleRow)))
+            if (
+                _appleGrid.CheckIfEmptyCell(new(newAppleColumn, newAppleRow))
+                && !_appleGrid.CheckIfNeumannNeighborhood(new(newAppleColumn, newAppleRow))
+            )
             {
                 validApplePosition = true;
                 SetPosition(new(newAppleColumn, newAppleRow));
@@ -103,7 +106,12 @@ public class Apple : Entity
     {
         int cellSize = _appleGrid.GetCellSize();
         Vector2 worldCoordinates = _appleGrid.ToWorld(_position);
-        Raylib.DrawCircle((int)worldCoordinates.X + cellSize / 2, (int)worldCoordinates.Y + cellSize / 2, _radius, _color);
+        Raylib.DrawCircle(
+            (int)worldCoordinates.X + cellSize / 2,
+            (int)worldCoordinates.Y + cellSize / 2,
+            _radius,
+            _color
+        );
     }
     #endregion
 }

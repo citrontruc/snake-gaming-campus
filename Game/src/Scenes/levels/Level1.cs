@@ -32,7 +32,7 @@ public class Level1 : Level
     #region HUD Properties
     private static string _title = "Endless mode";
     private static int _titleFontSize = 20;
-    private int _titleX = ( _screenWidth - Raylib.MeasureText(_title, _titleFontSize)) / 2;
+    private int _titleX = (_screenWidth - Raylib.MeasureText(_title, _titleFontSize)) / 2;
     private int _titleY = _screenHeight / 10;
     private Color _titleColor = Color.Red;
 
@@ -45,7 +45,8 @@ public class Level1 : Level
     private static string _scoreTitle = "Apples Eaten:";
     private int _scoreTitleX = _screenWidth / 2 - Raylib.MeasureText(_scoreTitle, _fontSize) / 2;
     private static string _directionBlockTitle = "Direction blocks left:";
-    private int _directionBlockTitleX = _screenWidth * 3 / 4 - Raylib.MeasureText(_directionBlockTitle, _fontSize) / 2;
+    private int _directionBlockTitleX =
+        _screenWidth * 3 / 4 - Raylib.MeasureText(_directionBlockTitle, _fontSize) / 2;
     #endregion
 
     #region Draw properties
@@ -196,21 +197,9 @@ public class Level1 : Level
 
     public void DrawHud()
     {
-        Raylib.DrawText(
-            _title,
-            _titleX,
-            _titleY,
-            _titleFontSize,
-            _titleColor
-        );
+        Raylib.DrawText(_title, _titleX, _titleY, _titleFontSize, _titleColor);
 
-        Raylib.DrawText(
-            _timerTitle,
-            _timerTitleX,
-            _hudY,
-            _fontSize,
-            _hudColor
-        );
+        Raylib.DrawText(_timerTitle, _timerTitleX, _hudY, _fontSize, _hudColor);
 
         Raylib.DrawText(
             _gameOverTimer.GetTime().ToString(),
@@ -220,13 +209,7 @@ public class Level1 : Level
             _hudColor
         );
 
-        Raylib.DrawText(
-            _scoreTitle,
-            _scoreTitleX,
-            _hudY,
-            _fontSize,
-            _hudColor
-        );
+        Raylib.DrawText(_scoreTitle, _scoreTitleX, _hudY, _fontSize, _hudColor);
 
         Raylib.DrawText(
             _appleCount.ToString(),
@@ -236,13 +219,7 @@ public class Level1 : Level
             _hudColor
         );
 
-        Raylib.DrawText(
-            _directionBlockTitle,
-            _directionBlockTitleX,
-            _hudY,
-            _fontSize,
-            _hudColor
-        );
+        Raylib.DrawText(_directionBlockTitle, _directionBlockTitleX, _hudY, _fontSize, _hudColor);
 
         Raylib.DrawText(
             _playerHandler.GetRemainingBlockCount().ToString(),
