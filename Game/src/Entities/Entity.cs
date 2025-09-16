@@ -36,7 +36,7 @@ public abstract class Entity
     public abstract void Update(float deltaTime);
     public abstract void Collide(Entity entity);
     #endregion
-    
+
     #region Draw
     public abstract void Draw();
     #endregion

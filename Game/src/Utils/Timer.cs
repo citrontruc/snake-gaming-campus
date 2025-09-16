@@ -98,7 +98,7 @@ public class Timer
         }
         return false;
     }
-    
+
     #endregion
 
 }

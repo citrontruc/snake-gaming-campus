@@ -34,11 +34,11 @@ public static class GamepadInputHandler
 
     public enum Axis
     {
-        LeftX  = GamepadAxis.LeftX,
-        LeftY  = GamepadAxis.LeftY,
+        LeftX = GamepadAxis.LeftX,
+        LeftY = GamepadAxis.LeftY,
         RightX = GamepadAxis.RightX,
         RightY = GamepadAxis.RightY,
-        LeftTrigger  = GamepadAxis.LeftTrigger,
+        LeftTrigger = GamepadAxis.LeftTrigger,
         RightTrigger = GamepadAxis.RightTrigger
     }
 

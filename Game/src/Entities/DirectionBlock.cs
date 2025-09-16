@@ -104,7 +104,7 @@ public class DirectionBlock : Entity
         int cellsize = _blockGrid.GetCellSize();
         worldPosition.X += cellsize / 2;
         worldPosition.Y += cellsize / 2;
-        DrawTools.DrawFullTriangle(_direction, worldPosition, _triangleSideLength, _triangleColor);        
+        DrawTools.DrawFullTriangle(_direction, worldPosition, _triangleSideLength, _triangleColor);
     }
     #endregion
 }

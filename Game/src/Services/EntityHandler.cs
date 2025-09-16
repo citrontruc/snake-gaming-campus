@@ -16,7 +16,7 @@ public class EntityHandler
         _entities.Add(_entityID, entity);
         return _entityID;
     }
-    
+
     #region Getters and Setters
     public Entity GetEntity(int entityId)
     {

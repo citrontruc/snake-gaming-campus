@@ -5,7 +5,7 @@ using Raylib_cs;
 
 public class PlayerHandler
 {
-    
+
     private Grid? _levelGrid;
 
     #region Related objects
@@ -68,7 +68,7 @@ public class PlayerHandler
         {
             throw new InvalidOperationException("No grid attached to the playerHandler!");
         }
-        
+
     }
 
     public void AddToQueue(DirectionBlock block)
@@ -120,7 +120,8 @@ public class PlayerHandler
     {
         if (_blockQueue.Any() && _levelGrid is not null)
         {
-            if (_levelGrid.CheckIfInGrid(_playerPosition)){
+            if (_levelGrid.CheckIfInGrid(_playerPosition))
+            {
                 CellCoordinates blockCell = _levelGrid.ToGrid(_playerPosition);
                 if (_levelGrid.CheckIfEmptyCell(blockCell.X, blockCell.Y))
                 {

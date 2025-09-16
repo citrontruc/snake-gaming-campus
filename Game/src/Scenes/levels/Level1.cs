@@ -32,7 +32,7 @@ public class Level1 : Level
     #region HUD Properties
     private static string _title = "Endless mode";
     private static int _titleFontSize = 20;
-    private int _titleX = ( _screenWidth - Raylib.MeasureText(_title, _titleFontSize)) / 2;
+    private int _titleX = (_screenWidth - Raylib.MeasureText(_title, _titleFontSize)) / 2;
     private int _titleY = _screenHeight / 10;
     private Color _titleColor = Color.Red;
 

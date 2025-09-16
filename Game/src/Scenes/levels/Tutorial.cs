@@ -33,11 +33,11 @@ public class Tutorial : Level
     private int _fontSize = 18;
     private int _gapSize = 4;
     private List<string> _instructions = ["Your task is to make the snake eat apples.",
-    "In order to do so, place Direction blocks in its path to change the direction he's heading in.",
-    "Choose the direction of the block to place with the arrow keys and place the block by clicking on a cell with the mouse.",
-    "If you need time to place your blocks, press space to pause / restart the game.",
-    "This is a tutorial level, so you have no constraints on time or the number of Directions block to put.",
-    "Press space to start the level. The tutorial is over when you eat 6 apples."];
+        "In order to do so, place Direction blocks in its path to change the direction he's heading in.",
+        "Choose the direction of the block to place with the arrow keys and place the block by clicking on a cell with the mouse.",
+        "If you need time to place your blocks, press space to pause / restart the game.",
+        "This is a tutorial level, so you have no constraints on time or the number of Directions block to put.",
+        "Press space to start the level. The tutorial is over when you eat 6 apples."];
     #endregion
 
     #region  Update properties
@@ -247,7 +247,7 @@ public class Tutorial : Level
             numSentence++;
             sentence = "";
         }
-            
+
     }
     #endregion
 }
