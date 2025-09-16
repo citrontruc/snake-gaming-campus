@@ -4,16 +4,16 @@ Version 1.0.0: 20250907.
 
 Si vous êtes de Gaming campus, vous pourrez trouver une présentation détaillée du projet dans Presentation_snake.pdf.
 
-English Version (French below)
+## English Version (French below)
 ---
 
-## Description
+### Description
 
 Your task is to make the snake eat apples. In order to do so, place **Direction blocks** in its path to change the direction he's heading in. Choose the direction of the block to place with the **arrow keys** and place the block by **clicking on a cell** with the mouse. If you need time to place your blocks, **press space to pause / restart the game**. You have a Timer and a limited number of direction blocks. Be quick and be careful.
 
 The game has a tutorial level in which you can practice controlling the snake. The tutorial level automatically ends when the player eats a fixed number of apples. The game goes then in endless mode.
 
-## File Descriptions
+### File Descriptions
 
 This project has six main folders:
 - src/Entities contains all of our entities (building blocks of a level). These entities inherit from an Entity object. Main entities are the following:
@@ -26,7 +26,7 @@ This project has six main folders:
 - src/Services contains all the global services. Objects that are created once and have a high level role.
 - src/Utils contains generic objects that are not specific to any elements of the game but can be used by any of them.
 
-## Launch this repository
+### Launch this repository
 
 This project uses the Raylib library.
 
@@ -38,10 +38,10 @@ dotnet run .
 Have a great day.
 
 
-Version française
+## Version française
 ---
 
-## Description
+### Description
 
 Dans ce jeu, vous incarnez un ou plusieurs Snake, votre but est de manger le plus de pommes possibles. Afin de pouvoir controler tous les serpents, vous allez devoir placer sur leur chemin des **Blocs de direction**. Un snake qui marche sur un bloc de direction va adopter la direction pointée par le bloc.
 
@@ -51,7 +51,7 @@ Le jeu ne possède **pas de condition de victoire (c'est un jeu infini)**. Le jo
 
 Afin de familiariser avec les commandes, il est recommandé de faire le niveau tutoriel avant de se lancer dans le jeu.
 
-## Composition du projet
+### Composition du projet
 
 Le projet possède six dossiers principaux :
 - src/Entities : Contient toutes les entités du jeu. Elles héritent tous d'une classe abstraite entité. Les entitiés principales sont les suivantes:
@@ -64,7 +64,7 @@ Le projet possède six dossiers principaux :
 - src/Services : Contient les services. Un service est un objet global dont on ne crée qu'une seule instance. Il est possible de trouver le service que l'on cherche grâce à notre Service Locator.
 - src/Utils : Contient des objets génériques sont utiles en toutes circonstances (exemple : timer ou encore classe pour désigner des formes géométriques).
 
-## Lancer le projet
+### Lancer le projet
 
 Ce projet utilise la librairie Raylib.
 
