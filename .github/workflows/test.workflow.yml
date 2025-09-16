@@ -1,4 +1,4 @@
-name: Run tests in the test folder
+name: Run tests
 
 on:
   push:
