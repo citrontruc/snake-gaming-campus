@@ -90,8 +90,8 @@ jobs:
           generate_release_notes: true
           # Les fichiers à uploader
           files: |
-            release/snake-builds-linux/${{ env.project_name }}-linux-${{ github.ref_name }}-x64.zip
-            release/snake-builds-windows/${{ env.project_name }}-windows-${{ github.ref_name }}-x64.zip
-            release/snake-builds-macos/${{ env.project_name }}-macos-${{ github.ref_name }}-x64.zip
+            release/snake-builds-linux/snake-gaming-campus-linux-${{ github.ref_name }}-x64.zip
+            release/snake-builds-windows/snake-gaming-campus-windows-${{ github.ref_name }}-x64.zip
+            release/snake-builds-macos/snake-gaming-campus-macos-${{ github.ref_name }}-x64.zip
           overwrite_files: true
           make_latest: true
