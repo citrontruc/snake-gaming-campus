@@ -9,10 +9,6 @@ inputs:
 runs:
   using: "composite"
 
-  defaults:
-    run:
-      shell: bash
-
   steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -24,12 +20,16 @@ runs:
 
     - name: Restore dependencies
       run: dotnet restore
+      shell: bash
 
     - name: Build
       run: dotnet build --no-restore
+      shell: bash
 
     - name: Run tests
       run: dotnet test --no-build --verbosity normal
+      shell: bash
 
     - id: run-script
       run: echo "result=Success" >> $GITHUB_OUTPUT
+      shell: bash
