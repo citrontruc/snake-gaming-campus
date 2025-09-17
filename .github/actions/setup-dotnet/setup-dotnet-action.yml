@@ -1,0 +1,18 @@
+name: "Setup dotnet"
+description: "A reusable composite that checkouts code and sets up dotnet"
+
+inputs:
+  dotnet-version:
+    description: "The dotnet version to use"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
