@@ -3,7 +3,7 @@
 public class EntityHandler
 {
     private int _entityID = 0;
-    private static Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
+    private Dictionary<int, Entity> _entities = new Dictionary<int, Entity>();
 
     public EntityHandler()
     {
