@@ -69,7 +69,6 @@ public class GridTests
 
         grid.OccupyCell(coord, 99);
 
-
         grid.Update();
 
         Assert.AreEqual(99, grid.Cells[1, 1]);

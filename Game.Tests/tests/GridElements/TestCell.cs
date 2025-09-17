@@ -33,7 +33,6 @@ public class TestCell
     }
 
     [TestMethod]
-
     public void OperatorPlus_ShouldAddCoordinates()
     {
         var a = new CellCoordinates(2, 3);
@@ -87,7 +86,7 @@ public class TestCell
         Assert.AreEqual(new CellCoordinates(6, -9), result1);
         Assert.AreEqual(new CellCoordinates(6, -9), result2);
     }
-    
+
     [TestMethod]
     public void EqualityOperator_ShouldReturnTrue_WhenSameCoordinates()
     {
@@ -125,5 +124,4 @@ public class TestCell
 
         Assert.IsFalse(coord.Equals("not a coordinate"));
     }
-
 }
