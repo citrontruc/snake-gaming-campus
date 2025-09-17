@@ -68,7 +68,7 @@ public class EntityHandler
     /// <param name="index2"> EntityID of the second entity.</param>
     /// <returns> The id off the entity </returns>
     /// <exception cref="InvalidOperationException"> After collision, both our entities are still alive. </exception>
-    public int EvaluateCollision(int index1, int index2)
+    virtual public int EvaluateCollision(int index1, int index2)
     {
         Console.WriteLine("Collision");
         Entity entity1 = _entities[index1];
