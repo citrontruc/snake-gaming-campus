@@ -23,4 +23,15 @@ public static class ServiceLocator
             throw new InvalidOperationException($"Service of type {typeof(T)} is not registered.");
         return (T)_services[typeof(T)];
     }
+
+    public static void Unregister<T>()
+    {
+        if (_services.ContainsKey(typeof(T)))
+            _services.Remove(typeof(T));
+    }
+
+    public static void Reset()
+    {
+        _services.Clear();
+    }
 }

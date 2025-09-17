@@ -48,6 +48,11 @@ public class PlayerHandler
         return _blockQueue.Count;
     }
 
+    public Queue<DirectionBlock> GetQueue()
+    {
+        return _blockQueue;
+    }
+
     public void Reset()
     {
         _blockQueue = new();
