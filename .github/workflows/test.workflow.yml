@@ -14,4 +14,4 @@ jobs:
     - name: Use my composite dotnet install action
       uses: ./.github/actions/run-tests
       with:
-        node-version: '8.0.x'
+        dotnet-version: '8.0.x'
