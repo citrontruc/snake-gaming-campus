@@ -1,4 +1,3 @@
-
 [TestClass]
 public class SnakeTests
 {
@@ -32,7 +31,11 @@ public class SnakeTests
 
         foreach (var cell in snake.SnakeBody)
         {
-            Assert.AreEqual(snake.GetID(), _grid.Cells[cell.X, cell.Y], "Snake should occupy its body cells");
+            Assert.AreEqual(
+                snake.GetID(),
+                _grid.Cells[cell.X, cell.Y],
+                "Snake should occupy its body cells"
+            );
         }
     }
 
@@ -47,9 +50,17 @@ public class SnakeTests
         snake.Move();
         _grid.Update();
 
-        Assert.AreEqual(3, snake.SnakeBody.Count, "Snake length should remain the same when not growing");
+        Assert.AreEqual(
+            3,
+            snake.SnakeBody.Count,
+            "Snake length should remain the same when not growing"
+        );
         Assert.IsFalse(snake.SnakeBody.Contains(oldTail), "Old tail should be freed after moving");
-        Assert.AreEqual(snake.GetID(), _grid.Cells[snake.head.X, snake.head.Y], "New head should occupy the grid cell");
+        Assert.AreEqual(
+            snake.GetID(),
+            _grid.Cells[snake.head.X, snake.head.Y],
+            "New head should occupy the grid cell"
+        );
         Assert.AreEqual(0, _grid.Cells[oldTail.X, oldTail.Y], "Old tail cell should be freed");
     }
 
@@ -77,9 +88,14 @@ public class SnakeTests
 
         var initialDirection = CellCoordinates.right;
         snake.ChangeDirection(CellCoordinates.left); // Try reversing
+
         snake.Move();
         _grid.Update();
-        Assert.AreEqual(head + initialDirection, snake.head, "Snake should not move in the opposite direction");
+        Assert.AreEqual(
+            head + initialDirection,
+            snake.head,
+            "Snake should not move in the opposite direction"
+        );
     }
 
     /// <summary>
