@@ -28,4 +28,3 @@ runs:
 
     - id: run-script
       run: echo "result=Success" >> $GITHUB_OUTPUT
-      shell: bash

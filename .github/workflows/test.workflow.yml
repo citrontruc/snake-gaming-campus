@@ -11,7 +11,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Use my composite dotnet install action
+    - name: Run tests action
       uses: ./.github/actions/run-tests
       with:
         dotnet-version: '8.0.x'
