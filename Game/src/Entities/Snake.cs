@@ -43,7 +43,7 @@ public class Snake : Entity
         _entityID = _entityHandler.Register(this);
 
         _snakeGrid = snakeGrid;
-        for (int i = length; i > 0; i--)
+        for (int i = length - 1; i >= 0; i--)
         {
             SnakeBody.Enqueue(Head - _currentDirection * i);
             _snakeGrid.OccupyCell(Head - _currentDirection * i, _entityID);
