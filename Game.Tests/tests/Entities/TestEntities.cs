@@ -1,10 +1,10 @@
 namespace Game.Tests;
 
 [TestClass]
-public class UnitTest1
+public class TestEntities
 {
     [TestMethod]
-    public void TestMethod1()
+    public void TestUtils()
     {
         int test = 6;
         Assert.IsTrue(test == 6);
