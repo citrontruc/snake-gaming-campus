@@ -74,7 +74,7 @@ public class GridTests
         Assert.AreEqual(99, grid.Cells[1, 1]);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(0, 0, true)]
     [DataRow(4, 4, true)]
     [DataRow(5, 5, false)]
@@ -86,7 +86,7 @@ public class GridTests
         Assert.AreEqual(expected, grid.CheckIfInGrid(x, y));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(5, 5, true)]
     [DataRow(60, 0, false)]
     public void CheckIfInGrid_Vector2_ShouldReturnExpected(float x, float y, bool expected)
@@ -118,12 +118,11 @@ public class GridTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
     public void ToWorld_ShouldThrow_WhenOutOfGrid()
     {
         var grid = CreateDefaultGrid();
 
-        grid.ToWorld(10, 10);
+        Assert.ThrowsException<ArgumentException>(() => grid.ToWorld(10, 10));
     }
 
     [TestMethod]
